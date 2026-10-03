@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["apps/xtractor", "apps/nserter", "apps/backend"]
+members = ["apps/xtractor", "apps/nserter", "apps/backend", "apps/pubtator3"]
 
 [workspace.dependencies]
 # Keep both drivers compatible with the same native SQLite bindings.

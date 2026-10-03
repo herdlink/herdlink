@@ -1,0 +1,14 @@
+[
+  {
+    "type": "treat",
+    "source": "@CHEMICAL_Doxorubicin",
+    "target": "@DISEASE_Neoplasms",
+    "publications": 14947
+  },
+  {
+    "type": "treat",
+    "source": "@CHEMICAL_Doxorubicin",
+    "target": "@DISEASE_Breast_Neoplasms",
+    "publications": 6424
+  }
+]

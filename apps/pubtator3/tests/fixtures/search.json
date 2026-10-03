@@ -1,0 +1,214 @@
+{
+  "results": [
+    {
+      "_id": "37711410",
+      "pmid": 37711410,
+      "title": "Remdesivir.",
+      "journal": "Hosp Pharm",
+      "authors": [
+        "Levien TL",
+        "Baker DE"
+      ],
+      "date": "2023-10-01T00:00:00Z",
+      "doi": "10.1177/0018578721999804",
+      "meta_date_publication": "2023 Oct",
+      "meta_volume": "58",
+      "meta_issue": "5",
+      "meta_pages": "420-430",
+      "score": 266.23322,
+      "text_hl": "@<m>CHEMICAL_remdesivir</m> @CHEMICAL_MESH:C000606551 @@@Remdesivir@@@.",
+      "citations": {
+        "NLM": "Levien TL, Baker DE. Remdesivir. Hosp Pharm. 2023 Oct;58(5):420-430. PMID: 37711410",
+        "BibTeX": "@article{37711410, title={Remdesivir.}, author={Levien TL and Baker DE}, journal={Hosp Pharm}, volume={58}, number={5}, pages={420-430}}"
+      }
+    },
+    {
+      "_id": "37061276",
+      "pmid": 37061276,
+      "pmcid": "PMC9910426",
+      "title": "Remdesivir",
+      "journal": "Profiles Drug Subst Excip Relat Methodol",
+      "authors": [
+        "Bakheit AH",
+        "Darwish H",
+        "Darwish IA",
+        "Al-Ghusn AI"
+      ],
+      "date": "2023-01-01T00:00:00Z",
+      "doi": "10.1016/bs.podrm.2022.11.003",
+      "meta_date_publication": "2023",
+      "meta_volume": "48",
+      "meta_issue": "",
+      "meta_pages": "71-108",
+      "score": 265.66034,
+      "text_hl": "@<m>CHEMICAL_remdesivir</m> @CHEMICAL_MESH:C000606551 @@@Remdesivir@@@",
+      "citations": {
+        "NLM": "Bakheit AH, Darwish H, Darwish IA, Al-Ghusn AI. Remdesivir Profiles Drug Subst Excip Relat Methodol. 2023;48():71-108. PMID: 37061276",
+        "BibTeX": "@article{37061276, title={Remdesivir}, author={Bakheit AH and Darwish H and Darwish IA and Al-Ghusn AI}, journal={Profiles Drug Subst Excip Relat Methodol}, volume={48}, pages={71-108}}"
+      }
+    }
+  ],
+  "facets": {
+    "facet_queries": {},
+    "facet_fields": {
+      "journal": [
+        {
+          "name": "Cureus",
+          "type": "int",
+          "value": 616
+        },
+        {
+          "name": "Viruses",
+          "type": "int",
+          "value": 457
+        },
+        {
+          "name": "Sci Rep",
+          "type": "int",
+          "value": 382
+        },
+        {
+          "name": "PLoS One",
+          "type": "int",
+          "value": 366
+        },
+        {
+          "name": "Front Immunol",
+          "type": "int",
+          "value": 310
+        }
+      ],
+      "type": [
+        {
+          "name": "Journal Article",
+          "type": "int",
+          "value": 20338
+        },
+        {
+          "name": "Review",
+          "type": "int",
+          "value": 6012
+        },
+        {
+          "name": "Letter",
+          "type": "int",
+          "value": 645
+        },
+        {
+          "name": "Multicenter Study",
+          "type": "int",
+          "value": 485
+        },
+        {
+          "name": "Editorial",
+          "type": "int",
+          "value": 484
+        }
+      ],
+      "year": [
+        {
+          "name": "2021",
+          "type": "int",
+          "value": 6595
+        },
+        {
+          "name": "2022",
+          "type": "int",
+          "value": 6192
+        },
+        {
+          "name": "2020",
+          "type": "int",
+          "value": 4138
+        },
+        {
+          "name": "2023",
+          "type": "int",
+          "value": 3563
+        },
+        {
+          "name": "2024",
+          "type": "int",
+          "value": 1427
+        },
+        {
+          "name": "2025",
+          "type": "int",
+          "value": 1009
+        },
+        {
+          "name": "2026",
+          "type": "int",
+          "value": 267
+        },
+        {
+          "name": "2019",
+          "type": "int",
+          "value": 45
+        },
+        {
+          "name": "2018",
+          "type": "int",
+          "value": 35
+        },
+        {
+          "name": "2017",
+          "type": "int",
+          "value": 26
+        },
+        {
+          "name": "2016",
+          "type": "int",
+          "value": 13
+        },
+        {
+          "name": "2010",
+          "type": "int",
+          "value": 3
+        },
+        {
+          "name": "2015",
+          "type": "int",
+          "value": 3
+        },
+        {
+          "name": "2012",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "name": "2014",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "name": "1977",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "name": "1991",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "name": "2007",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "name": "2011",
+          "type": "int",
+          "value": 1
+        }
+      ]
+    },
+    "facet_ranges": {},
+    "facet_intervals": {},
+    "facet_heatmaps": {}
+  },
+  "page_size": 10,
+  "current": 1,
+  "count": 23324,
+  "total_pages": 2333
+}

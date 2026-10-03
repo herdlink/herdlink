@@ -1,0 +1,197 @@
+{
+  "PubTator3": [
+    {
+      "_id": "29355051|PMC6142073",
+      "id": "6142073",
+      "infons": {},
+      "pmid": 29355051,
+      "pmcid": "PMC6142073",
+      "passages": [
+        {
+          "infons": {
+            "name_3": "surname:Hu;given-names:Minghua",
+            "name_2": "surname:Luo;given-names:Xia",
+            "name_1": "surname:Luo;given-names:Shuang",
+            "name_0": "surname:Deng;given-names:Xiangliang",
+            "fpage": "860",
+            "issue": "3",
+            "year": "2018",
+            "article-id_publisher-id": "10.1177_1534735417753544",
+            "article-id_doi": "10.1177/1534735417753544",
+            "type": "front",
+            "volume": "17",
+            "license": "This article is distributed under the terms of the Creative Commons Attribution-NonCommercial 4.0 License (http://www.creativecommons.org/licenses/by-nc/4.0/) which permits non-commercial use, reproduction and distribution of the work without further permission provided the original work is attributed as specified on the SAGE and Open Access pages (https://us.sagepub.com/en-us/nam/open-access-at-sage).",
+            "section_type": "TITLE",
+            "kwd": "Lycium barbarum polysaccharides doxorubicin immunotoxicity antitumor activity chemotherapy",
+            "name_7": "surname:Huang;given-names:Rongrong",
+            "lpage": "866",
+            "name_6": "surname:Zhou;given-names:Lian",
+            "name_5": "surname:Wang;given-names:Yuanyuan",
+            "name_4": "surname:Ma;given-names:Fangli",
+            "article-id_pmc": "6142073",
+            "article-id_pmid": "29355051"
+          },
+          "offset": 0,
+          "text": "Fraction From Lycium barbarum Polysaccharides Reduces Immunotoxicity and Enhances Antitumor Activity of Doxorubicin in Mice",
+          "sentences": [],
+          "annotations": [
+            {
+              "id": "12400",
+              "infons": {
+                "type": "Disease",
+                "valid": false,
+                "normalized_id": null,
+                "biotype": "disease"
+              },
+              "text": "Immunotoxicity",
+              "locations": [
+                {
+                  "offset": 54,
+                  "length": 14
+                }
+              ]
+            },
+            {
+              "id": "12401",
+              "infons": {
+                "identifier": "MESH:D011134",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D011134"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D011134",
+                "biotype": "chemical",
+                "name": "Polysaccharides",
+                "accession": "@CHEMICAL_Polysaccharides"
+              },
+              "text": "Polysaccharides",
+              "locations": [
+                {
+                  "offset": 30,
+                  "length": 15
+                }
+              ]
+            },
+            {
+              "id": "12402",
+              "infons": {
+                "identifier": "MESH:D004317",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D004317"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D004317",
+                "biotype": "chemical",
+                "name": "Doxorubicin",
+                "accession": "@CHEMICAL_Doxorubicin"
+              },
+              "text": "Doxorubicin",
+              "locations": [
+                {
+                  "offset": 104,
+                  "length": 11
+                }
+              ]
+            },
+            {
+              "id": "12403",
+              "infons": {
+                "identifier": "112863",
+                "type": "Species",
+                "valid": true,
+                "normalized": [
+                  112863
+                ],
+                "database": "ncbi_taxonomy",
+                "normalized_id": 112863,
+                "biotype": "species",
+                "name": "112863",
+                "accession": null
+              },
+              "text": "Lycium barbarum",
+              "locations": [
+                {
+                  "offset": 14,
+                  "length": 15
+                }
+              ]
+            }
+          ],
+          "relations": []
+        },
+        {
+          "infons": {
+            "section_type": "METHODS",
+            "type": "paragraph"
+          },
+          "offset": 3986,
+          "annotations": [
+            {
+              "id": "12485",
+              "infons": {
+                "identifier": "MESH:C087165",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "C087165"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "C087165",
+                "biotype": "chemical",
+                "name": "5-(6)-carboxyfluorescein diacetate succinimidyl ester",
+                "accession": "@CHEMICAL_5_(6)_carboxyfluorescein_diacetate_succinimidyl_ester"
+              },
+              "text": "CFSE",
+              "locations": [
+                {
+                  "offset": 4219,
+                  "length": 4
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "id": "R1",
+          "infons": {
+            "score": "0.5989",
+            "role1": {
+              "identifier": "MESH:D004317",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "D004317"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D004317",
+              "biotype": "chemical",
+              "name": "Doxorubicin",
+              "accession": "@CHEMICAL_Doxorubicin"
+            },
+            "role2": {
+              "identifier": "MESH:D011134",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "D011134"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D011134",
+              "biotype": "chemical",
+              "name": "Polysaccharides",
+              "accession": "@CHEMICAL_Polysaccharides"
+            },
+            "type": "Association"
+          },
+          "nodes": []
+        }
+      ]
+    }
+  ]
+}

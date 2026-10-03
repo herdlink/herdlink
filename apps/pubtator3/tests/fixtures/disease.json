@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "@DISEASE_Amyotrophic_Lateral_Sclerosis",
+    "biotype": "disease",
+    "db_id": "D000690",
+    "db": "ncbi_mesh",
+    "name": "Amyotrophic Lateral Sclerosis",
+    "match": "Multiple matches"
+  }
+]

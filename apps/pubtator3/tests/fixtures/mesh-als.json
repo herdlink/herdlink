@@ -1,0 +1,80 @@
+{
+  "descriptor": "http://id.nlm.nih.gov/mesh/D000690",
+  "terms": [
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T002090",
+      "label": "Amyotrophic Lateral Sclerosis",
+      "preferred": true
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T000953133",
+      "label": "ALS - Amyotrophic Lateral Sclerosis",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366066",
+      "label": "Amyotrophic Lateral Sclerosis With Dementia",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366068",
+      "label": "Amyotrophic Lateral Sclerosis, Guam Form",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T814256",
+      "label": "Amyotrophic Lateral Sclerosis-Parkinsonism-Dementia Complex 1",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T845605",
+      "label": "Amyotrophic Lateral Sclerosis, Parkinsonism-Dementia Complex of Guam",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T840894",
+      "label": "Charcot Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366067",
+      "label": "Dementia With Amyotrophic Lateral Sclerosis",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T002091",
+      "label": "Gehrig's Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T782950",
+      "label": "Guam Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366069",
+      "label": "Guam Form of Amyotrophic Lateral Sclerosis",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366063",
+      "label": "Lou Gehrig Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T002092",
+      "label": "Lou Gehrig's Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T753625",
+      "label": "Lou-Gehrigs Disease",
+      "preferred": false
+    },
+    {
+      "resource": "http://id.nlm.nih.gov/mesh/T366064",
+      "label": "Motor Neuron Disease, Amyotrophic Lateral Sclerosis",
+      "preferred": false
+    }
+  ]
+}

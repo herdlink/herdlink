@@ -5,6 +5,9 @@ Supports entity autocomplete, relation discovery, paginated literature search, a
 annotation retrieval, raw PubTator/BioC JSON/BioC XML exports, and MeSH entry-term listing
 through NLM's companion API. No API key is required.
 
+For automatic disease-to-HPO mapping and phenotype-based similar disease search,
+use the companion [pubtator3-hpo crate](../pubtator3-hpo/README.md).
+
 Add this local crate to an app (adjust the relative path as needed):
 
 ```toml

@@ -1,0 +1,232 @@
+{
+  "graphs": [
+    {
+      "nodes": [
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000001",
+          "lbl": "Source Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100001"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000001"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/C000000001"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://www.orpha.net/ORDO/Orphanet_1"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasExactSynonym",
+                "val": "Source alias"
+              },
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000002",
+          "lbl": "Twin Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100002"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000002"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000003",
+          "lbl": "Sibling Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100003"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000003"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000004",
+          "lbl": "Unrelated Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100004"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000005",
+          "lbl": "Partial Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100005"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000005"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000006",
+          "lbl": "Shared Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100006"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000099"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000007",
+          "lbl": "Shared Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100007"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000099"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0000008",
+          "lbl": "Source Disease",
+          "meta": {
+            "basicPropertyValues": [
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/100008"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.nlm.nih.gov/mesh/D000008"
+              }
+            ],
+            "synonyms": [
+              {
+                "pred": "hasRelatedSynonym",
+                "val": "Related-only alias"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "OMIM:999999"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

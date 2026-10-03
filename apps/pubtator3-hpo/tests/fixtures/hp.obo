@@ -1,0 +1,53 @@
+format-version: 1.2
+data-version: synthetic-test-snapshot
+
+[Term]
+id: HP:0000001
+name: All
+
+[Term]
+id: HP:0000118
+name: Phenotypic abnormality
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0000005
+name: Mode of inheritance
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0001000
+name: Neurologic feature
+is_a: HP:0000118 ! Phenotypic abnormality
+
+[Term]
+id: HP:0001001
+name: Movement feature
+is_a: HP:0001000 ! Neurologic feature
+
+[Term]
+id: HP:0001002
+name: Feature A
+is_a: HP:0001001 ! Movement feature
+
+[Term]
+id: HP:0001003
+name: Feature B
+is_a: HP:0001001 ! Movement feature
+
+[Term]
+id: HP:0001004
+name: Feature C
+alt_id: HP:0001006
+is_a: HP:0001000 ! Neurologic feature
+
+[Term]
+id: HP:0001005
+name: Unrelated feature
+is_a: HP:0000118 ! Phenotypic abnormality
+
+[Term]
+id: HP:0001008
+name: Obsolete feature A
+is_obsolete: true
+replaced_by: HP:0001002

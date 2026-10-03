@@ -1,0 +1,408 @@
+{
+  "graphs": [
+    {
+      "nodes": [
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0007739",
+          "lbl": "Huntington disease",
+          "type": "CLASS",
+          "meta": {
+            "definition": {
+              "val": "Huntington disease (HD) is a rare neurodegenerative disorder of the central nervous system characterized by unwanted choreatic movements, behavioral and psychiatric disturbances and dementia.",
+              "xrefs": [
+                "Orphanet:399"
+              ]
+            },
+            "subsets": [
+              "http://purl.obolibrary.org/obo/mondo#clingen",
+              "http://purl.obolibrary.org/obo/mondo#doid_rare",
+              "http://purl.obolibrary.org/obo/mondo#gard_rare",
+              "http://purl.obolibrary.org/obo/mondo#nord_rare",
+              "http://purl.obolibrary.org/obo/mondo#ordo_disorder",
+              "http://purl.obolibrary.org/obo/mondo#orphanet_rare",
+              "http://purl.obolibrary.org/obo/mondo#otar",
+              "http://purl.obolibrary.org/obo/mondo#rare"
+            ],
+            "synonyms": [
+              {
+                "synonymType": "http://purl.obolibrary.org/obo/mondo#ABBREVIATION",
+                "pred": "hasExactSynonym",
+                "val": "HD",
+                "xrefs": [
+                  "DOID:12858",
+                  "NCIT:C82342",
+                  "OMIM:143100"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "Huntington chorea",
+                "xrefs": [
+                  "OMIM:143100",
+                  "Orphanet:399",
+                  "icd11.foundation:2132180242"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "Huntington disease",
+                "xrefs": [
+                  "DOID:12858",
+                  "ICD10WHO:G10",
+                  "NCIT:C82342",
+                  "OMIM:143100",
+                  "Orphanet:399",
+                  "icd11.foundation:2132180242"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "Huntington's Disease",
+                "xrefs": [
+                  "DOID:12858",
+                  "ICD10CM:G10",
+                  "NCIT:C82342",
+                  "NORD:1256"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "Huntington's chorea",
+                "xrefs": [
+                  "DOID:12858",
+                  "ICD10CM:G10",
+                  "ICD9CM:333.4",
+                  "NCIT:C82342"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "Huntington's disease",
+                "xrefs": [
+                  "DOID:12858",
+                  "ICD10CM:G10",
+                  "NCIT:C82342",
+                  "doi:10.1093/jama/9780195176339.003.0016"
+                ]
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "DOID:12858"
+              },
+              {
+                "val": "GARD:0006677"
+              },
+              {
+                "val": "ICD10CM:G10"
+              },
+              {
+                "val": "ICD10WHO:G10"
+              },
+              {
+                "val": "ICD9:333.4"
+              },
+              {
+                "val": "MEDGEN:5654"
+              },
+              {
+                "val": "MESH:D006816"
+              },
+              {
+                "val": "MedDRA:10070668"
+              },
+              {
+                "val": "NANDO:1200012"
+              },
+              {
+                "val": "NCIT:C82342"
+              },
+              {
+                "val": "NORD:1256"
+              },
+              {
+                "val": "OMIM:143100"
+              },
+              {
+                "val": "Orphanet:399"
+              },
+              {
+                "val": "SCTID:58756001"
+              },
+              {
+                "val": "UMLS:C0020179"
+              },
+              {
+                "val": "icd11.foundation:2132180242"
+              }
+            ],
+            "basicPropertyValues": [
+              {
+                "pred": "http://purl.obolibrary.org/obo/IAO_0000233",
+                "val": "https://github.com/monarch-initiative/mondo/issues/9097"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/mondo#curated_content_resource",
+                "val": "https://search.clinicalgenome.org/kb/conditions/MONDO:0007739"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/mondo#curated_content_resource",
+                "val": "https://www.malacards.org/card/huntington_disease"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#closeMatch",
+                "val": "http://identifiers.org/meddra/10070668"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://id.who.int/icd/entity/2132180242"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/medgen/5654"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/mesh/D006816"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/snomedct/58756001"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://linkedlifedata.com/resource/umls/id/C0020179"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://purl.bioontology.org/ontology/ICD10CM/G10"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://purl.obolibrary.org/obo/DOID_12858"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://purl.obolibrary.org/obo/NCIT_C82342"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://www.orpha.net/ORDO/Orphanet_399"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://icd.who.int/browse10/2019/en#/G10"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/143100"
+              }
+            ]
+          }
+        },
+        {
+          "id": "http://purl.obolibrary.org/obo/MONDO_0044720",
+          "lbl": "cerebellar ataxia with neuropathy and bilateral vestibular areflexia syndrome",
+          "type": "CLASS",
+          "meta": {
+            "definition": {
+              "val": "An autosomal recessive syndromic cerebellar ataxia caused by variation in the RFC1 gene, characterized by late-onset cerebellar dysfunction (including gait and limb ataxia, nystagmus, and dysarthria), bilateral vestibulopathy (abnormal vestibulo-ocular reflex), and axonal sensory neuropathy. Variable features may include chronic cough and autonomic dysfunction. Brain imaging usually shows cerebellar atrophy.",
+              "xrefs": [
+                "OMIM:614575",
+                "Orphanet:504476"
+              ]
+            },
+            "subsets": [
+              "http://purl.obolibrary.org/obo/mondo#doid_rare",
+              "http://purl.obolibrary.org/obo/mondo#gard_rare",
+              "http://purl.obolibrary.org/obo/mondo#nord_rare",
+              "http://purl.obolibrary.org/obo/mondo#ordo_disorder",
+              "http://purl.obolibrary.org/obo/mondo#orphanet_rare",
+              "http://purl.obolibrary.org/obo/mondo#otar",
+              "http://purl.obolibrary.org/obo/mondo#rare"
+            ],
+            "synonyms": [
+              {
+                "pred": "hasExactSynonym",
+                "val": "CABV syndrome",
+                "xrefs": [
+                  "Orphanet:504476"
+                ]
+              },
+              {
+                "synonymType": "http://purl.obolibrary.org/obo/mondo#ABBREVIATION",
+                "pred": "hasExactSynonym",
+                "val": "CANVAS",
+                "xrefs": [
+                  "DOID:0070148",
+                  "OMIM:614575",
+                  "Orphanet:504476"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "HSAN with cough and gastroesophageal reflux",
+                "xrefs": [
+                  "Orphanet:139564"
+                ]
+              },
+              {
+                "synonymType": "http://purl.obolibrary.org/obo/mondo#ABBREVIATION",
+                "pred": "hasExactSynonym",
+                "val": "HSAN1B",
+                "xrefs": [
+                  "Orphanet:139564"
+                ]
+              },
+              {
+                "synonymType": "http://purl.obolibrary.org/obo/mondo#ABBREVIATION",
+                "pred": "hasExactSynonym",
+                "val": "HSN1B"
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "cerebellar ataxia with bilateral vestibulopathy syndrome",
+                "xrefs": [
+                  "Orphanet:504476"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "cerebellar ataxia, neuropathy, and vestibular areflexia syndrome",
+                "xrefs": [
+                  "DOID:0070148",
+                  "OMIM:614575"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "hereditary sensory and autonomic neuropathy type 1 with cough and gastroesophageal reflux",
+                "xrefs": [
+                  "Orphanet:139564"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "hereditary sensory and autonomic neuropathy type 1B",
+                "xrefs": [
+                  "DOID:0070148",
+                  "Orphanet:139564"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "hereditary sensory and autonomic neuropathy type IB",
+                "xrefs": [
+                  "Orphanet:139564"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "hereditary sensory neuropathy type IB",
+                "xrefs": [
+                  "DOID:0070148",
+                  "PMID:12870133",
+                  "PMID:16311270"
+                ]
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "neuropathy, hereditary sensory and autonomic, type 1B"
+              },
+              {
+                "pred": "hasExactSynonym",
+                "val": "neuropathy, hereditary sensory, type IB"
+              }
+            ],
+            "xrefs": [
+              {
+                "val": "DOID:0070148"
+              },
+              {
+                "val": "GARD:0017937"
+              },
+              {
+                "val": "MEDGEN:482853"
+              },
+              {
+                "val": "MESH:C564296"
+              },
+              {
+                "val": "OMIM:608088"
+              },
+              {
+                "val": "OMIM:614575"
+              },
+              {
+                "val": "Orphanet:139564"
+              },
+              {
+                "val": "Orphanet:504476"
+              },
+              {
+                "val": "SCTID:717825008"
+              },
+              {
+                "val": "UMLS:C3281223"
+              }
+            ],
+            "basicPropertyValues": [
+              {
+                "pred": "http://purl.obolibrary.org/obo/IAO_0000233",
+                "val": "https://github.com/monarch-initiative/mondo/issues/4521"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/IAO_0000233",
+                "val": "https://github.com/monarch-initiative/mondo/issues/4894"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/IAO_0000233",
+                "val": "https://github.com/monarch-initiative/mondo/issues/9795"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/mondo#curated_content_resource",
+                "val": "https://www.malacards.org/card/cerebellar_ataxia_neuropathy_and_vestibular_areflexia_syndrome"
+              },
+              {
+                "pred": "http://purl.obolibrary.org/obo/mondo#curated_content_resource",
+                "val": "https://www.malacards.org/card/neuropathy_hereditary_sensory_and_autonomic_type_i_with_cough_and_gastroesophageal_reflux"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/medgen/482853"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/mesh/C564296"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://identifiers.org/snomedct/717825008"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://linkedlifedata.com/resource/umls/id/C3281223"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://purl.obolibrary.org/obo/DOID_0070148"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://www.orpha.net/ORDO/Orphanet_139564"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "http://www.orpha.net/ORDO/Orphanet_504476"
+              },
+              {
+                "pred": "http://www.w3.org/2004/02/skos/core#exactMatch",
+                "val": "https://omim.org/entry/614575"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

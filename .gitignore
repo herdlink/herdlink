@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+auth.json
 *.db
 *.db-shm
 *.db-wal

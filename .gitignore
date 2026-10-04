@@ -12,4 +12,5 @@ auth.json
 *.sqlite-wal
 **/target/
 /.graph-query-cache/
+**/.graph-query-cache/
 **/node_modules/

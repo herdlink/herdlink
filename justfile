@@ -20,7 +20,7 @@ frontend-build:
 frontend-start:
     bun run --cwd apps/web start --port "${FRONTEND_PORT:-3001}"
 
-# Run frontend lint, type checking, graph tests, and production build.
+# Run frontend lint, type checking, graph and chat tests, and production build.
 frontend-check:
     bun run --cwd apps/web check
 
@@ -47,3 +47,11 @@ build: frontend-build backend-build
 
 # Run all frontend and backend checks.
 check: frontend-check backend-check
+
+# Download a full official HPO/Mondo snapshot into a new empty directory.
+graph-data:
+    cargo run -p pubtator3-hpo --example download_data -- "${HPO_DATA_DIR:-phenotype-data}"
+
+# Seed three bounded real PubTator use cases, plus HPO comparisons when configured.
+graph-seed:
+    cargo run -p biomedical_graph --example seed_use_cases

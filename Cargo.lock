@@ -172,9 +172,15 @@ name = "backend"
 version = "0.1.0"
 dependencies = [
  "argon2",
+ "async-stream",
  "axum",
+ "biomedical_graph",
  "chrono",
+ "futures-util",
  "neo4rs",
+ "openai",
+ "pubtator3",
+ "pubtator3-hpo",
  "rand_core 0.6.4",
  "serde",
  "serde_json",

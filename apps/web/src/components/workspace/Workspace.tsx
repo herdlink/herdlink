@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Moon, PanelLeftClose, PanelLeftOpen, Sun } from "lucide-react";
@@ -51,7 +52,9 @@ export function Workspace({ children }: { children: React.ReactNode }) {
     <div className={`herdlink-site flex flex-col ${withoutChat ? "h-dvh overflow-hidden" : "min-h-dvh lg:h-dvh lg:overflow-hidden"}`} data-theme={theme}>
       <a href="#workspace-content" className="sr-only z-50 rounded-full bg-[var(--site-solid)] px-4 py-2 text-[var(--site-solid-text)] focus:not-sr-only focus:absolute focus:left-4 focus:top-4">Skip to content</a>
       <header className="flex shrink-0 flex-wrap items-center justify-between gap-x-6 border-b border-[var(--site-border)] px-4 md:px-8 lg:h-16 lg:flex-nowrap">
-        <Link href="/" className="flex h-16 items-center text-xl font-semibold tracking-tight">Herdlink</Link>
+        <Link href="/" aria-label="Herdlink home" className="flex h-16 shrink-0 items-center">
+          <Image src="/logo.png" alt="Herdlink" width={1449} height={1086} sizes="96px" preload className={`h-14 w-24 object-cover ${theme === "dark" ? "invert mix-blend-screen" : "mix-blend-multiply"}`} />
+        </Link>
         <nav aria-label="Primary navigation" className="order-3 flex w-full items-center gap-1 overflow-x-auto pb-3 lg:order-none lg:w-auto lg:pb-0">
           {navigation.map(({ label, href }) => (
             <Link key={href} href={href} aria-current={pathname === href || (href === "/communities" && isCommunity) ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--site-hover)] ${pathname === href || (href === "/communities" && isCommunity) ? "bg-[var(--site-hover)] font-medium" : "text-[var(--site-secondary)]"}`}>{label}</Link>

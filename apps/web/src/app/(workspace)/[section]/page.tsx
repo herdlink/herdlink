@@ -4,7 +4,6 @@ import { CommunityDirectory } from "@/components/community/CommunityDirectory";
 
 const sections = {
   surveys: { title: "Surveys", description: "Surveys will appear here." },
-  institutions: { title: "Institutions", description: "Explore institutions here soon." },
   inbox: { title: "Inbox", description: "Your messages will appear here." },
   communities: { title: "Communities", description: "Find your community and join the conversation." },
 };

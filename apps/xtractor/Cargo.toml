@@ -1,7 +1,0 @@
-[package]
-name = "xtractor"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-source_storage = { path = "../source_storage" }

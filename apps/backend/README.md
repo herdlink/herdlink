@@ -1,6 +1,6 @@
 # Herdlink backend
 
-Rust REST API using [Axum](https://docs.rs/axum/0.8.9/axum/) and [SQLx](https://docs.rs/sqlx/0.9.0/sqlx/) with SQLite. The community database file is created and migrations run automatically on startup. Communities need no database server; the source graph reads from Neo4j. SQLx and the source-storage library's rusqlite versions are defined centrally in the root `Cargo.toml` under `[workspace.dependencies]`.
+Rust REST API using [Axum](https://docs.rs/axum/0.8.9/axum/) and [SQLx](https://docs.rs/sqlx/0.9.0/sqlx/) with SQLite. The community database file is created and migrations run automatically on startup. Communities need no database server; the source graph reads from Neo4j.
 
 ## Database structure
 

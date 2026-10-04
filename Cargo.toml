@@ -1,9 +1,7 @@
 [workspace]
 resolver = "3"
-members = ["apps/xtractor", "apps/nserter", "apps/backend", "apps/pubtator3", "apps/pubtator3-hpo", "apps/openai", "apps/biomedical_graph"]
+members = ["apps/backend", "apps/pubtator3", "apps/pubtator3-hpo", "apps/openai", "apps/biomedical_graph"]
 
 [workspace.dependencies]
 openai = { path = "apps/openai" }
-# Keep both drivers compatible with the same native SQLite bindings.
 sqlx = { version = "0.9.0", default-features = false, features = ["runtime-tokio", "sqlite", "uuid", "chrono", "derive", "migrate", "macros"] }
-rusqlite = { version = "0.39.0", features = ["bundled"] }

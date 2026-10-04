@@ -11,7 +11,6 @@ import { GraphChat, ChatHistory } from "@/components/chat/GraphChat";
 
 const navigation = [
   { label: "Surveys", href: "/surveys" },
-  { label: "Institutions", href: "/institutions" },
   { label: "Inbox", href: "/inbox" },
   { label: "Home", href: "/" },
   { label: "Communities", href: "/communities" },

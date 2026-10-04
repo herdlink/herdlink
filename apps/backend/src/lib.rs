@@ -2,6 +2,7 @@ mod auth;
 mod communities;
 mod dms;
 mod error;
+pub mod graph;
 pub mod models;
 mod threads;
 mod validation;
@@ -20,6 +21,7 @@ use tower_http::trace::TraceLayer;
 #[derive(Clone)]
 pub struct AppState {
     pub db: SqlitePool,
+    pub graph: std::sync::Arc<graph::GraphReader>,
 }
 
 pub async fn connect(database_url: &str) -> std::result::Result<SqlitePool, sqlx::Error> {
@@ -57,6 +59,10 @@ pub async fn migrate(db: &SqlitePool) -> std::result::Result<(), sqlx::migrate::
 }
 
 pub fn app(db: SqlitePool) -> Router {
+    app_with_graph(db, graph::GraphSettings::from_env())
+}
+
+pub fn app_with_graph(db: SqlitePool, settings: graph::GraphSettings) -> Router {
     Router::new()
         .route("/health", get(health))
         .route("/api/auth/register", post(auth::register))
@@ -64,6 +70,8 @@ pub fn app(db: SqlitePool) -> Router {
         .route("/api/auth/demo", post(auth::demo))
         .route("/api/auth/logout", post(auth::logout))
         .route("/api/me", get(auth::me))
+        .route("/api/graph", get(graph::snapshot))
+        .route("/api/graph/evidence", get(graph::evidence))
         .route(
             "/api/communities",
             get(communities::list).post(communities::create),
@@ -85,7 +93,10 @@ pub fn app(db: SqlitePool) -> Router {
         .route("/api/dms/{id}/messages", get(dms::messages).post(dms::send))
         .layer(DefaultBodyLimit::max(256 * 1024))
         .layer(TraceLayer::new_for_http())
-        .with_state(AppState { db })
+        .with_state(AppState {
+            db,
+            graph: std::sync::Arc::new(graph::GraphReader::new(settings)),
+        })
 }
 
 async fn health(State(state): State<AppState>) -> error::Result<Json<Value>> {

@@ -80,11 +80,33 @@ pub async fn list(
 }
 
 // Opening a community is an explicit, idempotent mutation; GET remains read-only.
+#[derive(Default, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct OpenCommunity {
+    name: Option<String>,
+}
+
+fn default_name(slug: &str) -> String {
+    if Uuid::parse_str(slug).is_ok() {
+        format!("Community {}", &slug[..8])
+    } else {
+        slug.split('-')
+            .map(|word| format!("{}{}", word[..1].to_ascii_uppercase(), &word[1..]))
+            .collect::<Vec<_>>()
+            .join(" ")
+    }
+}
+
 pub async fn open(
     State(state): State<AppState>,
     auth: AuthUser,
     Path(key): Path<String>,
+    input: Option<Json<OpenCommunity>>,
 ) -> Result<Json<Community>> {
+    let mut display_name = input
+        .and_then(|Json(input)| input.name)
+        .map(|name| validation::text(&name, 100))
+        .transpose()?;
     let key = key.trim().to_ascii_lowercase();
     let requested_id = Uuid::parse_str(&key).ok();
     let slug = validation::slug(&if key.len() < 3 {
@@ -92,25 +114,45 @@ pub async fn open(
     } else {
         key.clone()
     })?;
+    // Direct visits (including existing directory links) also resolve disease titles.
+    // Keep the network read outside the SQLite transaction and fall back if unavailable.
+    if display_name.is_none() {
+        let lookup_slug: Option<String> = if let Some(id) = requested_id {
+            sqlx::query_scalar("SELECT slug FROM communities WHERE id = ?1")
+                .bind(id)
+                .fetch_optional(&state.db)
+                .await?
+        } else {
+            Some(slug.clone())
+        };
+        if let Some(lookup_slug) = lookup_slug {
+            display_name = state.graph.community_name(&lookup_slug).await;
+        }
+    }
     let id = requested_id.unwrap_or_else(Uuid::new_v4);
-    let name = if requested_id.is_some() {
-        format!("Community {}", &slug[..8])
-    } else {
-        slug.split('-')
-            .map(|word| format!("{}{}", word[..1].to_ascii_uppercase(), &word[1..]))
-            .collect::<Vec<_>>()
-            .join(" ")
-    };
+    let name = display_name.clone().unwrap_or_else(|| default_name(&slug));
     let mut tx = state.db.begin().await?;
     sqlx::query("INSERT INTO communities (id, slug, name, created_by) SELECT ?1, ?2, ?3, ?4 WHERE NOT EXISTS (SELECT 1 FROM communities WHERE id = ?1 OR slug = ?2) ON CONFLICT DO NOTHING")
         .bind(id).bind(&slug).bind(name).bind(auth.id).execute(&mut *tx).await?;
-    let community: Community = sqlx::query_as(
+    let mut community: Community = sqlx::query_as(
         "SELECT * FROM communities WHERE id = ?1 OR slug = ?2 ORDER BY (id = ?1) DESC LIMIT 1",
     )
     .bind(id)
     .bind(&slug)
     .fetch_one(&mut *tx)
     .await?;
+    // Upgrade an identifier-derived title without overwriting a chosen community name.
+    if let Some(name) = display_name
+        && community.name == default_name(&community.slug)
+    {
+        sqlx::query("UPDATE communities SET name = ?1 WHERE id = ?2 AND name = ?3")
+            .bind(&name)
+            .bind(community.id)
+            .bind(&community.name)
+            .execute(&mut *tx)
+            .await?;
+        community.name = name;
+    }
     sqlx::query("INSERT INTO community_members (community_id, user_id) VALUES (?1, ?2) ON CONFLICT DO NOTHING")
         .bind(community.id).bind(auth.id).execute(&mut *tx).await?;
     sqlx::query("INSERT INTO channels (id, community_id, slug, name, kind, position) VALUES (?2, ?1, 'announcements', 'Announcements', 'announcement', 0), (?3, ?1, 'discussions', 'Discussions', 'discussion', 1) ON CONFLICT (community_id, slug) DO NOTHING")

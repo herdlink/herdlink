@@ -7,7 +7,7 @@ import { ErrorNotice } from "./CommunityUi";
 
 type Overview = { community: Community; channels: Channel[]; user: DemoUser };
 
-export function CommunityOverview({ communityKey }: { communityKey: string }) {
+export function CommunityOverview({ communityKey, displayName }: { communityKey: string; displayName?: string }) {
   const [overview, setOverview] = useState<Overview | null>(null);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -16,7 +16,7 @@ export function CommunityOverview({ communityKey }: { communityKey: string }) {
     let cancelled = false;
     async function open() {
       try {
-        const community = await communityApi<Community>(`/communities/${encodeURIComponent(communityKey)}/open`, {});
+        const community = await communityApi<Community>(`/communities/${encodeURIComponent(communityKey)}/open`, displayName ? { name: displayName } : {});
         const [channels, { user }] = await Promise.all([
           communityApi<Channel[]>(`/communities/${community.id}/channels`), demoSession(),
         ]);
@@ -27,7 +27,7 @@ export function CommunityOverview({ communityKey }: { communityKey: string }) {
     }
     void open();
     return () => { cancelled = true; };
-  }, [communityKey, attempt]);
+  }, [communityKey, displayName, attempt]);
 
   if (error) return <div className="p-6"><ErrorNotice message={error} onRetry={() => { setError(""); setAttempt((value) => value + 1); }} /></div>;
   if (!overview) return <p role="status" className="p-8 text-sm text-[var(--site-secondary)]">Opening community…</p>;

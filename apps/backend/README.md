@@ -1,6 +1,6 @@
 # Herdlink backend
 
-Rust REST API using [Axum](https://docs.rs/axum/0.8.9/axum/) and [SQLx](https://docs.rs/sqlx/0.9.0/sqlx/) with SQLite. The database file is created and migrations run automatically on startup. No database server is needed. SQLx and the source-storage library's rusqlite versions are defined centrally in the root `Cargo.toml` under `[workspace.dependencies]`.
+Rust REST API using [Axum](https://docs.rs/axum/0.8.9/axum/) and [SQLx](https://docs.rs/sqlx/0.9.0/sqlx/) with SQLite. The community database file is created and migrations run automatically on startup. Communities need no database server; the source graph reads from Neo4j. SQLx and the source-storage library's rusqlite versions are defined centrally in the root `Cargo.toml` under `[workspace.dependencies]`.
 
 ## Database structure
 
@@ -85,6 +85,8 @@ Run `just backend` and `just frontend` in separate terminals, then open `http://
 
 Opening `/community/<id>` calls `POST /api/communities/{id}/open`. This transaction creates a missing community with Announcements and Discussions, joins the current user, and returns the existing community on repeat or concurrent access. IDs can be UUIDs or hyphenated names (up to 80 characters); one- and two-character IDs map to `community-<id>`. UUIDs are preserved as database IDs. Ordinary GET endpoints remain read-only.
 
+Disease links include the readable disease name, which the frontend sends as optional `{ "name": "Huntington disease" }` to the open endpoint. Direct visits to MONDO, OMIM, or ORPHA communities also look up the disease name in Neo4j, including visits by an existing community UUID. This bounded lookup times out after two seconds and falls back to the stored/generated title if Neo4j is unavailable. Names are trimmed and limited to 100 characters. New communities store this title; existing communities with an automatically generated identifier title are upgraded on access. Community IDs, slugs, channels, posts, and previously chosen titles remain intact. The stored name is used in the community view and directory, including subsequent visits without the name parameter.
+
 Register, log in, or start a demo session to receive `{ "user": {...}, "token": "...", "expires_at": "..." }`. Send the token as `Authorization: Bearer <token>` on all `/api` requests except registration, login, and demo session creation. Passwords use Argon2id; only SHA-256 hashes of random bearer tokens are stored. Sessions expire after 30 days; logout immediately revokes the current token.
 
 Registration always assigns `user`. Professional roles must currently be provisioned through a trusted database connection, for example `UPDATE users SET role = 'scientist' WHERE username = 'alex';`. There is no public role-assignment endpoint. Request bodies reject unknown fields, including attempts to supply `role`, `author_id`, or `community_id` where the server derives them.
@@ -105,9 +107,11 @@ All bodies and successful data responses are JSON. List responses are arrays. Li
 | POST | `/api/auth/demo` | Temporary shared demo account; returns a normal `user` session |
 | POST | `/api/auth/logout` | Revokes current session; 204 |
 | GET | `/api/me` | Current account |
+| GET | `/api/graph` | Empty without a scope; `q` returns one disease, or explicit `result_uid` selects a bounded tool-result graph (`limit` defaults to 180, maximum 400) |
+| GET | `/api/graph/evidence` | Stored papers for `id` and `kind`; 20 papers per page with `offset` and `has_more` |
 | GET / POST | `/api/communities` | List, or create with `{ "slug", "name", "description"? }`; creation returns 201 |
 | GET | `/api/communities/{id}` | Community metadata |
-| POST | `/api/communities/{id}/open` | Create if missing and join; accepts a UUID or slug; idempotent |
+| POST | `/api/communities/{id}/open` | Create if missing and join; accepts a UUID or slug and optional `{ "name" }`; upgrades generated titles; idempotent |
 | POST | `/api/communities/{id}/join` | Join idempotently; returns membership |
 | GET | `/api/communities/{id}/channels` | Default channels |
 | GET / POST | `/api/channels/{id}/threads` | List (optional `q` searches title/body, up to 200 characters; with `limit`/`offset`), or publish with `{ "title", "body" }`; creation returns 201 |
@@ -135,6 +139,22 @@ curl -s http://127.0.0.1:3000/api/communities \
   -d '{"slug":"wilsons-disease","name":"Wilson disease","description":"Experiences and discussion"}'
 ```
 
+## Source graph
+
+Export `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` from [.env.example](.env.example) to point at the instance populated by [biomedical_graph](../biomedical_graph/README.md). Connections are lazy: communities still work when Neo4j is offline. An empty graph returns an empty overview; the viewer never creates example sources, schema, or relationships. Reads have a 15-second application timeout and return 503 if Neo4j is unavailable.
+
+`GET /api/graph` returns `{ nodes, edges, query, result_uid, truncated, generated_at }`. Without a nonempty disease query or explicit tool-result scope it returns an empty snapshot without connecting to Neo4j. There is no database-wide overview. Ordinary `q` searches disease names/identifiers, prefers exact matches and canonical diseases, and returns at most one disease with no neighbors or edges. Mapped PubTator aliases resolve to their canonical disease when available. Genes and publications do not qualify as disease search results.
+
+Nodes have stable source UIDs, type, label, external links, and a disease community URL where applicable. The future chat integration can supply an explicit `result_uid` to select objects belonging to a stored tool `FetchResult`; only that scoped mode expands a bounded three-hop neighborhood, projects domain connections from provenance chains, and hides operational/cache nodes. It caps raw nodes at 2,000 and raw edges at 5,000; `truncated` also signals clipping to the requested visible-node limit. Edges have stable evidence IDs, endpoints, labels, source context, and an evidence kind.
+
+The projection distinguishes extracted relations, disease/phenotype annotations (including excluded and conflicting phenotypes), identifier mappings, ontology hierarchy, and publication mentions. HPO annotation citations also connect publications to the disease they describe. A mention is contextual literature, not evidence of a biological association. Paper queries run independently of the bounded overview and paginate stored `Publication` nodes; opaque, non-PubMed citation identifiers are not resolved into papers. HPO relationship papers match the specific profile/term and positive or excluded annotation rows; extracted-relation papers come from the original document. PubTator summary counts can exist without individual paper IDs. In that case the UI shows the reported count, explains the missing citations, and links to the corresponding PubTator relation search. Literature search links are separate from stored supporting papers.
+
+Disease nodes link to `/community/<normalized disease identifier>`; mapped PubTator diseases share their canonical disease's community. The existing community-on-access flow creates and joins the community only when its link is opened.
+
+The home page starts empty, makes no initial graph request, and renders the matching disease with Sigma.js after a search. Clearing the search clears the graph. Chat history starts collapsed and can be expanded from the left rail. Hover previews details; clicking a node or edge pins its details so subsequent hover events cannot replace them. The pin control, close button, another explicit selection, or clicking the empty canvas can release/replace that selection.
+
+`GraphExplorer` also accepts a `snapshot` prop for later tool-result or stream integration. Its Graphology model reconciles stable IDs in place and keeps retained node positions and the Sigma camera. Refresh and disease search are read-only; there is no graph editing or live subscription yet. Chat remains an empty, disabled placeholder.
+
 ## Validation
 
 ```sh
@@ -143,6 +163,14 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
 ```
 
-The integration tests create isolated SQLite databases and apply the actual migrations. No Docker, database server, or environment variables are required. Tests cover registration/login/logout/expiry, enum role persistence, equal announcement publishing permissions, membership, nested comments, cross-scope foreign keys, pagination, duplicate DM conversations, and unauthorized DM reads/writes.
+The default integration tests create isolated SQLite databases and apply the actual migrations; no database server or environment variables are required. Tests cover registration/login/logout/expiry, enum role persistence, equal announcement publishing permissions, membership, nested comments, cross-scope foreign keys, pagination, duplicate DM conversations, unauthorized DM reads/writes, and graph authentication/validation/unavailable responses.
 
-This is the initial REST backend. Live WebSocket delivery, custom channel management, editing/deletion, voting, search, private/invite-only communities, and group DMs are not implemented. Public deployment still needs an account verification/recovery flow and login abuse controls; the current implementation is intended for local development.
+The graph provenance test is opt-in and writes fixtures. Run it against a fresh, isolated Neo4j instance with authentication disabled, never the application database:
+
+```sh
+NEO4J_TEST_URI=127.0.0.1:17687 cargo test -p backend --test graph -- --ignored
+```
+
+It checks projections, positive/excluded evidence, pagination, tool-result selection, bounded output, and unchanged Neo4j node/edge counts across all API reads. Frontend graph reconciliation tests run with `bun run test:graph` in `apps/web` and are included in `bun run check`.
+
+This is the initial REST backend. Live WebSocket delivery, custom channel management, editing/deletion, voting, global cross-community search, private/invite-only communities, and group DMs are not implemented. Public deployment still needs an account verification/recovery flow and login abuse controls; the current implementation is intended for local development.

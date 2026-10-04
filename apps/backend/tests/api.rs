@@ -603,6 +603,143 @@ async fn direct_messages_are_private_and_pairs_are_unique(pool: SqlitePool) {
 }
 
 #[tokio::test]
+async fn community_open_persists_readable_names_and_upgrades_identifier_titles() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool);
+    let (_, token) = register(&app, "names").await;
+    let path = "/api/communities/mondo-test/open";
+    let old = expect(&app, "POST", path, Some(&token), json!({}), StatusCode::OK).await;
+    assert_eq!(old["name"], "Mondo Test");
+    let id = old["id"].as_str().unwrap();
+    let channels_path = format!("/api/communities/{id}/channels");
+    let channels = expect(
+        &app,
+        "GET",
+        &channels_path,
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    let posts_path = format!(
+        "/api/channels/{}/threads",
+        channels[1]["id"].as_str().unwrap()
+    );
+    let post = expect(
+        &app,
+        "POST",
+        &posts_path,
+        Some(&token),
+        json!({"title":"Welcome", "body":"Keep this post"}),
+        StatusCode::CREATED,
+    )
+    .await;
+    let renamed = expect(
+        &app,
+        "POST",
+        path,
+        Some(&token),
+        json!({"name":"Huntington disease"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(renamed["id"], old["id"]);
+    assert_eq!(renamed["slug"], old["slug"]);
+    assert_eq!(renamed["name"], "Huntington disease");
+    let by_id = expect(
+        &app,
+        "POST",
+        &format!("/api/communities/{id}/open"),
+        Some(&token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(by_id["name"], renamed["name"]);
+    let list = expect(
+        &app,
+        "GET",
+        "/api/communities",
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(list[0]["name"], renamed["name"]);
+    let unchanged_channels = expect(
+        &app,
+        "GET",
+        &channels_path,
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(channels, unchanged_channels);
+    let posts = expect(
+        &app,
+        "GET",
+        &posts_path,
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(posts[0]["id"], post["id"]);
+    let kept = expect(
+        &app,
+        "POST",
+        path,
+        Some(&token),
+        json!({"name":"Different title"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(kept["name"], renamed["name"]);
+    let fresh = expect(
+        &app,
+        "POST",
+        "/api/communities/mondo-other/open",
+        Some(&token),
+        json!({"name":"Parkinson disease"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(fresh["name"], "Parkinson disease");
+    let custom = expect(
+        &app,
+        "POST",
+        "/api/communities",
+        Some(&token),
+        json!({"slug":"personal-room", "name":"Our conversations"}),
+        StatusCode::CREATED,
+    )
+    .await;
+    let kept = expect(
+        &app,
+        "POST",
+        "/api/communities/personal-room/open",
+        Some(&token),
+        json!({"name":"Different title"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(kept["name"], custom["name"]);
+    for name in [String::new(), "a".repeat(101), "invalid\0name".into()] {
+        expect(
+            &app,
+            "POST",
+            path,
+            Some(&token),
+            json!({"name":name}),
+            StatusCode::BAD_REQUEST,
+        )
+        .await;
+    }
+}
+
+#[tokio::test]
 async fn demo_community_open_is_idempotent_and_messages_persist() {
     let pool = backend::connect("sqlite::memory:").await.unwrap();
     backend::migrate(&pool).await.unwrap();

@@ -20,7 +20,7 @@ frontend-build:
 frontend-start:
     bun run --cwd apps/web start --port "${FRONTEND_PORT:-3001}"
 
-# Run frontend lint, type checking, and production build.
+# Run frontend lint, type checking, graph tests, and production build.
 frontend-check:
     bun run --cwd apps/web check
 

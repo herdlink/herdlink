@@ -11,3 +11,4 @@ auth.json
 *.sqlite-shm
 *.sqlite-wal
 **/target/
+/.graph-query-cache/

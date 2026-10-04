@@ -1,0 +1,954 @@
+{
+  "PubTator3": [
+    {
+      "_id": "19894120|None",
+      "id": "19894120",
+      "infons": {},
+      "passages": [
+        {
+          "infons": {
+            "journal": "J Neuroimmune Pharmacol. 2010 Dec;5(4):516-20. doi: 10.1007/s11481-009-9180-4. ",
+            "year": "2010",
+            "article-id_pmc": "PMC4051155",
+            "type": "title",
+            "authors": "Silverstein PS, Audus KL, Qureshi N, Kumar A"
+          },
+          "offset": 0,
+          "text": "Lipopolysaccharide increases the expression of multidrug resistance-associated protein 1 (MRP1) in RAW 264.7 macrophages.",
+          "sentences": [],
+          "annotations": [
+            {
+              "id": "4",
+              "infons": {
+                "identifier": "MESH:D008070",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D008070"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D008070",
+                "biotype": "chemical",
+                "name": "Lipopolysaccharides",
+                "accession": "@CHEMICAL_Lipopolysaccharides"
+              },
+              "text": "Lipopolysaccharide",
+              "locations": [
+                {
+                  "offset": 0,
+                  "length": 18
+                }
+              ]
+            },
+            {
+              "id": "5",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "multidrug resistance-associated protein 1",
+              "locations": [
+                {
+                  "offset": 47,
+                  "length": 41
+                }
+              ]
+            },
+            {
+              "id": "6",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP1",
+              "locations": [
+                {
+                  "offset": 90,
+                  "length": 4
+                }
+              ]
+            },
+            {
+              "id": "7",
+              "infons": {
+                "identifier": "CVCL:0493",
+                "type": "CellLine",
+                "valid": true,
+                "normalized": [
+                  "0493"
+                ],
+                "database": "cvcl",
+                "normalized_id": "0493",
+                "biotype": "cellline",
+                "name": "0493",
+                "accession": null
+              },
+              "text": "RAW 264.7",
+              "locations": [
+                {
+                  "offset": 99,
+                  "length": 9
+                }
+              ]
+            }
+          ],
+          "relations": []
+        },
+        {
+          "infons": {
+            "type": "abstract"
+          },
+          "offset": 122,
+          "text": "Multidrug resistance-associated protein 1 (MRP-1) is a ubiquitously expressed member of the ATP-binding cassette transporter family. MRP-1 is one of the primary transporters of glutathione and glutathione conjugates. This protein also transports antiretroviral therapeutics, such as HIV-1 protease inhibitors (PI). We hypothesized that inflammatory mediators that activate macrophages would modify the expression and activity of MRP-1 in macrophages. Real-time PCR assays, western blots, and calcein efflux assays were used to show that exposure of macrophage cell line RAW 264.7 to lipopolysaccharide (LPS) increased expression of MRP-1 at the levels of mRNA, protein, and functional activity. Treatment of macrophages with LPS resulted in 2-fold increases of MRP-1 expression or functional activity. LPS-mediated increases in calcein efflux were repressed by the MRP-specific inhibitor MK-571. These results suggest that the effectiveness of HIV-1 PI therapy may be compromised by the presence of opportunistic infections.",
+          "sentences": [],
+          "annotations": [
+            {
+              "id": "30",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "Multidrug resistance-associated protein 1",
+              "locations": [
+                {
+                  "offset": 122,
+                  "length": 41
+                }
+              ]
+            },
+            {
+              "id": "31",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP-1",
+              "locations": [
+                {
+                  "offset": 165,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "32",
+              "infons": {
+                "identifier": "24",
+                "type": "Gene",
+                "ncbi_homologene": "298",
+                "valid": true,
+                "normalized": [
+                  24
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 24,
+                "biotype": "gene",
+                "name": "ABCA4",
+                "accession": "@GENE_ABCA4"
+              },
+              "text": "ATP-binding cassette transporter",
+              "locations": [
+                {
+                  "offset": 214,
+                  "length": 32
+                }
+              ]
+            },
+            {
+              "id": "33",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP-1",
+              "locations": [
+                {
+                  "offset": 255,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "34",
+              "infons": {
+                "identifier": "MESH:D005978",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D005978"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D005978",
+                "biotype": "chemical",
+                "name": "Glutathione",
+                "accession": "@CHEMICAL_Glutathione"
+              },
+              "text": "glutathione",
+              "locations": [
+                {
+                  "offset": 299,
+                  "length": 11
+                }
+              ]
+            },
+            {
+              "id": "35",
+              "infons": {
+                "identifier": "MESH:D005978",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D005978"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D005978",
+                "biotype": "chemical",
+                "name": "Glutathione",
+                "accession": "@CHEMICAL_Glutathione"
+              },
+              "text": "glutathione",
+              "locations": [
+                {
+                  "offset": 315,
+                  "length": 11
+                }
+              ]
+            },
+            {
+              "id": "36",
+              "infons": {
+                "identifier": "11676",
+                "type": "Species",
+                "valid": true,
+                "normalized": [
+                  11676
+                ],
+                "database": "ncbi_taxonomy",
+                "normalized_id": 11676,
+                "biotype": "species",
+                "name": "11676",
+                "accession": null
+              },
+              "text": "HIV-1",
+              "locations": [
+                {
+                  "offset": 405,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "37",
+              "infons": {
+                "identifier": "MESH:D007249",
+                "type": "Disease",
+                "valid": true,
+                "normalized": [
+                  "D007249"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D007249",
+                "biotype": "disease",
+                "name": "Inflammation",
+                "accession": "@DISEASE_Inflammation"
+              },
+              "text": "inflammatory",
+              "locations": [
+                {
+                  "offset": 458,
+                  "length": 12
+                }
+              ]
+            },
+            {
+              "id": "38",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP-1",
+              "locations": [
+                {
+                  "offset": 551,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "39",
+              "infons": {
+                "identifier": "MESH:C007740",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "C007740"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "C007740",
+                "biotype": "chemical",
+                "name": "fluorexon",
+                "accession": "@CHEMICAL_fluorexon"
+              },
+              "text": "calcein",
+              "locations": [
+                {
+                  "offset": 614,
+                  "length": 7
+                }
+              ]
+            },
+            {
+              "id": "40",
+              "infons": {
+                "identifier": "CVCL:0493",
+                "type": "CellLine",
+                "valid": true,
+                "normalized": [
+                  "0493"
+                ],
+                "database": "cvcl",
+                "normalized_id": "0493",
+                "biotype": "cellline",
+                "name": "0493",
+                "accession": null
+              },
+              "text": "RAW 264.7",
+              "locations": [
+                {
+                  "offset": 692,
+                  "length": 9
+                }
+              ]
+            },
+            {
+              "id": "41",
+              "infons": {
+                "identifier": "MESH:D008070",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D008070"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D008070",
+                "biotype": "chemical",
+                "name": "Lipopolysaccharides",
+                "accession": "@CHEMICAL_Lipopolysaccharides"
+              },
+              "text": "lipopolysaccharide",
+              "locations": [
+                {
+                  "offset": 705,
+                  "length": 18
+                }
+              ]
+            },
+            {
+              "id": "42",
+              "infons": {
+                "identifier": "MESH:D008070",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D008070"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D008070",
+                "biotype": "chemical",
+                "name": "Lipopolysaccharides",
+                "accession": "@CHEMICAL_Lipopolysaccharides"
+              },
+              "text": "LPS",
+              "locations": [
+                {
+                  "offset": 725,
+                  "length": 3
+                }
+              ]
+            },
+            {
+              "id": "43",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP-1",
+              "locations": [
+                {
+                  "offset": 754,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "44",
+              "infons": {
+                "identifier": "MESH:D008070",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D008070"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D008070",
+                "biotype": "chemical",
+                "name": "Lipopolysaccharides",
+                "accession": "@CHEMICAL_Lipopolysaccharides"
+              },
+              "text": "LPS",
+              "locations": [
+                {
+                  "offset": 847,
+                  "length": 3
+                }
+              ]
+            },
+            {
+              "id": "45",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP-1",
+              "locations": [
+                {
+                  "offset": 883,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "46",
+              "infons": {
+                "identifier": "MESH:D008070",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "D008070"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D008070",
+                "biotype": "chemical",
+                "name": "Lipopolysaccharides",
+                "accession": "@CHEMICAL_Lipopolysaccharides"
+              },
+              "text": "LPS",
+              "locations": [
+                {
+                  "offset": 924,
+                  "length": 3
+                }
+              ]
+            },
+            {
+              "id": "47",
+              "infons": {
+                "identifier": "MESH:C007740",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "C007740"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "C007740",
+                "biotype": "chemical",
+                "name": "fluorexon",
+                "accession": "@CHEMICAL_fluorexon"
+              },
+              "text": "calcein",
+              "locations": [
+                {
+                  "offset": 950,
+                  "length": 7
+                }
+              ]
+            },
+            {
+              "id": "48",
+              "infons": {
+                "identifier": "4363",
+                "type": "Gene",
+                "ncbi_homologene": "133779",
+                "valid": true,
+                "normalized": [
+                  4363
+                ],
+                "database": "ncbi_gene",
+                "normalized_id": 4363,
+                "biotype": "gene",
+                "name": "ABCC1",
+                "accession": "@GENE_ABCC1"
+              },
+              "text": "MRP",
+              "locations": [
+                {
+                  "offset": 987,
+                  "length": 3
+                }
+              ]
+            },
+            {
+              "id": "49",
+              "infons": {
+                "identifier": "MESH:C059141",
+                "type": "Chemical",
+                "valid": true,
+                "normalized": [
+                  "C059141"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "C059141",
+                "biotype": "chemical",
+                "name": "verlukast",
+                "accession": "@CHEMICAL_verlukast"
+              },
+              "text": "MK-571",
+              "locations": [
+                {
+                  "offset": 1010,
+                  "length": 6
+                }
+              ]
+            },
+            {
+              "id": "50",
+              "infons": {
+                "identifier": "11676",
+                "type": "Species",
+                "valid": true,
+                "normalized": [
+                  11676
+                ],
+                "database": "ncbi_taxonomy",
+                "normalized_id": 11676,
+                "biotype": "species",
+                "name": "11676",
+                "accession": null
+              },
+              "text": "HIV-1",
+              "locations": [
+                {
+                  "offset": 1066,
+                  "length": 5
+                }
+              ]
+            },
+            {
+              "id": "51",
+              "infons": {
+                "identifier": "MESH:D009894",
+                "type": "Disease",
+                "valid": true,
+                "normalized": [
+                  "D009894"
+                ],
+                "database": "ncbi_mesh",
+                "normalized_id": "D009894",
+                "biotype": "disease",
+                "name": "Opportunistic Infections",
+                "accession": "@DISEASE_Opportunistic_Infections"
+              },
+              "text": "opportunistic infections",
+              "locations": [
+                {
+                  "offset": 1121,
+                  "length": 24
+                }
+              ]
+            }
+          ],
+          "relations": []
+        }
+      ],
+      "relations": [
+        {
+          "id": "R1",
+          "infons": {
+            "score": "0.9988",
+            "role1": {
+              "identifier": "MESH:C007740",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "C007740"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "C007740",
+              "biotype": "chemical",
+              "name": "fluorexon",
+              "accession": "@CHEMICAL_fluorexon"
+            },
+            "role2": {
+              "identifier": "MESH:D008070",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "D008070"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D008070",
+              "biotype": "chemical",
+              "name": "Lipopolysaccharides",
+              "accession": "@CHEMICAL_Lipopolysaccharides"
+            },
+            "type": "Positive_Correlation"
+          },
+          "nodes": [
+            {
+              "refid": "0",
+              "role": "13,15"
+            }
+          ]
+        },
+        {
+          "id": "R2",
+          "infons": {
+            "score": "0.9992",
+            "role1": {
+              "identifier": "MESH:C059141",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "C059141"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "C059141",
+              "biotype": "chemical",
+              "name": "verlukast",
+              "accession": "@CHEMICAL_verlukast"
+            },
+            "role2": {
+              "identifier": "4363",
+              "type": "Gene",
+              "valid": true,
+              "normalized": [
+                4363
+              ],
+              "database": "ncbi_gene",
+              "normalized_id": 4363,
+              "biotype": "gene",
+              "name": "ABCC1",
+              "accession": "@GENE_ABCC1"
+            },
+            "type": "Negative_Correlation"
+          },
+          "nodes": [
+            {
+              "refid": "1",
+              "role": "23,22"
+            }
+          ]
+        },
+        {
+          "id": "R3",
+          "infons": {
+            "score": "0.9991",
+            "role1": {
+              "identifier": "MESH:D005978",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "D005978"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D005978",
+              "biotype": "chemical",
+              "name": "Glutathione",
+              "accession": "@CHEMICAL_Glutathione"
+            },
+            "role2": {
+              "identifier": "4363",
+              "type": "Gene",
+              "valid": true,
+              "normalized": [
+                4363
+              ],
+              "database": "ncbi_gene",
+              "normalized_id": 4363,
+              "biotype": "gene",
+              "name": "ABCC1",
+              "accession": "@GENE_ABCC1"
+            },
+            "type": "Association"
+          },
+          "nodes": [
+            {
+              "refid": "2",
+              "role": "8,7"
+            }
+          ]
+        },
+        {
+          "id": "R4",
+          "infons": {
+            "score": "0.999",
+            "role1": {
+              "identifier": "MESH:C007740",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "C007740"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "C007740",
+              "biotype": "chemical",
+              "name": "fluorexon",
+              "accession": "@CHEMICAL_fluorexon"
+            },
+            "role2": {
+              "identifier": "MESH:C059141",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "C059141"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "C059141",
+              "biotype": "chemical",
+              "name": "verlukast",
+              "accession": "@CHEMICAL_verlukast"
+            },
+            "type": "Negative_Correlation"
+          },
+          "nodes": [
+            {
+              "refid": "3",
+              "role": "21,23"
+            }
+          ]
+        },
+        {
+          "id": "R5",
+          "infons": {
+            "score": "0.9986",
+            "role1": {
+              "identifier": "MESH:D007249",
+              "type": "Disease",
+              "valid": true,
+              "normalized": [
+                "D007249"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D007249",
+              "biotype": "disease",
+              "name": "Inflammation",
+              "accession": "@DISEASE_Inflammation"
+            },
+            "role2": {
+              "identifier": "4363",
+              "type": "Gene",
+              "valid": true,
+              "normalized": [
+                4363
+              ],
+              "database": "ncbi_gene",
+              "normalized_id": 4363,
+              "biotype": "gene",
+              "name": "ABCC1",
+              "accession": "@GENE_ABCC1"
+            },
+            "type": "Association"
+          },
+          "nodes": [
+            {
+              "refid": "4",
+              "role": "11,12"
+            }
+          ]
+        },
+        {
+          "id": "R6",
+          "infons": {
+            "score": "0.9849",
+            "role1": {
+              "identifier": "MESH:C007740",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "C007740"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "C007740",
+              "biotype": "chemical",
+              "name": "fluorexon",
+              "accession": "@CHEMICAL_fluorexon"
+            },
+            "role2": {
+              "identifier": "4363",
+              "type": "Gene",
+              "valid": true,
+              "normalized": [
+                4363
+              ],
+              "database": "ncbi_gene",
+              "normalized_id": 4363,
+              "biotype": "gene",
+              "name": "ABCC1",
+              "accession": "@GENE_ABCC1"
+            },
+            "type": "Association"
+          },
+          "nodes": [
+            {
+              "refid": "5",
+              "role": "13,17"
+            }
+          ]
+        },
+        {
+          "id": "R7",
+          "infons": {
+            "score": "0.9993",
+            "role1": {
+              "identifier": "MESH:D008070",
+              "type": "Chemical",
+              "valid": true,
+              "normalized": [
+                "D008070"
+              ],
+              "database": "ncbi_mesh",
+              "normalized_id": "D008070",
+              "biotype": "chemical",
+              "name": "Lipopolysaccharides",
+              "accession": "@CHEMICAL_Lipopolysaccharides"
+            },
+            "role2": {
+              "identifier": "4363",
+              "type": "Gene",
+              "valid": true,
+              "normalized": [
+                4363
+              ],
+              "database": "ncbi_gene",
+              "normalized_id": 4363,
+              "biotype": "gene",
+              "name": "ABCC1",
+              "accession": "@GENE_ABCC1"
+            },
+            "type": "Positive_Correlation"
+          },
+          "nodes": [
+            {
+              "refid": "6",
+              "role": "0,1"
+            }
+          ]
+        }
+      ],
+      "pmid": 19894120,
+      "pmcid": null,
+      "meta": {},
+      "date": "2010-12-01T00:00:00Z",
+      "journal": "J Neuroimmune Pharmacol",
+      "authors": [
+        "Silverstein PS",
+        "Audus KL",
+        "Qureshi N",
+        "Kumar A"
+      ],
+      "relations_display": [
+        {
+          "name": "positive_correlate|@CHEMICAL_fluorexon|@CHEMICAL_Lipopolysaccharides"
+        },
+        {
+          "name": "negative_correlate|@CHEMICAL_verlukast|@GENE_ABCC1"
+        },
+        {
+          "name": "associate|@CHEMICAL_Glutathione|@GENE_ABCC1"
+        },
+        {
+          "name": "negative_correlate|@CHEMICAL_fluorexon|@CHEMICAL_verlukast"
+        },
+        {
+          "name": "associate|@DISEASE_Inflammation|@GENE_ABCC1"
+        },
+        {
+          "name": "associate|@CHEMICAL_fluorexon|@GENE_ABCC1"
+        },
+        {
+          "name": "positive_correlate|@CHEMICAL_Lipopolysaccharides|@GENE_ABCC1"
+        }
+      ]
+    }
+  ]
+}

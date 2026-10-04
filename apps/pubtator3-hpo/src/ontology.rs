@@ -13,12 +13,14 @@ struct Term {
     aliases: Vec<HpoId>,
     obsolete: bool,
     replacements: Vec<HpoId>,
+    tags: BTreeMap<String, Vec<String>>,
 }
 
 pub(crate) struct ParsedOntology {
     pub ontology: Ontology,
     pub aliases: BTreeMap<HpoId, HpoId>,
     pub version: String,
+    pub records: BTreeMap<HpoId, crate::OntologyTerm>,
 }
 
 pub(crate) fn read(reader: impl BufRead) -> Result<ParsedOntology> {
@@ -50,6 +52,9 @@ pub(crate) fn read(reader: impl BufRead) -> Result<ParsedOntology> {
         let Some(term) = &mut current else {
             continue;
         };
+        if let Some((tag, value)) = line.split_once(": ") {
+            term.tags.entry(tag.into()).or_default().push(value.into());
+        }
         if let Some(id) = line.strip_prefix("id: ") {
             term.id = Some(id.parse()?);
         }
@@ -151,6 +156,23 @@ pub(crate) fn read(reader: impl BufRead) -> Result<ParsedOntology> {
         .calculate_information_content()?
         .build_minimal();
     Ok(ParsedOntology {
+        records: terms
+            .into_iter()
+            .map(|(id, term)| {
+                (
+                    id.clone(),
+                    crate::OntologyTerm {
+                        id,
+                        name: term.name,
+                        parents: term.parents,
+                        alternative_ids: term.aliases,
+                        obsolete: term.obsolete,
+                        replacements: term.replacements,
+                        tags: term.tags,
+                    },
+                )
+            })
+            .collect(),
         ontology,
         aliases,
         version,

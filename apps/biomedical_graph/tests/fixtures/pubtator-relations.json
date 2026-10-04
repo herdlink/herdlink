@@ -1,0 +1,14 @@
+[
+  {
+    "type": "associate",
+    "source": "@DISEASE_Huntington_Disease",
+    "target": "@GENE_HTT",
+    "publications": 3616
+  },
+  {
+    "type": "associate",
+    "source": "@DISEASE_Huntington_Disease",
+    "target": "@GENE_BDNF",
+    "publications": 189
+  }
+]

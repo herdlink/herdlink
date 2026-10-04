@@ -2,6 +2,19 @@ use crate::{DiseaseId, HpoId, MeshId, MondoId};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+/// Original OBO metadata. Raw tag values preserve definitions, synonym scopes,
+/// cross-references and future OBO fields without interpreting them as equivalences.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OntologyTerm {
+    pub id: HpoId,
+    pub name: String,
+    pub parents: Vec<HpoId>,
+    pub alternative_ids: Vec<HpoId>,
+    pub obsolete: bool,
+    pub replacements: Vec<HpoId>,
+    pub tags: std::collections::BTreeMap<String, Vec<String>>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PhenotypeAnnotation {
     pub disease_id: DiseaseId,

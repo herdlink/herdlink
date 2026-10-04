@@ -1,0 +1,171 @@
+format-version: 1.2
+data-version: hp/releases/2026-09-01 (bounded official subset)
+
+[Term]
+id: HP:0000001
+name: All
+comment: Root of all terms in the Human Phenotype Ontology.
+
+[Term]
+id: HP:0000118
+name: Phenotypic abnormality
+def: "A phenotypic abnormality." [https://orcid.org/0000-0002-0736-9199]
+comment: This is the root of the phenotypic abnormality subontology of the HPO.
+synonym: "Organ abnormality" EXACT []
+is_a: HP:0000001 ! All
+
+[Term]
+id: HP:0000478
+name: Abnormality of the eye
+def: "Any abnormality of the eye, including location, spacing, and intraocular abnormalities." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Abnormal eye" EXACT layperson [https://orcid.org/0000-0002-5316-1399]
+synonym: "Abnormality of the eye" EXACT layperson []
+synonym: "Eye disease" RELATED layperson []
+is_a: HP:0000118 ! Phenotypic abnormality
+
+[Term]
+id: HP:0000496
+name: Abnormality of eye movement
+alt_id: HP:0006860
+def: "An abnormality in voluntary or involuntary eye movements or their control." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Abnormal extraocular movement" EXACT []
+synonym: "Abnormal extraocular movements" EXACT []
+synonym: "Abnormal eye motility" EXACT []
+synonym: "Abnormal eye movement" EXACT layperson []
+synonym: "Abnormal eye movements" EXACT layperson []
+synonym: "Abnormal motility of the globe of the eye" EXACT [https://orcid.org/0000-0001-5208-3432, https://orcid.org/0000-0001-5889-4463]
+synonym: "Abnormal movement of the globe of the eye" EXACT [https://orcid.org/0000-0001-5208-3432, https://orcid.org/0000-0001-5889-4463]
+synonym: "Abnormal ocular movements" EXACT []
+synonym: "Abnormality of eye movement" EXACT layperson []
+synonym: "Eye movement abnormalities" EXACT layperson []
+synonym: "Eye movement issue" EXACT layperson []
+synonym: "Ocular movement abnormalities" EXACT []
+synonym: "Oculomotor abnormalities" EXACT []
+is_a: HP:0012373 ! Abnormal eye physiology
+
+[Term]
+id: HP:0000707
+name: Abnormality of the nervous system
+alt_id: HP:0001333
+alt_id: HP:0006987
+def: "An abnormality of the nervous system." [https://orcid.org/0000-0002-0736-9199]
+comment: The nervous system comprises the neuraxis (brain, spinal cord, and ventricles), the autonomic nervous system, the enteric nervous system, and the peripheral nervous system.
+synonym: "Abnormality of the nervous system" EXACT layperson []
+synonym: "Brain and/or spinal cord issue" BROAD layperson []
+synonym: "Neurologic abnormalities" EXACT layperson []
+synonym: "Neurological abnormality" EXACT layperson []
+is_a: HP:0000118 ! Phenotypic abnormality
+
+[Term]
+id: HP:0001250
+name: Seizure
+alt_id: HP:0001275
+alt_id: HP:0001303
+alt_id: HP:0002125
+alt_id: HP:0002182
+alt_id: HP:0002279
+alt_id: HP:0002306
+alt_id: HP:0002348
+alt_id: HP:0002391
+alt_id: HP:0002417
+alt_id: HP:0002430
+alt_id: HP:0002431
+alt_id: HP:0002432
+alt_id: HP:0002434
+alt_id: HP:0002437
+alt_id: HP:0002466
+alt_id: HP:0002479
+alt_id: HP:0002794
+alt_id: HP:0006997
+alt_id: HP:0010520
+def: "A seizure is an intermittent abnormality of nervous system physiology characterized by a transient occurrence of signs and/or symptoms due to abnormal excessive or synchronous neuronal activity in the brain." [https://orcid.org/0000-0002-0736-9199, PMID:15816939]
+comment: A type of electrographic seizure has been proposed in neonates which does not have a clinical correlate, it is electrographic only. The term epilepsy is not used to describe recurrent febrile seizures. Epilepsy presumably reflects an abnormally reduced seizure threshold.
+synonym: "Epilepsy" RELATED layperson []
+synonym: "Epileptic seizure" EXACT []
+synonym: "Seizures" EXACT plural_form []
+is_a: HP:0012638 ! Abnormal nervous system physiology
+
+[Term]
+id: HP:0002067
+name: Bradykinesia
+def: "Bradykinesia literally means slow movement, and is used clinically to denote a slowness in the execution of movement (in contrast to hypokinesia, which is used to refer to slowness in the initiation of movement)." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Slow movements" EXACT layperson [https://orcid.org/0000-0001-5208-3432]
+synonym: "Slowness of movements" EXACT layperson []
+is_a: HP:0002071 ! Abnormality of extrapyramidal motor function
+
+[Term]
+id: HP:0002071
+name: Abnormality of extrapyramidal motor function
+alt_id: HP:0006810
+alt_id: HP:0007113
+def: "A neurological condition related to lesions of the basal ganglia leading to typical abnormalities including akinesia (inability to initiate changes in activity and perform volitional movements rapidly and easily), muscular rigidity (continuous contraction of muscles with constant resistance to passive movement), chorea (widespread arrhythmic movements of a forcible, rapid, jerky, and restless nature), athetosis (inability to sustain the muscles of the fingers, toes, or other group of muscles in a fixed position), and akathisia (inability to remain motionless)." [https://orcid.org/0000-0002-0736-9199]
+comment: The basal ganglia, paired subcortical masses of gray matter that form distinct nuclei, subserve motor functions that are distinct from those of the pyramidal (i.e., corticospinal) tract. This is a bundled term that is kept for historical reasons, but it is preferable to annotate the precise abnormalities observed.
+synonym: "Extrapyramidal dysfunction" EXACT []
+synonym: "Extrapyramidal signs" EXACT []
+synonym: "Extrapyramidal symptoms" EXACT []
+synonym: "Extrapyramidal syndrome" EXACT []
+synonym: "Extrapyramidal tract signs" EXACT []
+is_a: HP:0011442 ! Abnormal central motor function
+
+[Term]
+id: HP:0002072
+name: Chorea
+alt_id: HP:0002397
+def: "Chorea (Greek for 'dance') refers to widespread arrhythmic involuntary movements of a forcible, jerky and restless fashion. It is a random-appearing sequence of one or more discrete involuntary movements or movement fragments. Movements appear random because of variability in timing, duration or location. Each movement may have a distinct start and end. However, movements may be strung together and thus may appear to flow randomly from one muscle group to another. Chorea can involve the trunk, neck, face, tongue, and extremities." [https://orcid.org/0000-0002-0736-9199, PMID:20589866]
+synonym: "Choreatic disease" RELATED []
+synonym: "Choreic movements" EXACT []
+synonym: "Choreiform movements" EXACT []
+is_a: HP:0004305 ! Involuntary movements
+
+[Term]
+id: HP:0004305
+name: Involuntary movements
+alt_id: HP:0007120
+def: "Involuntary contractions of muscle leading to involuntary movements of extremities, neck, trunk, or face." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Involuntary movements" EXACT layperson []
+synonym: "Involuntary muscle contractions" EXACT layperson []
+is_a: HP:0011442 ! Abnormal central motor function
+is_a: HP:0100022 ! Abnormality of movement
+property_value: terms:creator https://orcid.org/0000-0002-0736-9199
+property_value: terms:date "2008-02-20T12:18:00Z" xsd:dateTime
+
+[Term]
+id: HP:0011442
+name: Abnormal central motor function
+def: "An anomaly of the control or production of movement in the central nervous system." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Abnormality of central motor function" EXACT []
+is_a: HP:0012638 ! Abnormal nervous system physiology
+property_value: terms:creator https://orcid.org/0000-0002-0736-9199
+property_value: terms:date "2012-03-18T02:29:04Z" xsd:dateTime
+
+[Term]
+id: HP:0012373
+name: Abnormal eye physiology
+def: "A functional anomaly of the eye." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Abnormal eye physiology" EXACT layperson []
+synonym: "Abnormal vision physiology" BROAD []
+is_a: HP:0000478 ! Abnormality of the eye
+property_value: terms:creator https://orcid.org/0000-0002-0736-9199
+property_value: terms:date "2013-10-13T03:45:37Z" xsd:dateTime
+
+[Term]
+id: HP:0012638
+name: Abnormal nervous system physiology
+def: "A functional anomaly of the nervous system." [https://orcid.org/0000-0002-0736-9199]
+synonym: "Abnormality of nervous system physiology" EXACT []
+is_a: HP:0000707 ! Abnormality of the nervous system
+property_value: terms:creator https://orcid.org/0000-0002-0736-9199
+property_value: terms:date "2014-01-19T08:02:46Z" xsd:dateTime
+
+[Term]
+id: HP:0100022
+name: Abnormality of movement
+alt_id: HP:0001294
+def: "An abnormality of movement with a neurological basis characterized by changes in coordination and speed of voluntary movements." [https://orcid.org/0000-0002-0736-9199]
+comment: Movement disorders are characterized by the phenotypic abnormalities including abnormal involuntary movements, akathisia, akinesia, athetosis, ataxia, ballismus, bradykinesia, chorea, dyskinesia, dystonia, and myoclonus tics, tremor, spasms, and stereotypy.
+synonym: "Abnormality of movement" EXACT layperson []
+synonym: "Movement disorder" EXACT layperson []
+synonym: "Unusual movement" EXACT layperson []
+is_a: HP:0012638 ! Abnormal nervous system physiology
+property_value: terms:creator https://orcid.org/0009-0006-4530-3154
+property_value: terms:date "2010-05-28T11:48:50Z" xsd:dateTime

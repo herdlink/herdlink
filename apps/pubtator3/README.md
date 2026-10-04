@@ -8,6 +8,9 @@ through NLM's companion API. No API key is required.
 For automatic disease-to-HPO mapping and phenotype-based similar disease search,
 use the companion [pubtator3-hpo crate](../pubtator3-hpo/README.md).
 
+For persistent query caching and storing PubTator/HPO objects and relationships in
+one extensible Neo4j graph, use [biomedical_graph](../biomedical_graph/README.md).
+
 Add this local crate to an app (adjust the relative path as needed):
 
 ```toml

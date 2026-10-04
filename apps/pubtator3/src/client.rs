@@ -100,6 +100,11 @@ impl Client {
         ClientBuilder::default()
     }
 
+    /// API roots identify the upstream for persistent response caches.
+    pub fn cache_identity(&self) -> String {
+        format!("{}|{}", self.base, self.mesh_base)
+    }
+
     /// List MeSH names/entry terms for an entity selected from autocomplete.
     /// Rejects entities without an `ncbi_mesh` descriptor ID before sending a request.
     pub async fn synonyms(&self, entity: &Entity) -> Result<MeshSynonyms> {

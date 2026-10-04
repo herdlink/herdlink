@@ -4,6 +4,9 @@ An async PubTator3 wrapper that maps diseases to curated HPO phenotype profiles 
 finds diseases with similar profiles. The companion `pubtator3` crate still handles
 the NCBI API. This crate supplies the disease mapping and local similarity search.
 
+[biomedical_graph](../biomedical_graph/README.md) supplies Neo4j-backed caching
+wrappers for both clients and persists their objects, ontology edges and evidence.
+
 The identifier path is:
 
 ```text

@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "@DISEASE_Huntington_Disease",
+    "biotype": "disease",
+    "db_id": "D006816",
+    "db": "ncbi_mesh",
+    "name": "Huntington Disease",
+    "match": "Multiple matches"
+  },
+  {
+    "_id": "@DISEASE_Huntington_Disease_Like_2",
+    "biotype": "disease",
+    "db_id": "C564708",
+    "db": "ncbi_mesh",
+    "name": "Huntington Disease-Like 2",
+    "match": "Multiple matches"
+  }
+]

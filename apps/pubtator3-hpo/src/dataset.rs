@@ -24,6 +24,7 @@ pub struct Dataset {
     ontology: ontology::ParsedOntology,
     pub hpo_version: String,
     pub skipped_annotation_namespaces: usize,
+    fingerprint: String,
 }
 
 impl Dataset {
@@ -39,13 +40,30 @@ impl Dataset {
 
     /// Useful for version-pinned in-memory snapshots and test fixtures.
     pub fn from_readers(
-        hp: impl BufRead,
-        annotations: impl Read,
-        mondo: impl Read,
+        mut hp: impl BufRead,
+        mut annotations: impl Read,
+        mut mondo: impl Read,
     ) -> Result<Self> {
-        let parsed = ontology::read(hp)?;
-        let records = annotations::read(annotations)?;
-        let mondo = MondoIndex::read(mondo)?;
+        use sha2::{Digest, Sha256};
+        // Hash the actual inputs, including manual snapshots with no manifest.
+        let mut digest = Sha256::new();
+        let mut bytes = Vec::new();
+        hp.read_to_end(&mut bytes)?;
+        digest.update((bytes.len() as u64).to_be_bytes());
+        digest.update(&bytes);
+        let parsed = ontology::read(std::io::Cursor::new(&bytes))?;
+        bytes.clear();
+        annotations.read_to_end(&mut bytes)?;
+        digest.update((bytes.len() as u64).to_be_bytes());
+        digest.update(&bytes);
+        let records = annotations::read(bytes.as_slice())?;
+        bytes.clear();
+        mondo.read_to_end(&mut bytes)?;
+        digest.update((bytes.len() as u64).to_be_bytes());
+        digest.update(&bytes);
+        let mondo = MondoIndex::read(bytes.as_slice())?;
+        drop(bytes);
+        let fingerprint = format!("{:x}", digest.finalize());
         let mut profiles = BTreeMap::<DiseaseId, DiseaseProfile>::new();
         let mut aliases = BTreeMap::new();
         let mut names = BTreeMap::<String, BTreeSet<DiseaseId>>::new();
@@ -173,6 +191,7 @@ impl Dataset {
             .map(|(id, count)| (id, -(count as f64 / n).ln()))
             .collect();
         Ok(Self {
+            fingerprint,
             mondo,
             profiles,
             aliases,
@@ -183,6 +202,25 @@ impl Dataset {
             ontology: parsed,
             skipped_annotation_namespaces: records.skipped_namespaces,
         })
+    }
+
+    /// Content hash of all three source files, for persistent cache isolation.
+    pub fn fingerprint(&self) -> &str {
+        &self.fingerprint
+    }
+
+    /// The underlying read-only HPO ontology, including direct parents and non-phenotype branches.
+    pub fn ontology(&self) -> &hpo::Ontology {
+        &self.ontology.ontology
+    }
+
+    /// Normalized alternative IDs and uniquely replaced obsolete IDs.
+    pub fn hpo_aliases(&self) -> &BTreeMap<HpoId, HpoId> {
+        &self.ontology.aliases
+    }
+
+    pub fn ontology_records(&self) -> &BTreeMap<HpoId, crate::OntologyTerm> {
+        &self.ontology.records
     }
 
     pub fn disease_count(&self) -> usize {

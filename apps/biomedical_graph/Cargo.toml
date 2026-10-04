@@ -1,0 +1,19 @@
+[package]
+name = "biomedical_graph"
+version = "0.1.0"
+edition = "2024"
+description = "Extensible Neo4j graph and persistent caching clients for PubTator3 and HPO"
+
+[dependencies]
+neo4rs = "0.8"
+pubtator3 = { path = "../pubtator3" }
+pubtator3-hpo = { path = "../pubtator3-hpo" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+thiserror = "2"
+tempfile = "3"
+tokio = { version = "1", features = ["sync", "macros", "rt-multi-thread", "fs"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["net", "io-util"] }

@@ -1,0 +1,76 @@
+{
+  "id": "HP:0002072",
+  "name": "Chorea",
+  "definition": "Chorea (Greek for 'dance') refers to widespread arrhythmic involuntary movements of a forcible, jerky and restless fashion. It is a random-appearing sequence of one or more discrete involuntary movements or movement fragments. Movements appear random because of variability in timing, duration or location. Each movement may have a distinct start and end. However, movements may be strung together and thus may appear to flow randomly from one muscle group to another. Chorea can involve the trunk, neck, face, tongue, and extremities.",
+  "comment": "",
+  "descendantCount": 3,
+  "synonyms": [
+    "Choreic movements",
+    "Choreiform movements",
+    "Choreatic disease"
+  ],
+  "xrefs": [
+    "SNOMEDCT_US:271700006",
+    "UMLS:C0008489",
+    "UMLS:C4020858"
+  ],
+  "publicationReferences": [
+    "PMID:20589866"
+  ],
+  "translations": [
+    {
+      "language": "TR",
+      "name": "Korea",
+      "definition": "Korea (Yunanca 'dans' i\u00e7in) zorlu, sars\u0131nt\u0131l\u0131 ve huzursuz bir \u015fekilde yayg\u0131n aritmik ve istemsiz hareketlere denir. Bir ya da birden fazla hareketin ya da hareket par\u00e7as\u0131n\u0131n rastgele olarak g\u00f6r\u00fcnen bir dizisidir. Hareketler; zamanlama, s\u00fcre ya da konum de\u011fi\u015fikli\u011fi sebebiyle randomize g\u00f6r\u00fcn\u00fcr. Her hareket ayr\u0131 bir ba\u015flang\u0131ca ve biti\u015fe sahip olabilir. Bununla beraber, hareketler birbirine ba\u011f\u0131ml\u0131 olabilir ve bu sebeple bir kas grubundan di\u011ferine rastgele ge\u00e7ti\u011fi g\u00f6r\u00fclebilir. Korea g\u00f6vdeyi, boynu, y\u00fcz\u00fc, dili ve ekstremiteleri i\u00e7erebilir",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "FR",
+      "name": "Chor\u00e9e",
+      "definition": "",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "IT",
+      "name": "Corea",
+      "definition": "",
+      "status": "CANDIDATE"
+    },
+    {
+      "language": "DE",
+      "name": "Chorea",
+      "definition": "",
+      "status": "CANDIDATE"
+    },
+    {
+      "language": "ZH",
+      "name": "\u821e\u8e48\u6837\u8fd0\u52a8",
+      "definition": "",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "ES",
+      "name": "Corea",
+      "definition": "",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "CS",
+      "name": "Chorea",
+      "definition": "Chorea (\u0159ecky \u201etanec\u201c) ozna\u010duje rozs\u00e1hl\u00e9 arytmick\u00e9 mimovoln\u00ed pohyby, kter\u00e9 jsou siln\u00e9, trhav\u00e9 a neklidn\u00e9. Jedn\u00e1 se o n\u00e1hodn\u011b se jev\u00edc\u00ed sled jednoho nebo v\u00edce odd\u011blen\u00fdch mimovoln\u00edch pohyb\u016f nebo jejich fragment\u016f. Pohyby se jev\u00ed jako n\u00e1hodn\u00e9 kv\u016fli variabilit\u011b v na\u010dasov\u00e1n\u00ed, trv\u00e1n\u00ed nebo um\u00edst\u011bn\u00ed. Ka\u017ed\u00fd pohyb m\u016f\u017ee m\u00edt z\u0159eteln\u00fd za\u010d\u00e1tek a konec. Pohyby v\u0161ak mohou b\u00fdt na sebe nav\u00e1z\u00e1ny, a tak se m\u016f\u017ee zd\u00e1t, \u017ee n\u00e1hodn\u011b p\u0159ech\u00e1zej\u00ed z jedn\u00e9 svalov\u00e9 skupiny do druh\u00e9. Chorea se m\u016f\u017ee t\u00fdkat trupu, krku, obli\u010deje, jazyka a kon\u010detin.",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "JA",
+      "name": "\u821e\u8e0f\u75c5",
+      "definition": "",
+      "status": "OFFICIAL"
+    },
+    {
+      "language": "NL",
+      "name": "Chorea",
+      "definition": "",
+      "status": "CANDIDATE"
+    }
+  ]
+}

@@ -58,7 +58,7 @@ id!(MondoId, |s: &str| numeric(s, "MONDO:", Some(7)));
 id!(HpoId, |s: &str| numeric(s, "HP:", Some(7)));
 
 impl HpoId {
-    pub(crate) fn number(&self) -> u32 {
+    pub fn number(&self) -> u32 {
         self.0[3..].parse().expect("validated HPO ID")
     }
     pub(crate) fn from_number(n: u32) -> Self {

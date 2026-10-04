@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["apps/xtractor", "apps/nserter", "apps/backend", "apps/pubtator3", "apps/pubtator3-hpo", "apps/openai"]
+members = ["apps/xtractor", "apps/nserter", "apps/backend", "apps/pubtator3", "apps/pubtator3-hpo", "apps/openai", "apps/biomedical_graph"]
 
 [workspace.dependencies]
 openai = { path = "apps/openai" }

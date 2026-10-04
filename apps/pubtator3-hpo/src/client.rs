@@ -55,6 +55,17 @@ impl Client {
     pub fn dataset(&self) -> &Dataset {
         &self.dataset
     }
+    /// Includes input content and mapping configuration, not only the HPO release tag.
+    pub fn cache_identity(&self) -> String {
+        use sha2::{Digest, Sha256};
+        let config = serde_json::to_vec(&(
+            self.dataset.fingerprint(),
+            self.allow_names,
+            &self.overrides,
+        ))
+        .expect("serializable mapping configuration");
+        format!("{:x}", Sha256::digest(config))
+    }
     pub fn mapper(&self) -> DiseaseMapper<'_> {
         let mut mapper = self.dataset.mapper().allow_name_fallback(self.allow_names);
         for (mesh, disease) in &self.overrides {

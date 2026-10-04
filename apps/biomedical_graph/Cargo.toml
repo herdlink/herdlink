@@ -5,6 +5,7 @@ edition = "2024"
 description = "Extensible Neo4j graph and persistent caching clients for PubTator3 and HPO"
 
 [dependencies]
+openai = { workspace = true }
 neo4rs = "0.8"
 pubtator3 = { path = "../pubtator3" }
 pubtator3-hpo = { path = "../pubtator3-hpo" }

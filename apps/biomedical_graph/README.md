@@ -93,6 +93,85 @@ The `hpo` dependency itself is an in-memory ontology library rather than a netwo
 client. This wrapper targets the repository's `pubtator3-hpo::Client`, which loads
 that ontology and HPO annotations and maps them through Mondo.
 
+## Function tools and runnable example
+
+`biomedical_graph::tools::GraphTools` declares strict Responses API function
+schemas and dispatches JSON arguments through the cached clients. It registers
+ten PubTator tools by default; `.with_hpo(cached_hpo)` adds six HPO tools.
+Successful results retain the complete original response. `execute(name, json)`
+returns a JSON value or error; `call(&FunctionCall)` returns an
+`openai::InputItem` with the original call ID and a result or `{"error": "…"}`.
+
+| Tool name | Cached method |
+| --- | --- |
+| `pubtator_autocomplete` | `CachedPubTator::autocomplete` |
+| `pubtator_relations` | `CachedPubTator::relations` |
+| `pubtator_search` | `CachedPubTator::search` |
+| `pubtator_annotations` | `CachedPubTator::annotations` |
+| `pubtator_annotations_batched` | `CachedPubTator::annotations_batched` |
+| `pubtator_pmc_annotations` | `CachedPubTator::pmc_annotations` |
+| `pubtator_mesh_synonyms` | `CachedPubTator::mesh_synonyms` |
+| `pubtator_synonyms` | `CachedPubTator::synonyms` |
+| `pubtator_export` | `CachedPubTator::export` |
+| `pubtator_pmc_export` | `CachedPubTator::pmc_export` |
+| `hpo_resolve_disease` | `CachedHpo::resolve_disease` |
+| `hpo_disease_phenotypes` | `CachedHpo::disease_phenotypes` |
+| `hpo_profile` | `CachedHpo::profile` |
+| `hpo_similar_diseases` | `CachedHpo::similar_diseases` |
+| `hpo_pubtator_entities` | `CachedHpo::pubtator_entities` |
+| `hpo_supporting_papers` | `CachedHpo::supporting_papers` |
+
+```sh
+# Print every name, description and JSON argument schema; no database needed.
+cargo run -p biomedical_graph --example tool_calls -- --list
+
+# With Neo4j running: exercise all 16 tools and compare results from fresh clients.
+# Cache misses call PubTator/MeSH; no OpenAI credentials are needed.
+cargo run -p biomedical_graph --example tool_calls -- --smoke
+
+# Dispatch a specific tool directly using JSON arguments.
+cargo run -p biomedical_graph --example tool_calls -- --call pubtator_autocomplete \
+  '{"query":"Huntington disease","concept":"disease","limit":2}'
+
+# Optional model loop; set OPENAI_MODEL plus OPENAI_API_KEY or OPENAI_AUTH_FILE.
+cargo run -p biomedical_graph --example tool_calls -- --prompt \
+  'Find Huntington disease, two associated genes, and its HPO phenotype profile.'
+
+# Recorded responses + real Neo4j: all tools, batching, exports, offline cache replay.
+cargo test -p biomedical_graph --test tools -- --ignored
+```
+
+The example reads the existing `NEO4J_*` and `HERDLINK_QUERY_CACHE_DIR` variables.
+`HPO_DATA_DIR` selects an existing full HPO/Mondo snapshot; otherwise it uses the
+bundled incomplete fixture subset, which cannot demonstrate a similarity corpus.
+The smoke test reports `SKIP hpo_similar_diseases` for a corpus with no informative
+terms; set `HPO_DATA_DIR` to a full snapshot to verify a successful similarity call.
+`PUBTATOR_BASE_URL` and `MESH_BASE_URL` optionally select proxy/test API roots.
+The model mode makes real OpenAI requests and consumes account usage.
+Full-text/raw results can be large. Smoke tests report byte counts, while direct
+calls and the model loop receive complete results. The smoke test stops at the
+first failure and reports the tool name; fetched graph/cache data remains intact.
+`pubtator_synonyms` accepts only `_id`, `name`, `biotype`, `db`, `db_id` from an
+autocomplete entity. `hpo_pubtator_entities` accepts a complete similarity match.
+For model calls every declared property is required; optional filters use `null`.
+Constructors, cache eviction, graph writes and arbitrary Cypher are not tools.
+
+```rust,no_run
+use biomedical_graph::tools::GraphTools;
+use openai::{ResponseRequest, FunctionCall};
+# async fn example(pubtator: biomedical_graph::CachedPubTator,
+#     hpo: biomedical_graph::CachedHpo, call: &FunctionCall) -> biomedical_graph::Result<()> {
+let tools = GraphTools::new(pubtator).with_hpo(hpo);
+let mut request = ResponseRequest::new("your-model", "Find papers about HTT.");
+request.tools = tools.definitions();
+// Inside a response.tool_calls() loop:
+let output = tools.call(call).await;
+// Collect outputs and pass them to request.continue_from(&response, outputs).
+# let _ = output;
+# Ok(())
+# }
+```
+
 ## Node types and data
 
 | Labels | Identity and retained data |

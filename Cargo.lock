@@ -226,6 +226,7 @@ name = "biomedical_graph"
 version = "0.1.0"
 dependencies = [
  "neo4rs",
+ "openai",
  "pubtator3",
  "pubtator3-hpo",
  "serde",

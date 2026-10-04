@@ -3,6 +3,7 @@ mod clients;
 mod model;
 mod projection;
 mod store;
+pub mod tools;
 
 pub use clients::{CachePolicy, CachedHpo, CachedPubTator};
 pub use model::{Edge, GraphBatch, Node, Properties};

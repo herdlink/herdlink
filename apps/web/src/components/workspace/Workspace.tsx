@@ -10,7 +10,7 @@ const navigation = [
   { label: "Institutions", href: "/institutions" },
   { label: "Inbox", href: "/inbox" },
   { label: "Home", href: "/" },
-  { label: "Forums", href: "/forums" },
+  { label: "Communities", href: "/communities" },
 ];
 
 type Chat = { id: string; title: string; messages: string[] };
@@ -31,6 +31,9 @@ function readTheme() {
 
 export function Workspace({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isCommunity = pathname.startsWith("/community/");
+  const isCommunityDirectory = pathname === "/communities";
+  const withoutChat = isCommunity || isCommunityDirectory;
   const theme = useSyncExternalStore(subscribeTheme, readTheme, () => "light");
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -76,20 +79,32 @@ export function Workspace({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="herdlink-site flex min-h-dvh flex-col lg:h-dvh lg:overflow-hidden" data-theme={theme}>
+    <div className={`herdlink-site flex flex-col ${withoutChat ? "h-dvh overflow-hidden" : "min-h-dvh lg:h-dvh lg:overflow-hidden"}`} data-theme={theme}>
       <a href="#workspace-content" className="sr-only z-50 rounded-full bg-[var(--site-solid)] px-4 py-2 text-[var(--site-solid-text)] focus:not-sr-only focus:absolute focus:left-4 focus:top-4">Skip to content</a>
       <header className="flex shrink-0 flex-wrap items-center justify-between gap-x-6 border-b border-[var(--site-border)] px-4 md:px-8 lg:h-16 lg:flex-nowrap">
         <Link href="/" className="flex h-16 items-center text-xl font-semibold tracking-tight">Herdlink</Link>
         <nav aria-label="Primary navigation" className="order-3 flex w-full items-center gap-1 overflow-x-auto pb-3 lg:order-none lg:w-auto lg:pb-0">
           {navigation.map(({ label, href }) => (
-            <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--site-hover)] ${pathname === href ? "bg-[var(--site-hover)] font-medium" : "text-[var(--site-secondary)]"}`}>{label}</Link>
+            <Link key={href} href={href} aria-current={pathname === href || (href === "/communities" && isCommunity) ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--site-hover)] ${pathname === href || (href === "/communities" && isCommunity) ? "bg-[var(--site-hover)] font-medium" : "text-[var(--site-secondary)]"}`}>{label}</Link>
           ))}
         </nav>
-        <button aria-label="Toggle light and dark theme" onClick={toggleTheme} className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--site-secondary)] hover:bg-[var(--site-hover)]">
-          {theme === "dark" ? <Moon size={17} /> : <Sun size={17} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-3">
+          <button aria-label="Toggle light and dark theme" onClick={toggleTheme} className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--site-secondary)] hover:bg-[var(--site-hover)]">
+            {theme === "dark" ? <Moon size={17} /> : <Sun size={17} />}
+          </button>
+          <div aria-label="Signed in as Demo user, User role" className="flex items-center gap-2.5">
+            <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--site-hover)] text-xs font-semibold">D</span>
+            <div className="text-left leading-4">
+              <p className="text-[13px] font-medium">Demo user</p>
+              <p className="mt-0.5 text-[11px] text-[var(--site-secondary)]">User</p>
+            </div>
+          </div>
+        </div>
       </header>
 
+      {withoutChat ? (
+        <main id="workspace-content" tabIndex={-1} className={`min-h-0 flex-1 focus:outline-none ${isCommunityDirectory ? "overflow-y-auto" : ""}`}>{children}</main>
+      ) : (
       <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] lg:grid-cols-[220px_minmax(0,1fr)_minmax(300px,20%)]">
         <aside aria-labelledby="history-heading" className="flex min-h-0 flex-col border-b border-[var(--site-border)] md:col-span-2 lg:col-span-1 lg:border-r lg:border-b-0">
           <header className="flex h-16 shrink-0 items-center justify-between px-5">
@@ -146,6 +161,7 @@ export function Workspace({ children }: { children: React.ReactNode }) {
           </form>
         </aside>
       </div>
+      )}
     </div>
   );
 }

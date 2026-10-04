@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { CommunityDirectory } from "@/components/community/CommunityDirectory";
 
 const sections = {
   surveys: { title: "Surveys", description: "Surveys will appear here." },
   institutions: { title: "Institutions", description: "Explore institutions here soon." },
   inbox: { title: "Inbox", description: "Your messages will appear here." },
-  forums: { title: "Forums", description: "Community discussions will appear here." },
+  communities: { title: "Communities", description: "Find your community and join the conversation." },
 };
 
 export function generateStaticParams() {
@@ -13,6 +14,8 @@ export function generateStaticParams() {
 
 export default async function SectionPage({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params;
+  if (section === "forums") permanentRedirect("/communities");
+  if (section === "communities") return <CommunityDirectory />;
   if (!Object.hasOwn(sections, section)) notFound();
   const { title, description } = sections[section as keyof typeof sections];
 

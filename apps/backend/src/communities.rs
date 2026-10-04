@@ -79,6 +79,46 @@ pub async fn list(
     ))
 }
 
+// Opening a community is an explicit, idempotent mutation; GET remains read-only.
+pub async fn open(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Path(key): Path<String>,
+) -> Result<Json<Community>> {
+    let key = key.trim().to_ascii_lowercase();
+    let requested_id = Uuid::parse_str(&key).ok();
+    let slug = validation::slug(&if key.len() < 3 {
+        format!("community-{key}")
+    } else {
+        key.clone()
+    })?;
+    let id = requested_id.unwrap_or_else(Uuid::new_v4);
+    let name = if requested_id.is_some() {
+        format!("Community {}", &slug[..8])
+    } else {
+        slug.split('-')
+            .map(|word| format!("{}{}", word[..1].to_ascii_uppercase(), &word[1..]))
+            .collect::<Vec<_>>()
+            .join(" ")
+    };
+    let mut tx = state.db.begin().await?;
+    sqlx::query("INSERT INTO communities (id, slug, name, created_by) SELECT ?1, ?2, ?3, ?4 WHERE NOT EXISTS (SELECT 1 FROM communities WHERE id = ?1 OR slug = ?2) ON CONFLICT DO NOTHING")
+        .bind(id).bind(&slug).bind(name).bind(auth.id).execute(&mut *tx).await?;
+    let community: Community = sqlx::query_as(
+        "SELECT * FROM communities WHERE id = ?1 OR slug = ?2 ORDER BY (id = ?1) DESC LIMIT 1",
+    )
+    .bind(id)
+    .bind(&slug)
+    .fetch_one(&mut *tx)
+    .await?;
+    sqlx::query("INSERT INTO community_members (community_id, user_id) VALUES (?1, ?2) ON CONFLICT DO NOTHING")
+        .bind(community.id).bind(auth.id).execute(&mut *tx).await?;
+    sqlx::query("INSERT INTO channels (id, community_id, slug, name, kind, position) VALUES (?2, ?1, 'announcements', 'Announcements', 'announcement', 0), (?3, ?1, 'discussions', 'Discussions', 'discussion', 1) ON CONFLICT (community_id, slug) DO NOTHING")
+        .bind(community.id).bind(Uuid::new_v4()).bind(Uuid::new_v4()).execute(&mut *tx).await?;
+    tx.commit().await?;
+    Ok(Json(community))
+}
+
 pub async fn get(
     State(state): State<AppState>,
     _auth: AuthUser,

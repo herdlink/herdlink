@@ -1,7 +1,7 @@
 use crate::{
     AppState,
     error::{AppError, Result},
-    models::User,
+    models::{User, UserRole},
 };
 use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier, password_hash::SaltString};
 use axum::{
@@ -182,6 +182,30 @@ pub async fn me(State(state): State<AppState>, auth: AuthUser) -> Result<Json<Us
             .fetch_one(&state.db)
             .await?,
     ))
+}
+
+// Temporary shared demo identity. It still uses ordinary sessions and membership checks.
+pub async fn demo(State(state): State<AppState>) -> Result<Json<AuthResponse>> {
+    let id = Uuid::from_u128(0x378ba963_dcdc_4bce_84ce_6c3f45309e2b);
+    let mut tx = state.db.begin().await?;
+    let existing: Option<User> =
+        sqlx::query_as("SELECT id, email, username, role, created_at FROM users WHERE id = ?1")
+            .bind(id)
+            .fetch_optional(&mut *tx)
+            .await?;
+    let user = if let Some(user) = existing {
+        user
+    } else {
+        let hash = hash_password(Uuid::new_v4().to_string()).await?;
+        sqlx::query_as::<_, User>("INSERT INTO users (id, email, username, password_hash, role) VALUES (?1, 'demo@herdlink.local', 'demo_user', ?2, 'user') RETURNING id, email, username, role, created_at")
+            .bind(id).bind(hash).fetch_one(&mut *tx).await?
+    };
+    if user.role != UserRole::User {
+        return Err(AppError::forbidden());
+    }
+    let response = new_session(user, &mut tx).await?;
+    tx.commit().await?;
+    Ok(Json(response))
 }
 
 pub async fn logout(State(state): State<AppState>, auth: AuthUser) -> Result<StatusCode> {

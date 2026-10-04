@@ -79,7 +79,13 @@ SQLite database files and their WAL/SHM sidecars are gitignored. Use `DATABASE_U
 
 ## Authentication and permissions
 
-Register or log in to receive `{ "user": {...}, "token": "...", "expires_at": "..." }`. Send the token as `Authorization: Bearer <token>` on all `/api` requests except registration and login. Passwords use Argon2id; only SHA-256 hashes of random bearer tokens are stored. Sessions expire after 30 days; logout immediately revokes the current token.
+The current frontend runs as a shared **Demo user**, with the ordinary `user` role. `POST /api/auth/demo` creates that identity on first use and returns a regular session. Subsequent visits reuse the same account; community membership and publishing permissions still apply. This temporary endpoint intentionally permits access to the shared demo account without a password and must be removed or disabled when introducing real login. It never issues a session if that account has been changed to a professional role.
+
+Run `just backend` and `just frontend` in separate terminals, then open `http://localhost:3001/communities` or `/community/wilsons-disease`. The frontend proxies `/api` to `http://127.0.0.1:3000`; set `BACKEND_URL` in `apps/web/.env.local` to change that address and restart the frontend. The browser keeps its demo session in session storage, while communities, posts, and replies persist in SQLite. Use the Refresh controls to retrieve other visitors' messages.
+
+Opening `/community/<id>` calls `POST /api/communities/{id}/open`. This transaction creates a missing community with Announcements and Discussions, joins the current user, and returns the existing community on repeat or concurrent access. IDs can be UUIDs or hyphenated names (up to 80 characters); one- and two-character IDs map to `community-<id>`. UUIDs are preserved as database IDs. Ordinary GET endpoints remain read-only.
+
+Register, log in, or start a demo session to receive `{ "user": {...}, "token": "...", "expires_at": "..." }`. Send the token as `Authorization: Bearer <token>` on all `/api` requests except registration, login, and demo session creation. Passwords use Argon2id; only SHA-256 hashes of random bearer tokens are stored. Sessions expire after 30 days; logout immediately revokes the current token.
 
 Registration always assigns `user`. Professional roles must currently be provisioned through a trusted database connection, for example `UPDATE users SET role = 'scientist' WHERE username = 'alex';`. There is no public role-assignment endpoint. Request bodies reject unknown fields, including attempts to supply `role`, `author_id`, or `community_id` where the server derives them.
 
@@ -96,13 +102,15 @@ All bodies and successful data responses are JSON. List responses are arrays. Li
 | GET | `/health` | Database health; no authentication |
 | POST | `/api/auth/register` | `{ "email", "username", "password" }`; 201 |
 | POST | `/api/auth/login` | `{ "email", "password" }` |
+| POST | `/api/auth/demo` | Temporary shared demo account; returns a normal `user` session |
 | POST | `/api/auth/logout` | Revokes current session; 204 |
 | GET | `/api/me` | Current account |
 | GET / POST | `/api/communities` | List, or create with `{ "slug", "name", "description"? }`; creation returns 201 |
 | GET | `/api/communities/{id}` | Community metadata |
+| POST | `/api/communities/{id}/open` | Create if missing and join; accepts a UUID or slug; idempotent |
 | POST | `/api/communities/{id}/join` | Join idempotently; returns membership |
 | GET | `/api/communities/{id}/channels` | Default channels |
-| GET / POST | `/api/channels/{id}/threads` | List, or publish with `{ "title", "body" }`; creation returns 201 |
+| GET / POST | `/api/channels/{id}/threads` | List (optional `q` searches title/body, up to 200 characters; with `limit`/`offset`), or publish with `{ "title", "body" }`; creation returns 201 |
 | GET | `/api/threads/{id}` | Thread including community, channel, and author IDs |
 | GET / POST | `/api/threads/{id}/comments` | List, or comment with `{ "body", "parent_id"? }`; creation returns 201 |
 | GET / POST | `/api/dms` | List own conversations, or get/create with `{ "recipient_id" }`; returns 200 |

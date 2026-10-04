@@ -601,3 +601,369 @@ async fn direct_messages_are_private_and_pairs_are_unique(pool: SqlitePool) {
     .await;
     assert!(dms.as_array().unwrap().is_empty());
 }
+
+#[tokio::test]
+async fn demo_community_open_is_idempotent_and_messages_persist() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool.clone());
+    let (first, second) = tokio::join!(
+        expect(
+            &app,
+            "POST",
+            "/api/auth/demo",
+            None,
+            json!({}),
+            StatusCode::OK
+        ),
+        expect(
+            &app,
+            "POST",
+            "/api/auth/demo",
+            None,
+            json!({}),
+            StatusCode::OK
+        )
+    );
+    assert_eq!(first["user"]["id"], second["user"]["id"]);
+    assert_eq!(first["user"]["role"], "user");
+    assert_eq!(first["user"]["username"], "demo_user");
+    assert_ne!(first["token"], second["token"]);
+    let token = first["token"].as_str().unwrap();
+    expect(
+        &app,
+        "POST",
+        "/api/communities/demo-topic/open",
+        None,
+        json!({}),
+        StatusCode::UNAUTHORIZED,
+    )
+    .await;
+    let (first_open, second_open) = tokio::join!(
+        expect(
+            &app,
+            "POST",
+            "/api/communities/demo-topic/open",
+            Some(token),
+            json!({}),
+            StatusCode::OK
+        ),
+        expect(
+            &app,
+            "POST",
+            "/api/communities/demo-topic/open",
+            Some(token),
+            json!({}),
+            StatusCode::OK
+        )
+    );
+    assert_eq!(first_open["id"], second_open["id"]);
+    assert_eq!(first_open["name"], "Demo Topic");
+    let id = first_open["id"].as_str().unwrap();
+    let by_id = expect(
+        &app,
+        "POST",
+        &format!("/api/communities/{id}/open"),
+        Some(token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(by_id["id"], first_open["id"]);
+    let channels = expect(
+        &app,
+        "GET",
+        &format!("/api/communities/{id}/channels"),
+        Some(token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(channels.as_array().unwrap().len(), 2);
+    let channel_ids: Vec<_> = channels
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|c| c["id"].clone())
+        .collect();
+    for channel in channels.as_array().unwrap() {
+        let channel_id = channel["id"].as_str().unwrap();
+        let thread = expect(
+            &app,
+            "POST",
+            &format!("/api/channels/{channel_id}/threads"),
+            Some(token),
+            json!({"title":"Demo message", "body":"Persistent community message"}),
+            StatusCode::CREATED,
+        )
+        .await;
+        assert_eq!(thread["author_id"], first["user"]["id"]);
+        let thread_id = thread["id"].as_str().unwrap();
+        let reply = expect(
+            &app,
+            "POST",
+            &format!("/api/threads/{thread_id}/comments"),
+            Some(token),
+            json!({"body":"A demo reply"}),
+            StatusCode::CREATED,
+        )
+        .await;
+        assert_eq!(reply["author_id"], first["user"]["id"]);
+        let another_token = second["token"].as_str().unwrap();
+        let messages = expect(
+            &app,
+            "GET",
+            &format!("/api/channels/{channel_id}/threads"),
+            Some(another_token),
+            json!(null),
+            StatusCode::OK,
+        )
+        .await;
+        assert_eq!(messages[0]["body"], "Persistent community message");
+        let replies = expect(
+            &app,
+            "GET",
+            &format!("/api/threads/{thread_id}/comments"),
+            Some(another_token),
+            json!(null),
+            StatusCode::OK,
+        )
+        .await;
+        assert_eq!(replies[0]["body"], "A demo reply");
+    }
+    // Another ordinary user is automatically joined on access, without changing the creator.
+    let (_, other_token) = register(&app, "visitor").await;
+    let reopened = expect(
+        &app,
+        "POST",
+        &format!("/api/communities/{id}/open"),
+        Some(&other_token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(reopened["created_by"], first["user"]["id"]);
+    let reopened_channels = expect(
+        &app,
+        "GET",
+        &format!("/api/communities/{id}/channels"),
+        Some(&other_token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(
+        channel_ids,
+        reopened_channels
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|c| c["id"].clone())
+            .collect::<Vec<_>>()
+    );
+    let count: i64 = sqlx::query_scalar("SELECT count(*) FROM communities")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(count, 1);
+    let count: i64 = sqlx::query_scalar("SELECT count(*) FROM community_members")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(count, 2);
+    // The public demo endpoint must never issue a professional-role session.
+    sqlx::query("UPDATE users SET role = 'scientist' WHERE username = 'demo_user'")
+        .execute(&pool)
+        .await
+        .unwrap();
+    expect(
+        &app,
+        "POST",
+        "/api/auth/demo",
+        None,
+        json!({}),
+        StatusCode::FORBIDDEN,
+    )
+    .await;
+}
+
+#[tokio::test]
+async fn community_open_supports_uuid_short_ids_and_validates_keys() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool.clone());
+    let (_, token) = register(&app, "opener").await;
+    let id = Uuid::new_v4();
+    expect(
+        &app,
+        "GET",
+        &format!("/api/communities/{id}"),
+        Some(&token),
+        json!(null),
+        StatusCode::NOT_FOUND,
+    )
+    .await;
+    let created = expect(
+        &app,
+        "POST",
+        &format!("/api/communities/{id}/open"),
+        Some(&token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(created["id"], id.to_string());
+    let short = expect(
+        &app,
+        "POST",
+        "/api/communities/1/open",
+        Some(&token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(short["slug"], "community-1");
+    let canonical = expect(
+        &app,
+        "POST",
+        "/api/communities/community-1/open",
+        Some(&token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(canonical["id"], short["id"]);
+    let mixed = expect(
+        &app,
+        "POST",
+        "/api/communities/Demo-Topic/open",
+        Some(&token),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(mixed["slug"], "demo-topic");
+    for key in [
+        "bad--slug",
+        "-bad",
+        "bad_thing",
+        "%20",
+        "%3Cscript%3E",
+        &"a".repeat(81),
+    ] {
+        expect(
+            &app,
+            "POST",
+            &format!("/api/communities/{key}/open"),
+            Some(&token),
+            json!({}),
+            StatusCode::BAD_REQUEST,
+        )
+        .await;
+    }
+    let count: i64 = sqlx::query_scalar("SELECT count(*) FROM communities")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(count, 3);
+}
+
+#[tokio::test]
+async fn thread_search_is_paginated_literal_and_scoped_to_members() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool);
+    let (_, token) = register(&app, "searcher").await;
+    let (_, announcements, discussions) = community(&app, &token, "search-community").await;
+    for (channel, title, body) in [
+        (&discussions, "My experience", "A helpful resource"),
+        (&discussions, "Resource collection", "Useful links"),
+        (&discussions, "100% literal", "Underscore _"),
+        (
+            &announcements,
+            "Resource announcement",
+            "Should not match discussions",
+        ),
+    ] {
+        expect(
+            &app,
+            "POST",
+            &format!("/api/channels/{channel}/threads"),
+            Some(&token),
+            json!({"title":title,"body":body}),
+            StatusCode::CREATED,
+        )
+        .await;
+    }
+    let path = format!("/api/channels/{discussions}/threads");
+    let matches = expect(
+        &app,
+        "GET",
+        &format!("{path}?q=RESOURCE"),
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(matches.as_array().unwrap().len(), 2);
+    let first = expect(
+        &app,
+        "GET",
+        &format!("{path}?q=resource&limit=1&offset=0"),
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    let second = expect(
+        &app,
+        "GET",
+        &format!("{path}?q=resource&limit=1&offset=1"),
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(first[0]["id"], matches[0]["id"]);
+    assert_eq!(second[0]["id"], matches[1]["id"]);
+    let literal = expect(
+        &app,
+        "GET",
+        &format!("{path}?q=%25"),
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(literal.as_array().unwrap().len(), 1);
+    assert_eq!(literal[0]["title"], "100% literal");
+    let empty = expect(
+        &app,
+        "GET",
+        &format!("{path}?q=missing"),
+        Some(&token),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert!(empty.as_array().unwrap().is_empty());
+    let (_, stranger) = register(&app, "stranger").await;
+    expect(
+        &app,
+        "GET",
+        &format!("{path}?q=resource"),
+        Some(&stranger),
+        json!(null),
+        StatusCode::FORBIDDEN,
+    )
+    .await;
+    expect(
+        &app,
+        "GET",
+        &format!("{path}?q={}", "a".repeat(201)),
+        Some(&token),
+        json!(null),
+        StatusCode::BAD_REQUEST,
+    )
+    .await;
+}

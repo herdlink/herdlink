@@ -2,7 +2,7 @@ use crate::{
     AppState,
     auth::AuthUser,
     communities::require_member,
-    error::Result,
+    error::{AppError, Result},
     models::{Channel, Comment, Thread},
     validation::{self, Pagination},
 };
@@ -38,20 +38,38 @@ pub async fn create(
         .bind(channel.community_id).bind(channel_id).bind(auth.id).bind(title).bind(body).bind(Uuid::new_v4()).fetch_one(&state.db).await?)))
 }
 
+#[derive(Deserialize)]
+pub struct ThreadQuery {
+    limit: Option<i64>,
+    offset: Option<i64>,
+    #[serde(default)]
+    q: String,
+}
+
 pub async fn list(
     State(state): State<AppState>,
     auth: AuthUser,
     Path(channel_id): Path<Uuid>,
-    Query(page): Query<Pagination>,
+    Query(query): Query<ThreadQuery>,
 ) -> Result<Json<Vec<Thread>>> {
-    let (limit, offset) = page.bounds()?;
+    let (limit, offset) = Pagination {
+        limit: query.limit,
+        offset: query.offset,
+    }
+    .bounds()?;
+    let search = query.q.trim();
+    if search.chars().count() > 200 || search.contains('\0') {
+        return Err(AppError::bad_request(
+            "search must be at most 200 characters",
+        ));
+    }
     let community_id: Uuid = sqlx::query_scalar("SELECT community_id FROM channels WHERE id = ?1")
         .bind(channel_id)
         .fetch_one(&state.db)
         .await?;
     require_member(&state.db, community_id, auth.id).await?;
-    Ok(Json(sqlx::query_as("SELECT * FROM threads WHERE channel_id = ?1 ORDER BY created_at DESC, id DESC LIMIT ?2 OFFSET ?3")
-        .bind(channel_id).bind(limit).bind(offset).fetch_all(&state.db).await?))
+    Ok(Json(sqlx::query_as("SELECT * FROM threads WHERE channel_id = ?1 AND (?4 = '' OR instr(lower(title), lower(?4)) > 0 OR instr(lower(body), lower(?4)) > 0) ORDER BY created_at DESC, id DESC LIMIT ?2 OFFSET ?3")
+        .bind(channel_id).bind(limit).bind(offset).bind(search).fetch_all(&state.db).await?))
 }
 
 pub async fn get(

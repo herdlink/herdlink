@@ -61,6 +61,7 @@ pub fn app(db: SqlitePool) -> Router {
         .route("/health", get(health))
         .route("/api/auth/register", post(auth::register))
         .route("/api/auth/login", post(auth::login))
+        .route("/api/auth/demo", post(auth::demo))
         .route("/api/auth/logout", post(auth::logout))
         .route("/api/me", get(auth::me))
         .route(
@@ -68,6 +69,7 @@ pub fn app(db: SqlitePool) -> Router {
             get(communities::list).post(communities::create),
         )
         .route("/api/communities/{id}", get(communities::get))
+        .route("/api/communities/{id}/open", post(communities::open))
         .route("/api/communities/{id}/join", post(communities::join))
         .route("/api/communities/{id}/channels", get(communities::channels))
         .route(

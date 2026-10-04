@@ -2923,7 +2923,7 @@ export const mobileNavigationPanels: MobileNavigationPanel[] = [
           },
           {
             "kind": "link",
-            "text": "Developer Forum",
+            "text": "Developer Community",
             "href": "https://community.openai.com/",
             "active": false,
             "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"

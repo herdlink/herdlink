@@ -1,0 +1,278 @@
+[
+  {
+    "url": "https://developers.openai.com/OpenAI_Developers.svg",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/icons/logo.svg",
+    "kind": "svg",
+    "alt": "OpenAI Developers",
+    "bytes": 11728,
+    "sha256": "d5cc890ab11d5402efc37131624ae0cef1013643155c0ae9bf9aee67de21cd4f"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/bringing-my-led-display-to-life/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/01-bringing-my-led-display-to-life.webp",
+    "kind": "image",
+    "alt": "Bringing my LED display to life with GPT-Live-1 and Codex",
+    "bytes": 36914,
+    "sha256": "a5b6e95f1e4269d44de6722a5cd8b8d5b28c8d7f95632fdea415239414214e35"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/rethinking-skills-and-prompts-for-gpt-6-astra/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/02-rethinking-skills-and-prompts-for-gpt-6-astra.webp",
+    "kind": "image",
+    "alt": "Rethinking skills and prompts for GPT-6 Astra",
+    "bytes": 139776,
+    "sha256": "36fc2237ee4b71b2cbe14e2db96839fd0b2153df4bca0f9bb7acd87535c8971f"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/architectural-visualization-with-astra/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/03-architectural-visualization-with-astra.webp",
+    "kind": "image",
+    "alt": "Architectural visualization with Astra",
+    "bytes": 177614,
+    "sha256": "7858b83c06acdb20da3a69b331f730ead31cf12dc4972e166321d9cf829a6c53"
+  },
+  {
+    "url": "https://cdn.openai.com/devhub/blog/how-to-build-games/cover-ee7683a4efa3.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/04-how-to-build-games.webp",
+    "kind": "image",
+    "alt": "Building games with Astra",
+    "bytes": 95146,
+    "sha256": "ee7683a4efa31e730e5728e269a804a92f91615cff9d992da5e04b793751ee1e"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/rosalind-workbench/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/05-rosalind-workbench.webp",
+    "kind": "image",
+    "alt": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+    "bytes": 35220,
+    "sha256": "e47a65444971fe6454070c501f2ff9049a4029e9e083341c0ebbc7849e0c682a"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/automating-repetitive-work-at-openai-with-codex/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/06-automating-repetitive-work-at-openai-with-codex.webp",
+    "kind": "image",
+    "alt": "Automating repetitive work at OpenAI with Codex",
+    "bytes": 48124,
+    "sha256": "807996400aa80289777cf7810874b10feb98d67bc3a4a6843dc6bc5203eb1224"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/build-week-winners/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/07-build-week-winners.webp",
+    "kind": "image",
+    "alt": "Meet the winners of OpenAI Build Week",
+    "bytes": 29112,
+    "sha256": "1288cbe1edeb50dba1a3c99b696918602dba00a3ac9317dba207fc1c2c4c905e"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/scaling-cyber-defenders-with-daybreak/cover.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/08-scaling-cyber-defenders-with-daybreak.webp",
+    "kind": "image",
+    "alt": "Scaling cyber defenders with Daybreak",
+    "bytes": 982942,
+    "sha256": "0cd158178f01bb68bfe0fb2ec63014d9a06e278aaa2a1b4300d8c43fee3547f5"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-as-a-platform-cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/09-blog.webp",
+    "kind": "image",
+    "alt": "Codex as a platform: build on the open agent harness",
+    "bytes": 30122,
+    "sha256": "f03ae8b4ca57066df967a0bf5d4402da0faee7bee4932fcd4d73463f3acacf97"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-custom-code-review-rules.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/10-blog.webp",
+    "kind": "image",
+    "alt": "Custom Code Review rules for Codex",
+    "bytes": 968035,
+    "sha256": "f3ec7415dd4d85a912f1137f9e2f28173e2427103cf98237a2de126e687e607b"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/mastering-codex-remote-for-engineering.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/11-blog.webp",
+    "kind": "image",
+    "alt": "Mastering remote engineering work from your phone",
+    "bytes": 1511808,
+    "sha256": "82efcd72c72ff99741cf4afcd4cef92cefa48f43977a65ccf66e054f70807114"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/connect-private-mcp-servers-safely.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/12-blog.webp",
+    "kind": "image",
+    "alt": "Making private MCP servers reachable without making them public",
+    "bytes": 796192,
+    "sha256": "001e68df9a6ccc55a0eaa91046c4be32cf68bd8b17f3b0dd0805eedf2fec94da"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/realtime-perplexity-computer.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/13-blog.webp",
+    "kind": "image",
+    "alt": "How Perplexity Brought Voice Search to Millions Using the Realtime API",
+    "bytes": 1718633,
+    "sha256": "6b4823f4fb88c2822d80c665a9684785e4a67a438f2607f34dc62edc7203a133"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/designing-beautiful-frontends.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/14-blog.webp",
+    "kind": "image",
+    "alt": "Designing delightful frontends with GPT-5.4",
+    "bytes": 1776900,
+    "sha256": "a272cf285645a3359c94ae858cc568148cb632848fbc1cbcbd8623d6e5572c84"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/one-year-responses.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/15-blog.webp",
+    "kind": "image",
+    "alt": "From prompts to products: One year of Responses",
+    "bytes": 1604652,
+    "sha256": "d2b1e4c46fd45fed0704e0b9a379720f3c927fdccee1e790b82cdd43fcf2cd94"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/skills-agents-sdk.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/16-blog.webp",
+    "kind": "image",
+    "alt": "Using skills to accelerate OSS maintenance",
+    "bytes": 1363922,
+    "sha256": "d8b2a739afa6676a2c74aad0d27f73305720d6e74956578b77bb2511dce6ed48"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/building-frontend-uis-with-codex-and-figma.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/17-blog.webp",
+    "kind": "image",
+    "alt": "Building frontend UIs with Codex and Figma",
+    "bytes": 1646833,
+    "sha256": "853d5e2b79435d960fc6e08bed366756ec02636a96c533ca571355d693587307"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/run-long-horizon-tasks-with-codex.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/18-blog.webp",
+    "kind": "image",
+    "alt": "Run long horizon tasks with Codex",
+    "bytes": 1057546,
+    "sha256": "21e8b262f5c212e8ccc4d10cb7cf524ababc3fd77520be057879c22d72dd8f6a"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/skills-shell-tips.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/19-blog.webp",
+    "kind": "image",
+    "alt": "Shell + Skills + Compaction: Tips for long-running agents that do real work",
+    "bytes": 553052,
+    "sha256": "4d39243a3099cf33ea78fec951d7a9b01220522905fc9171cb7b21c99c0438ea"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/15-lessons-chatgpt-apps.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/20-blog.webp",
+    "kind": "image",
+    "alt": "15 lessons learned building ChatGPT Apps",
+    "bytes": 982225,
+    "sha256": "dead7423690731c3546ad8d7345aca39d742458826f909512f2f3c4703a2deff"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/eval-skills.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/21-blog.webp",
+    "kind": "image",
+    "alt": "Testing Agent Skills Systematically with Evals",
+    "bytes": 2672452,
+    "sha256": "41339c6263761beac4ff300255fea8b5fc8d4c5f0743c51b3de772322581079f"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-jetbrains.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/22-blog.webp",
+    "kind": "image",
+    "alt": "Supercharging Codex with JetBrains MCP at Skyscanner",
+    "bytes": 1136069,
+    "sha256": "6a1453780857a65ce1e2a31ab755f255de8da64440fdf258e4efa703511b5b88"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/openai-for-devs-2025.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/23-blog.webp",
+    "kind": "image",
+    "alt": "OpenAI for Developers in 2025",
+    "bytes": 1132585,
+    "sha256": "616f9f76ab9946df5f167ac0e68cf1ccbbcf461b4eab5ec6db5cd43b26141528"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/updates-audio-blog.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/24-blog.webp",
+    "kind": "image",
+    "alt": "Updates for developers building with voice",
+    "bytes": 421914,
+    "sha256": "da63e5013d78a3bd933ad4fc1eabf441b8232889bd90532e8b784d83c3f5d736"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/apps-blog-visual.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/25-blog.webp",
+    "kind": "image",
+    "alt": "What makes a great ChatGPT app",
+    "bytes": 663602,
+    "sha256": "e531b930fbb9d5812e20ef69ce779e7367700e6c57cc6da39ead9c51a9c52894"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-for-documentation-dagster.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/26-blog.webp",
+    "kind": "image",
+    "alt": "Using Codex for education at Dagster Labs",
+    "bytes": 647637,
+    "sha256": "0942b9f304bdf73ddd737f331669fcdc4a4b959ddc391bf1be628e1cbdd0d7d7"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-at-devday.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/27-blog.webp",
+    "kind": "image",
+    "alt": "How Codex ran OpenAI DevDay 2025",
+    "bytes": 1310095,
+    "sha256": "cd6643264d28be67d070a9e6894bd45ca3614373eed8a192ae1f9b52711cbb14"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/responses-api.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/28-blog.webp",
+    "kind": "image",
+    "alt": "Why we built the Responses API",
+    "bytes": 1202149,
+    "sha256": "dc7bc5a9b4d1d15393fbae0c80b74883bb3bfe82ffb2099d7cca4ba861574851"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/agent-online.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/29-blog.webp",
+    "kind": "image",
+    "alt": "Developer notes on the Realtime API",
+    "bytes": 780981,
+    "sha256": "30442328cdc9d276f21d8d3d2ea15622c098cbe8df716aba753330c9aa55cca5"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/hello-world.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/30-blog.webp",
+    "kind": "image",
+    "alt": "Hello, world!",
+    "bytes": 733217,
+    "sha256": "12a84080bc35a1b60d584b2baaf6bd364f8a75834aed3a58477485b513ef07a2"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Regular.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Regular.woff2",
+    "kind": "font",
+    "bytes": 48436,
+    "sha256": "5759128226d9323238d7ea0c94c4c1c4f16391cb05cdbd4eecadc1d80a9aed0a"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Medium.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Medium.woff2",
+    "kind": "font",
+    "bytes": 50756,
+    "sha256": "eedca9d3e2e3ba3742b74aa828d5ac3000675157d8eb1902241b4be554e82907"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Semibold.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Semibold.woff2",
+    "kind": "font",
+    "bytes": 50920,
+    "sha256": "fee91812b2492934c7cb3cdebb97e0be557f1498e1a62df61e583b3baa57fa01"
+  },
+  {
+    "url": "https://developers.openai.com/favicon.png",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/icons/favicon.png",
+    "kind": "favicon",
+    "bytes": 1841,
+    "sha256": "8d5575ee667ff715cd3e3074d5296edc68d5aadd89720d203e13131b68b22a04"
+  }
+]

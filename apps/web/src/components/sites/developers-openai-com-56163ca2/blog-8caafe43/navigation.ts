@@ -1,0 +1,109 @@
+export interface NavigationItem {
+  href: string;
+  label: string;
+  description: string;
+}
+
+export const navigationMenus: Record<string, NavigationItem[]> = {
+  "API": [
+    {
+      "href": "https://developers.openai.com/api/docs",
+      "label": "Overview",
+      "description": "Get started with the OpenAI API"
+    },
+    {
+      "href": "https://developers.openai.com/api/docs/models",
+      "label": "Models",
+      "description": "Explore models and compare capabilities"
+    },
+    {
+      "href": "https://developers.openai.com/api/docs/guides/agents",
+      "label": "Agents",
+      "description": "Build persistent agents on hosted infrastructure"
+    },
+    {
+      "href": "https://developers.openai.com/api/docs/guides/tools",
+      "label": "Tools",
+      "description": "Connect models to tools and data"
+    },
+    {
+      "href": "https://developers.openai.com/api/docs/guides/audio",
+      "label": "Audio & voice",
+      "description": "Build speech and realtime voice experiences"
+    },
+    {
+      "href": "https://developers.openai.com/api/docs/guides/production-best-practices",
+      "label": "Production",
+      "description": "Deploy and scale your API integrations"
+    },
+    {
+      "href": "https://developers.openai.com/api/reference/overview",
+      "label": "API reference",
+      "description": "Explore endpoints, parameters, and responses"
+    }
+  ],
+  "ChatGPT": [
+    {
+      "href": "https://developers.openai.com/siwc",
+      "label": "Sign in with ChatGPT",
+      "description": "Apps powered by your user's ChatGPT plan"
+    },
+    {
+      "href": "https://developers.openai.com/plugins",
+      "label": "Plugins",
+      "description": "Extend ChatGPT and Codex"
+    },
+    {
+      "href": "https://developers.openai.com/workspace-agents",
+      "label": "Workspace Agents",
+      "description": "Trigger published ChatGPT workspace agents"
+    },
+    {
+      "href": "https://developers.openai.com/commerce",
+      "label": "Commerce",
+      "description": "Build commerce flows in ChatGPT"
+    },
+    {
+      "href": "https://developers.openai.com/ads",
+      "label": "Ads",
+      "description": "Publish and measure ads in ChatGPT"
+    },
+    {
+      "href": "https://learn.chatgpt.com/docs",
+      "label": "ChatGPT + Codex user docs",
+      "description": "Guides and product docs for ChatGPT and Codex"
+    },
+    {
+      "href": "https://learn.chatgpt.com/use-cases",
+      "label": "Use cases",
+      "description": "Example workflows and tasks teams can take on with ChatGPT or Codex"
+    }
+  ],
+  "Resources": [
+    {
+      "href": "https://developers.openai.com/showcase",
+      "label": "Showcase",
+      "description": "Demo apps to get inspired"
+    },
+    {
+      "href": "https://developers.openai.com/blog",
+      "label": "Blog",
+      "description": "Learnings and experiences from developers"
+    },
+    {
+      "href": "https://developers.openai.com/cookbook",
+      "label": "Cookbook",
+      "description": "Notebook examples for building with OpenAI models"
+    },
+    {
+      "href": "https://developers.openai.com/learn",
+      "label": "Learn",
+      "description": "Docs, videos, and demo apps for building with OpenAI"
+    },
+    {
+      "href": "https://developers.openai.com/community",
+      "label": "Community",
+      "description": "Programs, meetups, and support for builders"
+    }
+  ]
+};

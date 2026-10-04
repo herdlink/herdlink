@@ -1,0 +1,1302 @@
+{
+  "light": [
+    {
+      "tag": "BUTTON",
+      "text": "API",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 24,
+        "y": 88,
+        "w": 33.203125,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "ChatGPT",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 61.203125,
+        "y": 88,
+        "w": 64.546875,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Resources",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 129.75,
+        "y": 88,
+        "w": 71.015625,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgb(237, 237, 237)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "",
+      "label": "Toggle light and dark theme",
+      "id": "drawer-theme-button",
+      "classes": "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary-surface text-secondary transition-colors hover:bg-primary-soft-alpha hover:text-default",
+      "rect": {
+        "x": 312,
+        "y": 88,
+        "w": 44,
+        "h": 44
+      },
+      "style": {
+        "font": "16px",
+        "weight": "400",
+        "line": "24px",
+        "tracking": "-0.16px",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "INPUT",
+      "text": "",
+      "label": null,
+      "id": "header-mobile-search-input",
+      "classes": "w-full outline-none transition-colors rounded-[18px] border border-transparent bg-primary-soft-alpha py-4 pl-6 pr-14 text-[18px] leading-tight text-default placeholder:text-tertiary focus:border-transparent focus:ring-0",
+      "rect": {
+        "x": 24,
+        "y": 156,
+        "w": 332,
+        "h": 56.5
+      },
+      "style": {
+        "font": "18px",
+        "weight": "400",
+        "line": "22.5px",
+        "tracking": "-0.16px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "oklab(0.159065 0.00000723451 0.00000317395 / 0.08)",
+        "padding": "16px 56px 16px 24px",
+        "margin": "0px",
+        "border": "1px solid rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "responses create",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 24,
+        "y": 259.5,
+        "w": 132.1875,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "oklab(0 0 0 / 0.9)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "reasoning_effort",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 164.1875,
+        "y": 259.5,
+        "w": 130.21875,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "oklab(0 0 0 / 0.9)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "realtime",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 24,
+        "y": 301.6875,
+        "w": 77.203125,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "oklab(0 0 0 / 0.9)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "prompt caching",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 109.203125,
+        "y": 301.6875,
+        "w": 125.328125,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "oklab(0 0 0 / 0.9)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.159065 0.00000723451 0.00000317395 / 0.05)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Showcase",
+      "label": null,
+      "id": "",
+      "classes": "flex w-full items-center gap-1.5 rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default",
+      "rect": {
+        "x": 24,
+        "y": 359.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(93, 93, 93)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Blog",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 399.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "oklab(0.159065 0.00000723451 0.00000317395 / 0.12)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Cookbook",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 439.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(93, 93, 93)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Learn",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 479.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(93, 93, 93)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Community",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 519.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(93, 93, 93)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(93, 93, 93)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "All posts",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block text-default bg-primary-ghost-active ",
+      "rect": {
+        "x": 24,
+        "y": 571.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "oklab(0.159065 0.00000723451 0.00000317395 / 0.12)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Bringing my LED display to life with GPT-Live-1 and Codex",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 657.875,
+        "w": 332,
+        "h": 52
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Rethinking skills and prompts for GPT-6 Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 713.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Architectural visualization with Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 749.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Building games with Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 785.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 821.875,
+        "w": 332,
+        "h": 52
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "General",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 927.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "API",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 963.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Apps SDK",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 999.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Audio",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1035.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Codex",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1071.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Life sciences",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1107.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(40, 40, 40)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(40, 40, 40)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "API Dashboard",
+      "label": null,
+      "id": "",
+      "classes": "_Button_6dmow_1 not-prose flex-1 justify-center",
+      "rect": {
+        "x": 24,
+        "y": 768,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "500",
+        "line": "14px",
+        "tracking": "-0.16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "0px 15.96px",
+        "margin": "0px",
+        "border": "0px solid rgb(255, 255, 255)"
+      }
+    }
+  ],
+  "dark": [
+    {
+      "tag": "BUTTON",
+      "text": "API",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 24,
+        "y": 88,
+        "w": 33.203125,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "ChatGPT",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 61.203125,
+        "y": 88,
+        "w": 64.546875,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Resources",
+      "label": null,
+      "id": "",
+      "classes": "min-h-11 shrink-0 scroll-mx-2 rounded-full border border-primary-surface px-1.5 py-1.5 text-xs text-secondary transition-colors duration-150 data-[selected=true]:bg-primary-soft data-[selected=true]:text-default hover:bg-primary-soft-alpha hover:text-default focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-surface sm:px-3.5 sm:text-sm",
+      "rect": {
+        "x": 129.75,
+        "y": 88,
+        "w": 71.015625,
+        "h": 44
+      },
+      "style": {
+        "font": "12px",
+        "weight": "400",
+        "line": "18px",
+        "tracking": "normal",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgb(48, 48, 48)",
+        "padding": "6px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "",
+      "label": "Toggle light and dark theme",
+      "id": "drawer-theme-button",
+      "classes": "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary-surface text-secondary transition-colors hover:bg-primary-soft-alpha hover:text-default",
+      "rect": {
+        "x": 312,
+        "y": 88,
+        "w": 44,
+        "h": 44
+      },
+      "style": {
+        "font": "16px",
+        "weight": "400",
+        "line": "24px",
+        "tracking": "-0.16px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "oklab(0.999994 0.0000455678 0.0000200868 / 0.12)",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "INPUT",
+      "text": "",
+      "label": null,
+      "id": "header-mobile-search-input",
+      "classes": "w-full outline-none transition-colors rounded-[18px] border border-transparent bg-primary-soft-alpha py-4 pl-6 pr-14 text-[18px] leading-tight text-default placeholder:text-tertiary focus:border-transparent focus:ring-0",
+      "rect": {
+        "x": 24,
+        "y": 156,
+        "w": 332,
+        "h": 56.5
+      },
+      "style": {
+        "font": "18px",
+        "weight": "400",
+        "line": "22.5px",
+        "tracking": "-0.16px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "oklab(0.999994 0.0000455678 0.0000200868 / 0.12)",
+        "padding": "16px 56px 16px 24px",
+        "margin": "0px",
+        "border": "1px solid rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "responses create",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 24,
+        "y": 259.5,
+        "w": 132.1875,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "reasoning_effort",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 164.1875,
+        "y": 259.5,
+        "w": 130.21875,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "realtime",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 24,
+        "y": 301.6875,
+        "w": 77.203125,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "prompt caching",
+      "label": null,
+      "id": "",
+      "classes": "_emptyChip_1wztd_81",
+      "rect": {
+        "x": 109.203125,
+        "y": 301.6875,
+        "w": 125.328125,
+        "h": 34.1875
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "21px",
+        "tracking": "-0.16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "5.6px 12px",
+        "margin": "0px",
+        "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.08)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Showcase",
+      "label": null,
+      "id": "",
+      "classes": "flex w-full items-center gap-1.5 rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default",
+      "rect": {
+        "x": 24,
+        "y": 359.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(185, 185, 185)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Blog",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 399.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "oklab(0.999994 0.0000455678 0.0000200868 / 0.16)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Cookbook",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 439.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(185, 185, 185)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Learn",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 479.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(185, 185, 185)"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Community",
+      "label": null,
+      "id": "",
+      "classes": "w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold",
+      "rect": {
+        "x": 24,
+        "y": 519.875,
+        "w": 332,
+        "h": 36
+      },
+      "style": {
+        "font": "14px",
+        "weight": "600",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(185, 185, 185)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(185, 185, 185)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "All posts",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block text-default bg-primary-ghost-active ",
+      "rect": {
+        "x": 24,
+        "y": 571.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "oklab(0.999994 0.0000455678 0.0000200868 / 0.16)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Bringing my LED display to life with GPT-Live-1 and Codex",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 657.875,
+        "w": 332,
+        "h": 52
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Rethinking skills and prompts for GPT-6 Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 713.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Architectural visualization with Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 749.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Building games with Astra",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 785.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 821.875,
+        "w": 332,
+        "h": 52
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "General",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 927.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "API",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 963.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Apps SDK",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 999.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Audio",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1035.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Codex",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1071.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Life sciences",
+      "label": null,
+      "id": "",
+      "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover ",
+      "rect": {
+        "x": 24,
+        "y": 1107.875,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "400",
+        "line": "20px",
+        "tracking": "-0.14px",
+        "color": "rgb(220, 220, 220)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "6px 12px",
+        "margin": "0px",
+        "border": "0px solid rgb(220, 220, 220)"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "API Dashboard",
+      "label": null,
+      "id": "",
+      "classes": "_Button_6dmow_1 not-prose flex-1 justify-center",
+      "rect": {
+        "x": 24,
+        "y": 768,
+        "w": 332,
+        "h": 32
+      },
+      "style": {
+        "font": "14px",
+        "weight": "500",
+        "line": "14px",
+        "tracking": "-0.16px",
+        "color": "rgb(13, 13, 13)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "padding": "0px 15.96px",
+        "margin": "0px",
+        "border": "0px solid rgb(13, 13, 13)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2967 @@
+[
+  {
+    "id": "mobile-nav-tab-1",
+    "defaultVariant": "mobile-nav-tab-1-variant-0",
+    "options": [
+      {
+        "label": "Overview",
+        "id": "mobile-nav-tab-1-variant-0",
+        "href": "/api/docs",
+        "isHome": "true",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-0\" data-context-label=\"Overview\" data-context-href=\"/api/docs\" data-context-is-home=\"true\" data-selected=\"true\"> Overview </button>"
+      },
+      {
+        "label": "Models",
+        "id": "mobile-nav-tab-1-variant-1",
+        "href": "/api/docs/models",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-1\" data-context-label=\"Models\" data-context-href=\"/api/docs/models\" data-context-is-home=\"false\" data-selected=\"false\"> Models </button>"
+      },
+      {
+        "label": "Agents",
+        "id": "mobile-nav-tab-1-variant-2",
+        "href": "/api/docs/guides/agents",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-2\" data-context-label=\"Agents\" data-context-href=\"/api/docs/guides/agents\" data-context-is-home=\"false\" data-selected=\"false\"> Agents </button>"
+      },
+      {
+        "label": "Tools",
+        "id": "mobile-nav-tab-1-variant-3",
+        "href": "/api/docs/guides/tools",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-3\" data-context-label=\"Tools\" data-context-href=\"/api/docs/guides/tools\" data-context-is-home=\"false\" data-selected=\"false\"> Tools </button>"
+      },
+      {
+        "label": "Audio & voice",
+        "id": "mobile-nav-tab-1-variant-4",
+        "href": "/api/docs/guides/audio",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-4\" data-context-label=\"Audio &amp; voice\" data-context-href=\"/api/docs/guides/audio\" data-context-is-home=\"false\" data-selected=\"false\"> Audio &amp; voice </button>"
+      },
+      {
+        "label": "Production",
+        "id": "mobile-nav-tab-1-variant-5",
+        "href": "/api/docs/guides/production-best-practices",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-5\" data-context-label=\"Production\" data-context-href=\"/api/docs/guides/production-best-practices\" data-context-is-home=\"false\" data-selected=\"false\"> Production </button>"
+      },
+      {
+        "label": "API reference",
+        "id": "mobile-nav-tab-1-variant-6",
+        "href": "/api/reference/overview",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-1-variant-6\" data-context-label=\"API reference\" data-context-href=\"/api/reference/overview\" data-context-is-home=\"false\" data-selected=\"false\"> API reference </button>"
+      }
+    ],
+    "variants": [
+      {
+        "id": "mobile-nav-tab-1-variant-0",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/api/docs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Get started",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Quickstart",
+            "href": "/api/docs/quickstart",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Using GPT-6",
+            "href": "/api/docs/guides/latest-model",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Key concepts",
+            "href": "/api/docs/concepts",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Core concepts",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Responses API",
+            "href": "/api/docs/guides/migrate-to-responses",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Conversation state",
+            "href": "/api/docs/guides/conversation-state",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Background mode",
+            "href": "/api/docs/guides/background",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Streaming",
+            "href": "/api/docs/guides/streaming-responses",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "WebSocket mode",
+            "href": "/api/docs/guides/websocket-mode",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Mid-turn steering",
+            "href": "/api/docs/guides/steering",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Multi-agent",
+            "href": "/api/docs/guides/responses-multi-agent",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Webhooks",
+            "href": "/api/docs/guides/webhooks",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "File inputs",
+            "href": "/api/docs/guides/file-inputs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Compaction",
+            "href": "/api/docs/guides/compaction",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Counting tokens",
+            "href": "/api/docs/guides/token-counting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "SDKs and CLI",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI SDK",
+            "href": "/api/docs/libraries",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI CLI",
+            "href": "/api/docs/libraries/openai-cli",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Resources",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Changelog",
+            "href": "/api/docs/changelog",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Deprecations",
+            "href": "/api/docs/deprecations",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Supported countries",
+            "href": "/api/docs/supported-countries",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI Crawlers",
+            "href": "/api/docs/bots",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Terms and policies",
+            "href": "https://openai.com/policies",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "heading",
+            "text": "Legacy APIs",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/agent-builder",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Migration guide",
+            "href": "/api/docs/guides/agent-builder/migrate-from-agent-builder",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Node reference",
+            "href": "/api/docs/guides/node-reference",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Safety in building agents",
+            "href": "/api/docs/guides/agent-builder-safety",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Getting started",
+            "href": "/api/docs/guides/evaluation-getting-started",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Working with evals",
+            "href": "/api/docs/guides/evals",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompt optimizer",
+            "href": "/api/docs/guides/prompt-optimizer",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "External models",
+            "href": "/api/docs/guides/external-models",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Best practices",
+            "href": "/api/docs/guides/evaluation-best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Graders",
+            "href": "/api/docs/guides/graders",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Optimization cycle",
+            "href": "/api/docs/guides/model-optimization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Supervised fine-tuning",
+            "href": "/api/docs/guides/supervised-fine-tuning",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Vision fine-tuning",
+            "href": "/api/docs/guides/vision-fine-tuning",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Direct preference optimization",
+            "href": "/api/docs/guides/direct-preference-optimization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Reinforcement fine-tuning",
+            "href": "/api/docs/guides/reinforcement-fine-tuning",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "RFT use cases",
+            "href": "/api/docs/guides/rft-use-cases",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Best practices",
+            "href": "/api/docs/guides/fine-tuning-best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Migration guide",
+            "href": "/api/docs/assistants/migration",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-1",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Model catalog",
+            "href": "/api/docs/models",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Choose a model",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Pricing",
+            "href": "/api/docs/pricing",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Model selection",
+            "href": "/api/docs/guides/model-selection",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Text and code",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Text generation",
+            "href": "/api/docs/guides/text",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Code generation",
+            "href": "/api/docs/guides/code-generation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Structured output",
+            "href": "/api/docs/guides/structured-outputs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Prompting",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/prompting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompt engineering",
+            "href": "/api/docs/guides/prompt-engineering",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Citation formatting",
+            "href": "/api/docs/guides/citation-formatting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Migration guide",
+            "href": "/api/docs/guides/prompting/migrate-from-prompt-object",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompt generation",
+            "href": "/api/docs/guides/prompt-generation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Frontend prompting",
+            "href": "/api/docs/guides/frontend-prompt",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Reasoning",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Reasoning models",
+            "href": "/api/docs/guides/reasoning",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Reasoning best practices",
+            "href": "/api/docs/guides/reasoning-best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Images",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Images and vision",
+            "href": "/api/docs/guides/images-vision",
+            "active": false,
+            "classes": "flex-1 "
+          },
+          {
+            "kind": "link",
+            "text": "Image input cost calculator",
+            "href": "/api/docs/guides/image-cost-calculator",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Image generation",
+            "href": "/api/docs/guides/image-generation",
+            "active": false,
+            "classes": "flex-1 "
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/image-generation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Image prompting",
+            "href": "/api/docs/guides/image-prompting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Realtime and audio",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Audio and speech",
+            "href": "/api/docs/guides/audio",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Getting started",
+            "href": "/api/docs/guides/realtime",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Voice agents",
+            "href": "/api/docs/guides/voice-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Specialized models",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Deep research",
+            "href": "/api/docs/guides/deep-research",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Embeddings",
+            "href": "/api/docs/guides/embeddings",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Moderation",
+            "href": "/api/docs/guides/moderation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-2",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Agents API",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/agents-api/overview",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Quickstart",
+            "href": "/api/docs/guides/agents-api/quickstart",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Architecture",
+            "href": "/api/docs/guides/agents-api/architecture",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Configuring Agents",
+            "href": "/api/docs/guides/agents-api/configuration",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Run and continue sessions",
+            "href": "/api/docs/guides/agents-api/sessions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Events and items",
+            "href": "/api/docs/guides/agents-api/sessions/events",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Manage sessions",
+            "href": "/api/docs/guides/agents-api/sessions/manage",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Webhooks",
+            "href": "/api/docs/guides/agents-api/sessions/webhooks",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI-hosted sandboxes",
+            "href": "/api/docs/guides/agents-api/environments/openai-hosted",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Self-hosted sandboxes",
+            "href": "/api/docs/guides/agents-api/environments/self-hosted",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Sandbox lifecycle",
+            "href": "/api/docs/guides/agents-api/environments/lifecycle",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Sandbox security",
+            "href": "/api/docs/guides/agents-api/environments/security",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Files and artifacts",
+            "href": "/api/docs/guides/agents-api/environments/files",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Web search",
+            "href": "/api/docs/guides/agents-api/tools/web-search",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Computer use",
+            "href": "/api/docs/guides/agents-api/tools/computer-use",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Functions",
+            "href": "/api/docs/guides/agents-api/tools/functions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "MCP connections",
+            "href": "/api/docs/guides/agents-api/tools/mcp",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Plugins",
+            "href": "/api/docs/guides/agents-api/tools/plugins",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Vaults",
+            "href": "/api/docs/guides/agents-api/tools/vaults",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Multi-agent",
+            "href": "/api/docs/guides/agents-api/multi-agent",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Observability and usage",
+            "href": "/api/docs/guides/agents-api/observability",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Tracing",
+            "href": "/api/docs/guides/agents-api/tracing",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Errors and recovery",
+            "href": "/api/docs/guides/agents-api/errors",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "API reference",
+            "href": "/api/reference/resources/beta/subresources/agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Bedrock Managed Agents",
+            "href": "/api/docs/guides/agents-api/bedrock-managed-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Agents SDK",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/agents/sdk",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Quickstart",
+            "href": "/api/docs/guides/agents/quickstart",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Agent definitions",
+            "href": "/api/docs/guides/agents/define-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Models and providers",
+            "href": "/api/docs/guides/agents/models",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Running agents",
+            "href": "/api/docs/guides/agents/running-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Sandbox agents",
+            "href": "/api/docs/guides/agents/sandboxes",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Orchestration",
+            "href": "/api/docs/guides/agents/orchestration",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Guardrails",
+            "href": "/api/docs/guides/agents/guardrails-approvals",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Results and state",
+            "href": "/api/docs/guides/agents/results",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Integrations and observability",
+            "href": "/api/docs/guides/agents/integrations-observability",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Evaluate agent workflows",
+            "href": "/api/docs/guides/agent-evals",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "ChatKit",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/chatkit",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Customize",
+            "href": "/api/docs/guides/chatkit-themes",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Widgets",
+            "href": "/api/docs/guides/chatkit-widgets",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Actions",
+            "href": "/api/docs/guides/chatkit-actions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Advanced integrations",
+            "href": "/api/docs/guides/custom-chatkit",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-3",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/tools",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Function calling",
+            "href": "/api/docs/guides/function-calling",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Search and retrieval",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Web search",
+            "href": "/api/docs/guides/tools-web-search",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "File search",
+            "href": "/api/docs/guides/tools-file-search",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Retrieval",
+            "href": "/api/docs/guides/retrieval",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Connect tools and data",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "MCP servers",
+            "href": "/api/docs/guides/tools-connectors-mcp",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Secure MCP Tunnel",
+            "href": "/api/docs/guides/secure-mcp-tunnels",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Build tool workflows",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Skills",
+            "href": "/api/docs/guides/tools-skills",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Tool search",
+            "href": "/api/docs/guides/tools-tool-search",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Programmatic tool calling",
+            "href": "/api/docs/guides/tools-programmatic-tool-calling",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Async tool calling",
+            "href": "/api/docs/guides/async-tool-calling",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Computer and code",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Shell",
+            "href": "/api/docs/guides/tools-shell",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Computer use",
+            "href": "/api/docs/guides/tools-computer-use",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Apply Patch",
+            "href": "/api/docs/guides/tools-apply-patch",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Local shell",
+            "href": "/api/docs/guides/tools-local-shell",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Code interpreter",
+            "href": "/api/docs/guides/tools-code-interpreter",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Media",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Image generation",
+            "href": "/api/docs/guides/tools-image-generation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-4",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/audio",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "GPT-Live",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Getting started",
+            "href": "/api/docs/guides/live",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompting",
+            "href": "/api/docs/guides/live-prompting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Managing sessions",
+            "href": "/api/docs/guides/live-conversations",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Delegation and tools",
+            "href": "/api/docs/guides/live-delegation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Migrate to GPT-Live",
+            "href": "/api/docs/guides/live-migration",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Partner integrations",
+            "href": "/api/docs/guides/live-partner-integrations",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Realtime API",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Getting started",
+            "href": "/api/docs/guides/realtime",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompting",
+            "href": "/api/docs/guides/voice-prompting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Managing conversations",
+            "href": "/api/docs/guides/realtime-conversations",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Voice activity detection",
+            "href": "/api/docs/guides/realtime-vad",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Tools and MCP",
+            "href": "/api/docs/guides/realtime-mcp",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Build with voice",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Voice agents",
+            "href": "/api/docs/guides/voice-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Custom voices",
+            "href": "/api/docs/guides/custom-voices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Cost optimization",
+            "href": "/api/docs/guides/voice-latency-cost",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Connections",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "WebRTC",
+            "href": "/api/docs/guides/voice-webrtc",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "WebRTC with WARP",
+            "href": "/api/docs/guides/realtime-webrtc-warp",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "WebSockets",
+            "href": "/api/docs/guides/voice-websockets",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Telephony and SIP",
+            "href": "/api/docs/guides/voice-sip",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Server-side controls",
+            "href": "/api/docs/guides/voice-server-controls",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Audio processing",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "File transcription",
+            "href": "/api/docs/guides/speech-to-text",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Live transcription",
+            "href": "/api/docs/guides/realtime-transcription",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Live translation",
+            "href": "/api/docs/guides/realtime-translation",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Text to speech",
+            "href": "/api/docs/guides/text-to-speech",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Audio in Chat Completions",
+            "href": "/api/docs/guides/audio-chat-completions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-5",
+        "entries": [
+          {
+            "kind": "heading",
+            "text": "Go live",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Production best practices",
+            "href": "/api/docs/guides/production-best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Deployment checklist",
+            "href": "/api/docs/guides/deployment-checklist",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Performance and quality",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Fast mode",
+            "href": "/api/docs/guides/fast-mode",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Ultrafast mode",
+            "href": "/api/docs/guides/ultrafast-mode",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Latency optimization",
+            "href": "/api/docs/guides/latency-optimization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Predicted Outputs",
+            "href": "/api/docs/guides/predicted-outputs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Accuracy optimization",
+            "href": "/api/docs/guides/optimizing-llm-accuracy",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Cost and throughput",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Cost optimization",
+            "href": "/api/docs/guides/cost-optimization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Prompt caching",
+            "href": "/api/docs/guides/prompt-caching",
+            "active": false,
+            "classes": "flex-1 "
+          },
+          {
+            "kind": "link",
+            "text": "Prompt cache diagnostics",
+            "href": "/api/docs/guides/prompt-caching/diagnostics",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Batch",
+            "href": "/api/docs/guides/batch",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Flex processing",
+            "href": "/api/docs/guides/flex-processing",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Safety and governance",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Safety best practices",
+            "href": "/api/docs/guides/safety-best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Red teaming",
+            "href": "/api/docs/guides/red-teaming",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Daybreak",
+            "href": "/api/docs/guides/daybreak",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Safety classifiers",
+            "href": "/api/docs/guides/safety-checks",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Cybersecurity checks",
+            "href": "/api/docs/guides/safety-checks/cybersecurity",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Misalignment monitoring",
+            "href": "/api/docs/guides/safety-checks/misalignment-monitoring",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Enforcement notifications",
+            "href": "/api/docs/guides/safety-enforcement",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Under-18 guidance",
+            "href": "/api/docs/guides/safety-checks/under-18-api-guidance",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "CSAM guidance",
+            "href": "/api/docs/guides/csam-guidance",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Content provenance",
+            "href": "/api/docs/guides/content-provenance",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Your data",
+            "href": "/api/docs/guides/your-data",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Private Safety Processing",
+            "href": "/api/docs/guides/private-safety-processing",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Permissions",
+            "href": "/api/docs/guides/rbac",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Infrastructure and access",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Terraform provider",
+            "href": "/api/docs/guides/terraform",
+            "active": false,
+            "classes": "flex-1 "
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/api/docs/guides/terraform",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Projects and access",
+            "href": "/api/docs/guides/terraform/projects-and-access",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Service accounts",
+            "href": "/api/docs/guides/terraform/service-accounts",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Rate limits and spend",
+            "href": "/api/docs/guides/terraform/rate-limits-and-spend",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Model, tool, and data controls",
+            "href": "/api/docs/guides/terraform/project-controls",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Import and reconciliation",
+            "href": "/api/docs/guides/terraform/import-and-reconcile",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Private Link",
+            "href": "/api/docs/guides/private-link",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "IP allowlist",
+            "href": "/api/docs/guides/ip-allowlist",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Organization blocking",
+            "href": "/api/docs/guides/organization-blocking",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Mutual TLS",
+            "href": "/api/docs/guides/mutual-tls",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Workload identity federation",
+            "href": "/api/docs/guides/workload-identity-federation",
+            "active": false,
+            "classes": "flex-1 "
+          },
+          {
+            "kind": "link",
+            "text": "Federation rules",
+            "href": "/api/docs/guides/workload-identity-federation/federation-rules",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "X.509 certificates",
+            "href": "/api/docs/guides/workload-identity-federation/x509",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Kubernetes",
+            "href": "/api/docs/guides/workload-identity-federation/kubernetes",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "AWS",
+            "href": "/api/docs/guides/workload-identity-federation/aws",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Microsoft Azure",
+            "href": "/api/docs/guides/workload-identity-federation/microsoft-azure",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Google Cloud",
+            "href": "/api/docs/guides/workload-identity-federation/google-cloud",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Oracle Cloud Infrastructure",
+            "href": "/api/docs/guides/workload-identity-federation/oracle-cloud",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "GitHub Actions",
+            "href": "/api/docs/guides/workload-identity-federation/github-actions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "SPIFFE",
+            "href": "/api/docs/guides/workload-identity-federation/spiffe",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "IP egress ranges",
+            "href": "/api/docs/guides/ip-addresses",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Amazon Bedrock",
+            "href": "/api/docs/guides/amazon-bedrock",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Operations",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Rate limits",
+            "href": "/api/docs/guides/rate-limits",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Spend limits",
+            "href": "/api/docs/guides/spend-limits",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Admin APIs",
+            "href": "/api/docs/guides/admin-apis",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Error codes",
+            "href": "/api/docs/guides/error-codes",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-1-variant-6",
+        "entries": []
+      }
+    ]
+  },
+  {
+    "id": "mobile-nav-tab-2",
+    "defaultVariant": "mobile-nav-tab-2-variant-0",
+    "options": [
+      {
+        "label": "Sign in with ChatGPT",
+        "id": "mobile-nav-tab-2-variant-1",
+        "href": "/siwc",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-2-variant-1\" data-context-label=\"Sign in with ChatGPT\" data-context-href=\"/siwc\" data-context-is-home=\"false\" data-selected=\"false\"> Sign in with ChatGPT </button>"
+      },
+      {
+        "label": "Plugins",
+        "id": "mobile-nav-tab-2-variant-2",
+        "href": "/plugins",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-2-variant-2\" data-context-label=\"Plugins\" data-context-href=\"/plugins\" data-context-is-home=\"false\" data-selected=\"false\"> Plugins </button>"
+      },
+      {
+        "label": "Workspace Agents",
+        "id": "mobile-nav-tab-2-variant-3",
+        "href": "/workspace-agents",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-2-variant-3\" data-context-label=\"Workspace Agents\" data-context-href=\"/workspace-agents\" data-context-is-home=\"false\" data-selected=\"false\"> Workspace Agents </button>"
+      },
+      {
+        "label": "Commerce",
+        "id": "mobile-nav-tab-2-variant-4",
+        "href": "/commerce",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-2-variant-4\" data-context-label=\"Commerce\" data-context-href=\"/commerce\" data-context-is-home=\"false\" data-selected=\"false\"> Commerce </button>"
+      },
+      {
+        "label": "Ads",
+        "id": "mobile-nav-tab-2-variant-5",
+        "href": "/ads",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-2-variant-5\" data-context-label=\"Ads\" data-context-href=\"/ads\" data-context-is-home=\"false\" data-selected=\"false\"> Ads </button>"
+      }
+    ],
+    "variants": [
+      {
+        "id": "mobile-nav-tab-2-variant-0",
+        "entries": []
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-1",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/siwc",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Quickstart",
+            "href": "/siwc/quickstart",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Request a client ID",
+            "href": "/siwc/request-client-id",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Identity",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "On your website",
+            "href": "/siwc/website",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "In your ChatGPT plugin",
+            "href": "/siwc/chatgpt-plugin",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "ChatGPT plan usage",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/siwc/token-sharing-open-source",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "UI/UX guidelines",
+            "href": "/siwc/ui-ux-guidelines",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Registration and sign-in",
+            "href": "/siwc/token-sharing-open-source/sign-in",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Accounts and sessions",
+            "href": "/siwc/token-sharing-open-source/profiles-and-sessions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Models and inference",
+            "href": "/siwc/token-sharing-open-source/models-and-inference",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex app-server",
+            "href": "/siwc/token-sharing-open-source/codex-app-server",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Self-hosted VMs",
+            "href": "/siwc/token-sharing-open-source/self-hosted-vms",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Token reference",
+            "href": "/siwc/token-sharing-open-source/token-reference",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Errors and recovery",
+            "href": "/siwc/token-sharing-open-source/errors-and-recovery",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Preview limitations",
+            "href": "/siwc/token-sharing-open-source/preview-limitations",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-2",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/plugins",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Quickstart",
+            "href": "/plugins/quickstart",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Core concepts",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Plugin architecture",
+            "href": "/plugins/concepts/plugins",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Skills",
+            "href": "/plugins/concepts/skills",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "MCP server",
+            "href": "/plugins/concepts/mcp-server",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Plan",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Brainstorm use cases",
+            "href": "/plugins/plan/use-case",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Define tools",
+            "href": "/plugins/plan/tools",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Build",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Build an MCP server",
+            "href": "/plugins/build/mcp-server",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Add UI to your MCP server (optional)",
+            "href": "/plugins/build/chatgpt-ui",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Add events to your MCP server (optional)",
+            "href": "/plugins/build/mcp-events",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Extensions",
+            "href": "/plugins/build/extensions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Authenticate users",
+            "href": "/plugins/build/auth",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Build skills",
+            "href": "/plugins/build/skills",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Package your plugin",
+            "href": "/plugins/build/plugins",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Examples",
+            "href": "/plugins/build/examples",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Test and publish",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Connect and test your plugin",
+            "href": "/plugins/deploy/connect-chatgpt",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Submit and publish",
+            "href": "/plugins/deploy/submission",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Submission error reference",
+            "href": "/plugins/deploy/submission-errors",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Conversion specs",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Restaurant reservation spec",
+            "href": "/plugins/guides/restaurant-reservation-conversion-spec",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Get Quote spec",
+            "href": "/plugins/guides/local-services-request-quote-conversion-spec",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Product checkout spec",
+            "href": "/plugins/guides/product-checkout-conversion-spec",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Guides",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "UI guidelines",
+            "href": "/plugins/concepts/ui-guidelines",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Optimize Metadata",
+            "href": "/plugins/guides/optimize-metadata",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Submit a Claude Code plugin",
+            "href": "/plugins/guides/submit-claude-plugin",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Security & Privacy",
+            "href": "/plugins/guides/security-privacy",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Troubleshooting",
+            "href": "/plugins/deploy/troubleshooting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Resources",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Changelog",
+            "href": "/plugins/changelog",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Plugin guidelines",
+            "href": "/plugins/plugin-guidelines",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "MCP server review requirements",
+            "href": "/plugins/deploy/app-review",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Plugin UI reference",
+            "href": "/plugins/reference",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Checkout API reference",
+            "href": "/plugins/build/monetization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-3",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/workspace-agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Get started",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Trigger workspace agent runs",
+            "href": "/workspace-agents/trigger-runs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Authenticate with Workspace Agent access tokens",
+            "href": "/workspace-agents/authentication",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-4",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/commerce",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Guides",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Get started",
+            "href": "/commerce/guides/get-started",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Best practices",
+            "href": "/commerce/guides/best-practices",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "File Upload",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/commerce/specs/file-upload/overview",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Products",
+            "href": "/commerce/specs/file-upload/products",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "API",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/commerce/specs/api/overview",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Feeds",
+            "href": "/commerce/specs/api/feeds",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Products",
+            "href": "/commerce/specs/api/products",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Promotions",
+            "href": "/commerce/specs/api/promotions",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-5",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Ads Overview",
+            "href": "/ads",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Measurement",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Measurement Pixel",
+            "href": "/ads/measurement-pixel",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Multiple Pixels (Advanced)",
+            "href": "/ads/multiple-pixels",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Image Tag",
+            "href": "/ads/image-tag",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Conversions API",
+            "href": "/ads/conversions-api",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Supported Events",
+            "href": "/ads/supported-events",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Advertiser API",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Overview",
+            "href": "/ads/api-overview",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "API Partner Setup",
+            "href": "/ads/api-partner-setup",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Campaign Management",
+            "href": "/ads/campaign-management",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Bidding & Budgets",
+            "href": "/ads/bidding-and-budgets",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Targeting",
+            "href": "/ads/campaign-targeting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Product Feeds",
+            "href": "/ads/product-feeds",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Hotel Feeds (limited beta)",
+            "href": "/ads/hotel-feeds",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Conversion Tracking",
+            "href": "/ads/conversion-tracking",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Reporting",
+            "href": "/ads/reporting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Troubleshooting",
+            "href": "/ads/troubleshooting",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Account Management",
+            "href": "/ads/account-management",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "API Reference",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Authentication",
+            "href": "/ads/api-reference/authentication",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Ad Account",
+            "href": "/ads/api-reference/ad-account",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Audit Logs",
+            "href": "/ads/api-reference/audit-logs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Campaigns",
+            "href": "/ads/api-reference/campaigns",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Ad Groups",
+            "href": "/ads/api-reference/ad-groups",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Ads",
+            "href": "/ads/api-reference/ads",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Insights",
+            "href": "/ads/api-reference/insights",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Files",
+            "href": "/ads/api-reference/files",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Conversion Setup",
+            "href": "/ads/api-reference/conversion-setup",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-6",
+        "entries": []
+      },
+      {
+        "id": "mobile-nav-tab-2-variant-7",
+        "entries": []
+      }
+    ]
+  },
+  {
+    "id": "mobile-nav-tab-7",
+    "defaultVariant": "mobile-nav-tab-7-variant-2",
+    "options": [
+      {
+        "label": "Blog",
+        "id": "mobile-nav-tab-7-variant-2",
+        "href": "/blog",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-7-variant-2\" data-context-label=\"Blog\" data-context-href=\"/blog\" data-context-is-home=\"false\" data-selected=\"true\"> Blog </button>"
+      },
+      {
+        "label": "Cookbook",
+        "id": "mobile-nav-tab-7-variant-3",
+        "href": "/cookbook",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-7-variant-3\" data-context-label=\"Cookbook\" data-context-href=\"/cookbook\" data-context-is-home=\"false\" data-selected=\"false\"> Cookbook </button>"
+      },
+      {
+        "label": "Learn",
+        "id": "mobile-nav-tab-7-variant-4",
+        "href": "/learn",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-7-variant-4\" data-context-label=\"Learn\" data-context-href=\"/learn\" data-context-is-home=\"false\" data-selected=\"false\"> Learn </button>"
+      },
+      {
+        "label": "Community",
+        "id": "mobile-nav-tab-7-variant-5",
+        "href": "/community",
+        "isHome": "false",
+        "html": "<button type=\"button\" class=\"w-full rounded-lg px-3 py-2 text-left text-sm font-normal text-secondary transition-colors hover:bg-primary-ghost-hover hover:text-default data-[selected=true]:bg-primary-ghost-active data-[selected=true]:text-default group-data-[context-active=true]:font-semibold\" data-mobile-context-option=\"\" data-context-id=\"mobile-nav-tab-7-variant-5\" data-context-label=\"Community\" data-context-href=\"/community\" data-context-is-home=\"false\" data-selected=\"false\"> Community </button>"
+      }
+    ],
+    "variants": [
+      {
+        "id": "mobile-nav-tab-7-variant-0",
+        "entries": []
+      },
+      {
+        "id": "mobile-nav-tab-7-variant-1",
+        "entries": []
+      },
+      {
+        "id": "mobile-nav-tab-7-variant-2",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "All posts",
+            "href": "/blog",
+            "active": true,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block text-default bg-primary-ghost-active "
+          },
+          {
+            "kind": "heading",
+            "text": "Recent",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Bringing my LED display to life with GPT-Live-1 and Codex",
+            "href": "/blog/bringing-my-led-display-to-life",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Rethinking skills and prompts for GPT-6 Astra",
+            "href": "/blog/rethinking-skills-and-prompts-for-gpt-6-astra",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Architectural visualization with Astra",
+            "href": "/blog/architectural-visualization-with-astra",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Building games with Astra",
+            "href": "/blog/how-to-build-games-with-astra",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+            "href": "/blog/rosalind-workbench",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Topics",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "General",
+            "href": "/blog/topic/general",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "API",
+            "href": "/blog/topic/api",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Apps SDK",
+            "href": "/blog/topic/apps-sdk",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Audio",
+            "href": "/blog/topic/audio",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex",
+            "href": "/blog/topic/codex",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Life sciences",
+            "href": "/blog/topic/life-sciences",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-7-variant-3",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/cookbook",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Topics",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Sign-in with ChatGPT",
+            "href": "/cookbook/topic/sign-in-with-chatgpt",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Agents",
+            "href": "/cookbook/topic/agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Evals",
+            "href": "/cookbook/topic/evals",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Multimodal",
+            "href": "/cookbook/topic/multimodal",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Text",
+            "href": "/cookbook/topic/text",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Guardrails",
+            "href": "/cookbook/topic/guardrails",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Optimization",
+            "href": "/cookbook/topic/optimization",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "ChatGPT",
+            "href": "/cookbook/topic/chatgpt",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex",
+            "href": "/cookbook/topic/codex",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "gpt-oss",
+            "href": "/cookbook/topic/gpt-oss",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Contribute",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Cookbook on GitHub",
+            "href": "https://github.com/openai/openai-cookbook",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-7-variant-4",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Home",
+            "href": "/learn",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI Developers plugin",
+            "href": "/learn/developers-codex-plugin",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Docs MCP",
+            "href": "/learn/docs-mcp",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Categories",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Demo apps",
+            "href": "/learn/code",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Videos",
+            "href": "/learn/videos",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Topics",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Agents",
+            "href": "/learn/agents",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Audio & Voice",
+            "href": "/learn/audio",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Computer Use",
+            "href": "/learn/cua",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex",
+            "href": "/learn/codex",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Evals",
+            "href": "/learn/evals",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "gpt-oss",
+            "href": "/learn/gpt-oss",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Fine-tuning",
+            "href": "/learn/fine-tuning",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Image generation",
+            "href": "/learn/imagegen",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Scaling",
+            "href": "/learn/scaling",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Tools",
+            "href": "/learn/tools",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Video generation",
+            "href": "/learn/videogen",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          }
+        ]
+      },
+      {
+        "id": "mobile-nav-tab-7-variant-5",
+        "entries": [
+          {
+            "kind": "link",
+            "text": "Community",
+            "href": "/community",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "heading",
+            "text": "Programs",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Codex Ambassadors",
+            "href": "/community/codex-ambassadors",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex for Students",
+            "href": "/community/students",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "Codex for Open Source",
+            "href": "/community/codex-for-oss",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover "
+          },
+          {
+            "kind": "link",
+            "text": "OpenAI for Startups",
+            "href": "https://openai.com/business/why-openai/startups/",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "heading",
+            "text": "Spaces",
+            "href": null,
+            "active": false,
+            "classes": "text-xs tracking-wide text-secondary"
+          },
+          {
+            "kind": "link",
+            "text": "Events",
+            "href": "https://luma.com/codex-community?utm_source=oaidevs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "link",
+            "text": "Developer Forum",
+            "href": "https://community.openai.com/",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "link",
+            "text": "Discord",
+            "href": "https://discord.com/invite/openai",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "link",
+            "text": "Reddit",
+            "href": "https://www.reddit.com/r/OpenAI/",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          },
+          {
+            "kind": "link",
+            "text": "X",
+            "href": "https://x.com/OpenAIDevs",
+            "active": false,
+            "classes": "px-3 py-1.5 rounded-lg transition-colors block hover:text-default hover:bg-primary-ghost-hover flex items-center justify-between gap-2"
+          }
+        ]
+      }
+    ]
+  }
+]

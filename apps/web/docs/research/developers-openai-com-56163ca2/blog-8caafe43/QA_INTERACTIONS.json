@@ -1,0 +1,374 @@
+{
+  "checks": [
+    {
+      "name": "Desktop API dropdown",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Home",
+          "url": "https://developers.openai.com/"
+        },
+        {
+          "label": "API",
+          "url": "https://developers.openai.com/api/docs"
+        },
+        {
+          "label": "OverviewGet started with the OpenAI API",
+          "url": "https://developers.openai.com/api/docs"
+        },
+        {
+          "label": "ModelsExplore models and compare capabilities",
+          "url": "https://developers.openai.com/api/docs/models"
+        },
+        {
+          "label": "AgentsBuild persistent agents on hosted infrastructure",
+          "url": "https://developers.openai.com/api/docs/guides/agents"
+        },
+        {
+          "label": "ToolsConnect models to tools and data",
+          "url": "https://developers.openai.com/api/docs/guides/tools"
+        },
+        {
+          "label": "Audio & voiceBuild speech and realtime voice experiences",
+          "url": "https://developers.openai.com/api/docs/guides/audio"
+        },
+        {
+          "label": "ProductionDeploy and scale your API integrations",
+          "url": "https://developers.openai.com/api/docs/guides/production-best-practices"
+        },
+        {
+          "label": "API referenceExplore endpoints, parameters, and responses",
+          "url": "https://developers.openai.com/api/reference/overview"
+        },
+        {
+          "label": "ChatGPT",
+          "url": "https://developers.openai.com/chatgpt"
+        },
+        {
+          "label": "Resources",
+          "url": "https://developers.openai.com/learn"
+        }
+      ]
+    },
+    {
+      "name": "Desktop ChatGPT dropdown",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Home",
+          "url": "https://developers.openai.com/"
+        },
+        {
+          "label": "API",
+          "url": "https://developers.openai.com/api/docs"
+        },
+        {
+          "label": "ChatGPT",
+          "url": "https://developers.openai.com/chatgpt"
+        },
+        {
+          "label": "Sign in with ChatGPTApps powered by your user's ChatGPT plan",
+          "url": "https://developers.openai.com/siwc"
+        },
+        {
+          "label": "PluginsExtend ChatGPT and Codex",
+          "url": "https://developers.openai.com/plugins"
+        },
+        {
+          "label": "Workspace AgentsTrigger published ChatGPT workspace agents",
+          "url": "https://developers.openai.com/workspace-agents"
+        },
+        {
+          "label": "CommerceBuild commerce flows in ChatGPT",
+          "url": "https://developers.openai.com/commerce"
+        },
+        {
+          "label": "AdsPublish and measure ads in ChatGPT",
+          "url": "https://developers.openai.com/ads"
+        },
+        {
+          "label": "ChatGPT + Codex user docsGuides and product docs for ChatGPT and Codex",
+          "url": "https://learn.chatgpt.com/docs"
+        },
+        {
+          "label": "Use casesExample workflows and tasks teams can take on with ChatGPT or Codex",
+          "url": "https://learn.chatgpt.com/use-cases"
+        },
+        {
+          "label": "Resources",
+          "url": "https://developers.openai.com/learn"
+        }
+      ]
+    },
+    {
+      "name": "Desktop Resources dropdown",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Home",
+          "url": "https://developers.openai.com/"
+        },
+        {
+          "label": "API",
+          "url": "https://developers.openai.com/api/docs"
+        },
+        {
+          "label": "ChatGPT",
+          "url": "https://developers.openai.com/chatgpt"
+        },
+        {
+          "label": "Resources",
+          "url": "https://developers.openai.com/learn"
+        },
+        {
+          "label": "ShowcaseDemo apps to get inspired",
+          "url": "https://developers.openai.com/showcase"
+        },
+        {
+          "label": "BlogLearnings and experiences from developers",
+          "url": "http://localhost:3000/"
+        },
+        {
+          "label": "CookbookNotebook examples for building with OpenAI models",
+          "url": "https://developers.openai.com/cookbook"
+        },
+        {
+          "label": "LearnDocs, videos, and demo apps for building with OpenAI",
+          "url": "https://developers.openai.com/learn"
+        },
+        {
+          "label": "CommunityPrograms, meetups, and support for builders",
+          "url": "https://developers.openai.com/community"
+        }
+      ]
+    },
+    {
+      "name": "Dark theme",
+      "passed": true
+    },
+    {
+      "name": "Theme persists",
+      "passed": true
+    },
+    {
+      "name": "Search focus",
+      "passed": true
+    },
+    {
+      "name": "Search results",
+      "passed": true
+    },
+    {
+      "name": "Search empty state",
+      "passed": true
+    },
+    {
+      "name": "Search closes and restores focus",
+      "passed": true
+    },
+    {
+      "name": "Search shortcut",
+      "passed": true
+    },
+    {
+      "name": "Search suggestion",
+      "passed": true
+    },
+    {
+      "name": "Desktop agent width",
+      "passed": true
+    },
+    {
+      "name": "Agent demo response",
+      "passed": true
+    },
+    {
+      "name": "Agent new chat",
+      "passed": true
+    },
+    {
+      "name": "Mobile drawer opens",
+      "passed": true
+    },
+    {
+      "name": "Mobile API tab",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Overview",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Models",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Agents",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Tools",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Audio & voice",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Production",
+      "passed": true
+    },
+    {
+      "name": "Mobile API variants",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Overview",
+          "links": 41
+        },
+        {
+          "label": "Models",
+          "links": 26
+        },
+        {
+          "label": "Agents",
+          "links": 43
+        },
+        {
+          "label": "Tools",
+          "links": 18
+        },
+        {
+          "label": "Audio & voice",
+          "links": 26
+        },
+        {
+          "label": "Production",
+          "links": 53
+        }
+      ]
+    },
+    {
+      "name": "Mobile ChatGPT tab",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Sign in with ChatGPT",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Plugins",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Workspace Agents",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Commerce",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Ads",
+      "passed": true
+    },
+    {
+      "name": "Mobile ChatGPT variants",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Sign in with ChatGPT",
+          "links": 18
+        },
+        {
+          "label": "Plugins",
+          "links": 34
+        },
+        {
+          "label": "Workspace Agents",
+          "links": 6
+        },
+        {
+          "label": "Commerce",
+          "links": 12
+        },
+        {
+          "label": "Ads",
+          "links": 29
+        }
+      ]
+    },
+    {
+      "name": "Mobile Resources tab",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Blog",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Cookbook",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Learn",
+      "passed": true
+    },
+    {
+      "name": "Mobile variant Community",
+      "passed": true
+    },
+    {
+      "name": "Mobile Resources variants",
+      "passed": true,
+      "detail": [
+        {
+          "label": "Blog",
+          "links": 13
+        },
+        {
+          "label": "Cookbook",
+          "links": 13
+        },
+        {
+          "label": "Learn",
+          "links": 17
+        },
+        {
+          "label": "Community",
+          "links": 11
+        }
+      ]
+    },
+    {
+      "name": "Mobile dark theme",
+      "passed": true
+    },
+    {
+      "name": "Drawer opens search",
+      "passed": true
+    },
+    {
+      "name": "Mobile menu escape",
+      "passed": true
+    },
+    {
+      "name": "Mobile agent bottom sheet",
+      "passed": true
+    },
+    {
+      "name": "All covers loaded",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "No browser errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

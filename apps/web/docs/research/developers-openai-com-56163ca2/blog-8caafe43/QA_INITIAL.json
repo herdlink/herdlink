@@ -1,0 +1,887 @@
+{
+  "desktop": {
+    "viewport": 1440,
+    "client": 1440,
+    "height": 17055,
+    "header": {
+      "tag": "HEADER",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 64
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "container": {
+      "tag": "DIV",
+      "text": "",
+      "rect": {
+        "x": 264,
+        "y": 64,
+        "w": 1152,
+        "h": 16990.75
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px 16px 96px"
+    },
+    "heading": {
+      "tag": "H1",
+      "text": "OpenAI Developer Blog",
+      "rect": {
+        "x": 684.1875,
+        "y": 144,
+        "w": 311.625,
+        "h": 42
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "30px",
+      "line": "42px",
+      "color": "rgb(24, 24, 24)",
+      "padding": "0px"
+    },
+    "subtitle": {
+      "tag": "P",
+      "text": "Insights for developers building with OpenAI",
+      "rect": {
+        "x": 662.78125,
+        "y": 190,
+        "w": 354.4375,
+        "h": 29.25
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "18px",
+      "line": "29.25px",
+      "color": "rgb(93, 93, 93)",
+      "padding": "0px"
+    },
+    "first": {
+      "tag": "A",
+      "text": "",
+      "rect": {
+        "x": 280,
+        "y": 299.25,
+        "w": 1120,
+        "h": 513.390625
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px 32px"
+    },
+    "firstImage": {
+      "tag": "IMG",
+      "text": "",
+      "rect": {
+        "x": 312,
+        "y": 299.25,
+        "w": 1056,
+        "h": 389.390625
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "cardChildren": [
+      {
+        "tag": "IMG",
+        "text": "",
+        "rect": {
+          "x": 312,
+          "y": 299.25,
+          "w": 1056,
+          "h": 389.390625
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Sep 23",
+        "rect": {
+          "x": 312,
+          "y": 688.640625,
+          "w": 1056,
+          "h": 40
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "16px 0px 0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "",
+        "rect": {
+          "x": 312,
+          "y": 728.640625,
+          "w": 1056,
+          "h": 32
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "18px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px 0px 8px"
+      },
+      {
+        "tag": "P",
+        "text": "How I used Codex, GPT-Live-1, and a Raspberry Pi to turn an LED display into a voice-controlled assistant.",
+        "rect": {
+          "x": 312,
+          "y": 760.640625,
+          "w": 1056,
+          "h": 24
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Codex",
+        "rect": {
+          "x": 312,
+          "y": 784.640625,
+          "w": 1056,
+          "h": 28
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "14px",
+        "line": "20px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "8px 0px 0px"
+      }
+    ],
+    "images": [
+      {
+        "alt": "Bringing my LED display to life with GPT-Live-1 and Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Rethinking skills and prompts for GPT-6 Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Architectural visualization with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Building games with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+        "loaded": true
+      },
+      {
+        "alt": "Automating repetitive work at OpenAI with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Meet the winners of OpenAI Build Week",
+        "loaded": true
+      },
+      {
+        "alt": "Scaling cyber defenders with Daybreak",
+        "loaded": true
+      },
+      {
+        "alt": "Codex as a platform: build on the open agent harness",
+        "loaded": true
+      },
+      {
+        "alt": "Custom Code Review rules for Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Mastering remote engineering work from your phone",
+        "loaded": true
+      },
+      {
+        "alt": "Making private MCP servers reachable without making them public",
+        "loaded": true
+      },
+      {
+        "alt": "How Perplexity Brought Voice Search to Millions Using the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Designing delightful frontends with GPT-5.4",
+        "loaded": true
+      },
+      {
+        "alt": "From prompts to products: One year of Responses",
+        "loaded": true
+      },
+      {
+        "alt": "Using skills to accelerate OSS maintenance",
+        "loaded": true
+      },
+      {
+        "alt": "Building frontend UIs with Codex and Figma",
+        "loaded": true
+      },
+      {
+        "alt": "Run long horizon tasks with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Shell + Skills + Compaction: Tips for long-running agents that do real work",
+        "loaded": true
+      },
+      {
+        "alt": "15 lessons learned building ChatGPT Apps",
+        "loaded": true
+      },
+      {
+        "alt": "Testing Agent Skills Systematically with Evals",
+        "loaded": true
+      },
+      {
+        "alt": "Supercharging Codex with JetBrains MCP at Skyscanner",
+        "loaded": true
+      },
+      {
+        "alt": "OpenAI for Developers in 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Updates for developers building with voice",
+        "loaded": true
+      },
+      {
+        "alt": "What makes a great ChatGPT app",
+        "loaded": true
+      },
+      {
+        "alt": "Using Codex for education at Dagster Labs",
+        "loaded": true
+      },
+      {
+        "alt": "How Codex ran OpenAI DevDay 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Why we built the Responses API",
+        "loaded": true
+      },
+      {
+        "alt": "Developer notes on the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Hello, world!",
+        "loaded": true
+      }
+    ],
+    "horizontal": false
+  },
+  "tablet": {
+    "viewport": 768,
+    "client": 768,
+    "height": 12606,
+    "header": {
+      "tag": "HEADER",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 64
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "container": {
+      "tag": "DIV",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 64,
+        "w": 768,
+        "h": 12541.578125
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px 48px 96px"
+    },
+    "heading": {
+      "tag": "H1",
+      "text": "OpenAI Developer Blog",
+      "rect": {
+        "x": 228.1875,
+        "y": 144,
+        "w": 311.625,
+        "h": 42
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "30px",
+      "line": "42px",
+      "color": "rgb(24, 24, 24)",
+      "padding": "0px"
+    },
+    "subtitle": {
+      "tag": "P",
+      "text": "Insights for developers building with OpenAI",
+      "rect": {
+        "x": 206.78125,
+        "y": 190,
+        "w": 354.4375,
+        "h": 29.25
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "18px",
+      "line": "29.25px",
+      "color": "rgb(93, 93, 93)",
+      "padding": "0px"
+    },
+    "first": {
+      "tag": "A",
+      "text": "",
+      "rect": {
+        "x": 48,
+        "y": 299.25,
+        "w": 672,
+        "h": 372.1875
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px 32px"
+    },
+    "firstImage": {
+      "tag": "IMG",
+      "text": "",
+      "rect": {
+        "x": 80,
+        "y": 299.25,
+        "w": 608,
+        "h": 224.1875
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "cardChildren": [
+      {
+        "tag": "IMG",
+        "text": "",
+        "rect": {
+          "x": 80,
+          "y": 299.25,
+          "w": 608,
+          "h": 224.1875
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Sep 23",
+        "rect": {
+          "x": 80,
+          "y": 523.4375,
+          "w": 608,
+          "h": 40
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "16px 0px 0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "",
+        "rect": {
+          "x": 80,
+          "y": 563.4375,
+          "w": 608,
+          "h": 32
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "18px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px 0px 8px"
+      },
+      {
+        "tag": "P",
+        "text": "How I used Codex, GPT-Live-1, and a Raspberry Pi to turn an LED display into a voice-controlled assistant.",
+        "rect": {
+          "x": 80,
+          "y": 595.4375,
+          "w": 608,
+          "h": 48
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Codex",
+        "rect": {
+          "x": 80,
+          "y": 643.4375,
+          "w": 608,
+          "h": 28
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "14px",
+        "line": "20px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "8px 0px 0px"
+      }
+    ],
+    "images": [
+      {
+        "alt": "Bringing my LED display to life with GPT-Live-1 and Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Rethinking skills and prompts for GPT-6 Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Architectural visualization with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Building games with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+        "loaded": true
+      },
+      {
+        "alt": "Automating repetitive work at OpenAI with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Meet the winners of OpenAI Build Week",
+        "loaded": true
+      },
+      {
+        "alt": "Scaling cyber defenders with Daybreak",
+        "loaded": true
+      },
+      {
+        "alt": "Codex as a platform: build on the open agent harness",
+        "loaded": true
+      },
+      {
+        "alt": "Custom Code Review rules for Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Mastering remote engineering work from your phone",
+        "loaded": true
+      },
+      {
+        "alt": "Making private MCP servers reachable without making them public",
+        "loaded": true
+      },
+      {
+        "alt": "How Perplexity Brought Voice Search to Millions Using the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Designing delightful frontends with GPT-5.4",
+        "loaded": true
+      },
+      {
+        "alt": "From prompts to products: One year of Responses",
+        "loaded": true
+      },
+      {
+        "alt": "Using skills to accelerate OSS maintenance",
+        "loaded": true
+      },
+      {
+        "alt": "Building frontend UIs with Codex and Figma",
+        "loaded": true
+      },
+      {
+        "alt": "Run long horizon tasks with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Shell + Skills + Compaction: Tips for long-running agents that do real work",
+        "loaded": true
+      },
+      {
+        "alt": "15 lessons learned building ChatGPT Apps",
+        "loaded": true
+      },
+      {
+        "alt": "Testing Agent Skills Systematically with Evals",
+        "loaded": true
+      },
+      {
+        "alt": "Supercharging Codex with JetBrains MCP at Skyscanner",
+        "loaded": true
+      },
+      {
+        "alt": "OpenAI for Developers in 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Updates for developers building with voice",
+        "loaded": true
+      },
+      {
+        "alt": "What makes a great ChatGPT app",
+        "loaded": true
+      },
+      {
+        "alt": "Using Codex for education at Dagster Labs",
+        "loaded": true
+      },
+      {
+        "alt": "How Codex ran OpenAI DevDay 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Why we built the Responses API",
+        "loaded": true
+      },
+      {
+        "alt": "Developer notes on the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Hello, world!",
+        "loaded": true
+      }
+    ],
+    "horizontal": false
+  },
+  "mobile": {
+    "viewport": 390,
+    "client": 390,
+    "height": 10925,
+    "header": {
+      "tag": "HEADER",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 64
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "container": {
+      "tag": "DIV",
+      "text": "",
+      "rect": {
+        "x": 16,
+        "y": 64,
+        "w": 358,
+        "h": 10860.6875
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px 16px 96px"
+    },
+    "heading": {
+      "tag": "H1",
+      "text": "OpenAI Developer Blog",
+      "rect": {
+        "x": 39.1875,
+        "y": 144,
+        "w": 311.625,
+        "h": 42
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "30px",
+      "line": "42px",
+      "color": "rgb(24, 24, 24)",
+      "padding": "0px"
+    },
+    "subtitle": {
+      "tag": "P",
+      "text": "Insights for developers building with OpenAI",
+      "rect": {
+        "x": 37.46875,
+        "y": 190,
+        "w": 315.0625,
+        "h": 26
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "26px",
+      "color": "rgb(93, 93, 93)",
+      "padding": "0px"
+    },
+    "first": {
+      "tag": "A",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 296,
+        "w": 390,
+        "h": 339.8125
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "firstImage": {
+      "tag": "IMG",
+      "text": "",
+      "rect": {
+        "x": 0,
+        "y": 296,
+        "w": 390,
+        "h": 143.8125
+      },
+      "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+      "size": "16px",
+      "line": "24px",
+      "color": "rgb(40, 40, 40)",
+      "padding": "0px"
+    },
+    "cardChildren": [
+      {
+        "tag": "IMG",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 296,
+          "w": 390,
+          "h": 143.8125
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Sep 23",
+        "rect": {
+          "x": 0,
+          "y": 439.8125,
+          "w": 390,
+          "h": 40
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "16px 16px 0px"
+      },
+      {
+        "tag": "DIV",
+        "text": "",
+        "rect": {
+          "x": 0,
+          "y": 479.8125,
+          "w": 390,
+          "h": 56
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "18px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px 16px 8px"
+      },
+      {
+        "tag": "P",
+        "text": "How I used Codex, GPT-Live-1, and a Raspberry Pi to turn an LED display into a voice-controlled assistant.",
+        "rect": {
+          "x": 0,
+          "y": 535.8125,
+          "w": 390,
+          "h": 72
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "16px",
+        "line": "24px",
+        "color": "rgb(40, 40, 40)",
+        "padding": "0px 16px"
+      },
+      {
+        "tag": "DIV",
+        "text": "Codex",
+        "rect": {
+          "x": 0,
+          "y": 607.8125,
+          "w": 390,
+          "h": 28
+        },
+        "font": "openaiSans, \"openaiSans Fallback\", sans-serif",
+        "size": "14px",
+        "line": "20px",
+        "color": "rgb(93, 93, 93)",
+        "padding": "8px 16px 0px"
+      }
+    ],
+    "images": [
+      {
+        "alt": "Bringing my LED display to life with GPT-Live-1 and Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Rethinking skills and prompts for GPT-6 Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Architectural visualization with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Building games with Astra",
+        "loaded": true
+      },
+      {
+        "alt": "Meet Rosalind Workbench: Empowering every scientist to be their own research team",
+        "loaded": true
+      },
+      {
+        "alt": "Automating repetitive work at OpenAI with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Meet the winners of OpenAI Build Week",
+        "loaded": true
+      },
+      {
+        "alt": "Scaling cyber defenders with Daybreak",
+        "loaded": true
+      },
+      {
+        "alt": "Codex as a platform: build on the open agent harness",
+        "loaded": true
+      },
+      {
+        "alt": "Custom Code Review rules for Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Mastering remote engineering work from your phone",
+        "loaded": true
+      },
+      {
+        "alt": "Making private MCP servers reachable without making them public",
+        "loaded": true
+      },
+      {
+        "alt": "How Perplexity Brought Voice Search to Millions Using the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Designing delightful frontends with GPT-5.4",
+        "loaded": true
+      },
+      {
+        "alt": "From prompts to products: One year of Responses",
+        "loaded": true
+      },
+      {
+        "alt": "Using skills to accelerate OSS maintenance",
+        "loaded": true
+      },
+      {
+        "alt": "Building frontend UIs with Codex and Figma",
+        "loaded": true
+      },
+      {
+        "alt": "Run long horizon tasks with Codex",
+        "loaded": true
+      },
+      {
+        "alt": "Shell + Skills + Compaction: Tips for long-running agents that do real work",
+        "loaded": true
+      },
+      {
+        "alt": "15 lessons learned building ChatGPT Apps",
+        "loaded": true
+      },
+      {
+        "alt": "Testing Agent Skills Systematically with Evals",
+        "loaded": true
+      },
+      {
+        "alt": "Supercharging Codex with JetBrains MCP at Skyscanner",
+        "loaded": true
+      },
+      {
+        "alt": "OpenAI for Developers in 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Updates for developers building with voice",
+        "loaded": true
+      },
+      {
+        "alt": "What makes a great ChatGPT app",
+        "loaded": true
+      },
+      {
+        "alt": "Using Codex for education at Dagster Labs",
+        "loaded": true
+      },
+      {
+        "alt": "How Codex ran OpenAI DevDay 2025",
+        "loaded": true
+      },
+      {
+        "alt": "Why we built the Responses API",
+        "loaded": true
+      },
+      {
+        "alt": "Developer notes on the Realtime API",
+        "loaded": true
+      },
+      {
+        "alt": "Hello, world!",
+        "loaded": true
+      }
+    ],
+    "horizontal": false
+  }
+}

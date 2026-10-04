@@ -1,0 +1,208 @@
+[
+  {
+    "url": "https://developers.openai.com/OpenAI_Developers.svg",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/icons/logo.svg",
+    "kind": "svg",
+    "alt": "OpenAI Developers"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/bringing-my-led-display-to-life/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/01-bringing-my-led-display-to-life.webp",
+    "kind": "image",
+    "alt": "Bringing my LED display to life with GPT-Live-1 and Codex"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/rethinking-skills-and-prompts-for-gpt-6-astra/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/02-rethinking-skills-and-prompts-for-gpt-6-astra.webp",
+    "kind": "image",
+    "alt": "Rethinking skills and prompts for GPT-6 Astra"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/architectural-visualization-with-astra/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/03-architectural-visualization-with-astra.webp",
+    "kind": "image",
+    "alt": "Architectural visualization with Astra"
+  },
+  {
+    "url": "https://cdn.openai.com/devhub/blog/how-to-build-games/cover-ee7683a4efa3.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/04-how-to-build-games.webp",
+    "kind": "image",
+    "alt": "Building games with Astra"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/rosalind-workbench/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/05-rosalind-workbench.webp",
+    "kind": "image",
+    "alt": "Meet Rosalind Workbench: Empowering every scientist to be their own research team"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/automating-repetitive-work-at-openai-with-codex/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/06-automating-repetitive-work-at-openai-with-codex.webp",
+    "kind": "image",
+    "alt": "Automating repetitive work at OpenAI with Codex"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/build-week-winners/cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/07-build-week-winners.webp",
+    "kind": "image",
+    "alt": "Meet the winners of OpenAI Build Week"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/scaling-cyber-defenders-with-daybreak/cover.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/08-scaling-cyber-defenders-with-daybreak.webp",
+    "kind": "image",
+    "alt": "Scaling cyber defenders with Daybreak"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-as-a-platform-cover.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/09-blog.webp",
+    "kind": "image",
+    "alt": "Codex as a platform: build on the open agent harness"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-custom-code-review-rules.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/10-blog.webp",
+    "kind": "image",
+    "alt": "Custom Code Review rules for Codex"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/mastering-codex-remote-for-engineering.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/11-blog.webp",
+    "kind": "image",
+    "alt": "Mastering remote engineering work from your phone"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/connect-private-mcp-servers-safely.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/12-blog.webp",
+    "kind": "image",
+    "alt": "Making private MCP servers reachable without making them public"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/realtime-perplexity-computer.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/13-blog.webp",
+    "kind": "image",
+    "alt": "How Perplexity Brought Voice Search to Millions Using the Realtime API"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/designing-beautiful-frontends.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/14-blog.webp",
+    "kind": "image",
+    "alt": "Designing delightful frontends with GPT-5.4"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/one-year-responses.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/15-blog.webp",
+    "kind": "image",
+    "alt": "From prompts to products: One year of Responses"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/skills-agents-sdk.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/16-blog.webp",
+    "kind": "image",
+    "alt": "Using skills to accelerate OSS maintenance"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/building-frontend-uis-with-codex-and-figma.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/17-blog.webp",
+    "kind": "image",
+    "alt": "Building frontend UIs with Codex and Figma"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/run-long-horizon-tasks-with-codex.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/18-blog.webp",
+    "kind": "image",
+    "alt": "Run long horizon tasks with Codex"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/skills-shell-tips.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/19-blog.webp",
+    "kind": "image",
+    "alt": "Shell + Skills + Compaction: Tips for long-running agents that do real work"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/15-lessons-chatgpt-apps.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/20-blog.webp",
+    "kind": "image",
+    "alt": "15 lessons learned building ChatGPT Apps"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/eval-skills.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/21-blog.webp",
+    "kind": "image",
+    "alt": "Testing Agent Skills Systematically with Evals"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-jetbrains.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/22-blog.webp",
+    "kind": "image",
+    "alt": "Supercharging Codex with JetBrains MCP at Skyscanner"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/openai-for-devs-2025.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/23-blog.webp",
+    "kind": "image",
+    "alt": "OpenAI for Developers in 2025"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/updates-audio-blog.webp",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/24-blog.webp",
+    "kind": "image",
+    "alt": "Updates for developers building with voice"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/apps-blog-visual.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/25-blog.webp",
+    "kind": "image",
+    "alt": "What makes a great ChatGPT app"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-for-documentation-dagster.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/26-blog.webp",
+    "kind": "image",
+    "alt": "Using Codex for education at Dagster Labs"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/codex-at-devday.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/27-blog.webp",
+    "kind": "image",
+    "alt": "How Codex ran OpenAI DevDay 2025"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/responses-api.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/28-blog.webp",
+    "kind": "image",
+    "alt": "Why we built the Responses API"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/agent-online.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/29-blog.webp",
+    "kind": "image",
+    "alt": "Developer notes on the Realtime API"
+  },
+  {
+    "url": "https://developers.openai.com/images/blog/hello-world.png",
+    "path": "public/sites/developers-openai-com-56163ca2/blog-8caafe43/images/30-blog.webp",
+    "kind": "image",
+    "alt": "Hello, world!"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Regular.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Regular.woff2",
+    "kind": "font"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Medium.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Medium.woff2",
+    "kind": "font"
+  },
+  {
+    "url": "https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Semibold.woff2",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/fonts/OpenAISans-Semibold.woff2",
+    "kind": "font"
+  },
+  {
+    "url": "https://developers.openai.com/favicon.png",
+    "path": "public/sites/developers-openai-com-56163ca2/shared/icons/favicon.png",
+    "kind": "favicon"
+  }
+]

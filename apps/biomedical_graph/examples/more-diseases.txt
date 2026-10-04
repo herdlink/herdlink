@@ -1,0 +1,57 @@
+# 50 additional disease use cases, using exact PubTator names.
+# One name per line; blank lines and # comments are ignored.
+# Verified against PubTator autocomplete on 2026-10-04.
+Alzheimer Disease
+Multiple Sclerosis
+# Wilson disease
+Hepatolenticular Degeneration
+Cystic Fibrosis
+Anemia Sickle Cell
+Thalassemia
+Muscular Dystrophy Duchenne
+Muscular Atrophy Spinal
+Myotonic Dystrophy
+Friedreich Ataxia
+Spinocerebellar Ataxias
+Charcot-Marie-Tooth Disease
+Rett Syndrome
+Fragile X Syndrome
+Down Syndrome
+Turner Syndrome
+Noonan Syndrome
+Marfan Syndrome
+Ehlers-Danlos Syndrome
+Neurofibromatosis 1
+Neurofibromatosis 2
+Tuberous Sclerosis
+von Hippel-Lindau Disease
+Gaucher Disease
+Fabry Disease
+# Pompe disease
+Glycogen Storage Disease Type II
+Tay-Sachs Disease
+Niemann-Pick Diseases
+Phenylketonurias
+Maple Syrup Urine Disease
+Mucopolysaccharidosis I
+Mucopolysaccharidosis II
+Mucopolysaccharidosis III
+Mucopolysaccharidosis IV
+Hemophilia A
+Hemophilia B
+von Willebrand Diseases
+Achondroplasia
+Osteogenesis Imperfecta
+Osteopetrosis
+Retinitis Pigmentosa
+Leber Congenital Amaurosis
+Usher Syndromes
+# Alport syndrome
+Nephritis Hereditary
+Polycystic Kidney Diseases
+Hemochromatosis
+alpha 1-Antitrypsin Deficiency
+# Primary ciliary dyskinesia and related ciliary motility disorders
+Ciliary Motility Disorders
+Prader-Willi Syndrome
+Angelman Syndrome

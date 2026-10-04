@@ -365,3 +365,34 @@ mapping is reported; it is never replaced by a guessed profile. Data comes from
 the real cached clients; no synthetic example data is inserted. Existing nodes
 and query caches are reused. `just graph-data` downloads official release files
 into an empty `phenotype-data` directory if a full snapshot is not already present.
+
+For 50 additional disease use cases, run from the repository root with the same
+exported `NEO4J_*`, `HPO_DATA_DIR` and cache settings as the backend:
+
+```sh
+just graph-seed-more
+
+# Without just, optionally using a release build on a server:
+cargo run --release -p biomedical_graph --example seed_use_cases -- \
+  --diseases-file apps/biomedical_graph/examples/more-diseases.txt
+
+# Print the exact list without connecting to Neo4j or calling external APIs:
+cargo run -p biomedical_graph --example seed_use_cases -- \
+  --diseases-file apps/biomedical_graph/examples/more-diseases.txt --list
+
+# Use a custom file (one exact PubTator name per line):
+just graph-seed-more /path/to/diseases.txt
+```
+
+The [50-disease list](examples/more-diseases.txt) uses canonical PubTator names,
+including Hepatolenticular Degeneration for Wilson disease and Glycogen Storage
+Disease Type II for Pompe disease. Blank lines and `#` comments are ignored;
+duplicate names are processed once. Files accept 1–200 distinct names. Each use
+case keeps the same bounded gene, literature and optional phenotype enrichment;
+annotations and phenotype matches may introduce additional disease nodes.
+
+The seed prints progress and a final seeded/skipped/failed count. Individual
+failures do not stop later diseases from being attempted, and unresolved or
+failed imports produce a nonzero exit status. Rerun safely to reuse existing
+nodes and query caches. HPO mapping failures are reported separately and do not
+prevent PubTator data from being seeded. No OpenAI credentials are needed.

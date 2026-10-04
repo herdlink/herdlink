@@ -55,3 +55,7 @@ graph-data:
 # Seed three bounded real PubTator use cases, plus HPO comparisons when configured.
 graph-seed:
     cargo run -p biomedical_graph --example seed_use_cases
+
+# Seed 50 additional diseases, or supply your own disease names file.
+graph-seed-more diseases_file="apps/biomedical_graph/examples/more-diseases.txt":
+    cargo run -p biomedical_graph --example seed_use_cases -- --diseases-file {{quote(diseases_file)}}

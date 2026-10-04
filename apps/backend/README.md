@@ -200,6 +200,8 @@ corpus. `just graph-data` downloads official data into a new empty directory.
 related literature through the real PubTator clients. Phenotype mapping failures
 are reported without guessing. Chat tool calls also fetch/cache new PubTator
 objects on demand, so additional manual imports are not needed for new queries.
+For 50 additional predefined disease use cases, run `just graph-seed-more`; see
+the [seed instructions and disease list](../biomedical_graph/README.md#website-research-examples).
 
 - `POST /api/chat`: `{ "message": "Find related diseases through shared genes", "conversation_id": null, "disease": "Huntington disease" }`.
   Supply the returned conversation UUID for follow-ups. `disease` is optional

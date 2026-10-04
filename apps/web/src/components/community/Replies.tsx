@@ -48,7 +48,7 @@ export function Replies({ postId, user, active }: { postId: string; user: DemoUs
       <form onSubmit={(event) => { event.preventDefault(); void send(); }} className="space-y-3">
         <div>
           <label htmlFor={`reply-${postId}`} className="block text-xs text-[var(--site-secondary)]">Your reply</label>
-          <textarea id={`reply-${postId}`} className={`${fieldClass} mt-2 resize-y`} rows={2} maxLength={10000} required value={body} onChange={(event) => setBody(event.target.value)} disabled={sending} placeholder="Reply as Demo user…" />
+          <textarea id={`reply-${postId}`} className={`${fieldClass} mt-2 resize-y`} rows={2} maxLength={10000} required value={body} onChange={(event) => setBody(event.target.value)} disabled={sending} placeholder={`Reply as ${user.username === "demo_user" ? "Demo user" : user.username}…`} />
         </div>
         {error && <ErrorNotice message={error} />}
         <div className="flex flex-wrap items-center justify-between gap-2">

@@ -83,7 +83,9 @@ pub async fn list(
 #[derive(Default, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct OpenCommunity {
-    name: Option<String>,
+    pub(crate) name: Option<String>,
+    #[serde(default)]
+    pub(crate) preview: bool,
 }
 
 fn default_name(slug: &str) -> String {
@@ -103,8 +105,10 @@ pub async fn open(
     Path(key): Path<String>,
     input: Option<Json<OpenCommunity>>,
 ) -> Result<Json<Community>> {
+    let input = input.map(|Json(input)| input).unwrap_or_default();
+    let preview = input.preview;
     let mut display_name = input
-        .and_then(|Json(input)| input.name)
+        .name
         .map(|name| validation::text(&name, 100))
         .transpose()?;
     let key = key.trim().to_ascii_lowercase();
@@ -153,8 +157,10 @@ pub async fn open(
             .await?;
         community.name = name;
     }
-    sqlx::query("INSERT INTO community_members (community_id, user_id) VALUES (?1, ?2) ON CONFLICT DO NOTHING")
+    if !preview {
+        sqlx::query("INSERT INTO community_members (community_id, user_id) VALUES (?1, ?2) ON CONFLICT DO NOTHING")
         .bind(community.id).bind(auth.id).execute(&mut *tx).await?;
+    }
     sqlx::query("INSERT INTO channels (id, community_id, slug, name, kind, position) VALUES (?2, ?1, 'announcements', 'Announcements', 'announcement', 0), (?3, ?1, 'discussions', 'Discussions', 'discussion', 1) ON CONFLICT (community_id, slug) DO NOTHING")
         .bind(community.id).bind(Uuid::new_v4()).bind(Uuid::new_v4()).execute(&mut *tx).await?;
     tx.commit().await?;
@@ -195,4 +201,43 @@ pub async fn channels(
             .fetch_all(&state.db)
             .await?,
     ))
+}
+
+#[derive(serde::Serialize)]
+pub struct MembershipStatus {
+    joined: bool,
+    member_count: i64,
+}
+pub async fn membership(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Path(id): Path<Uuid>,
+) -> Result<Json<MembershipStatus>> {
+    let _: Uuid = sqlx::query_scalar("SELECT id FROM communities WHERE id = ?1")
+        .bind(id)
+        .fetch_one(&state.db)
+        .await?;
+    let (joined, member_count): (bool, i64) = sqlx::query_as("SELECT EXISTS(SELECT 1 FROM community_members WHERE community_id=?1 AND user_id=?2), (SELECT COUNT(*) FROM community_members WHERE community_id=?1)")
+        .bind(id).bind(auth.id).fetch_one(&state.db).await?;
+    Ok(Json(MembershipStatus {
+        joined,
+        member_count,
+    }))
+}
+#[derive(serde::Serialize, sqlx::FromRow)]
+pub struct Member {
+    id: Uuid,
+    username: String,
+    role: crate::models::UserRole,
+}
+pub async fn members(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Path(id): Path<Uuid>,
+    Query(page): Query<Pagination>,
+) -> Result<Json<Vec<Member>>> {
+    require_member(&state.db, id, auth.id).await?;
+    let (limit, offset) = page.bounds()?;
+    Ok(Json(sqlx::query_as("SELECT u.id,u.username,u.role FROM users u JOIN community_members m ON m.user_id=u.id WHERE m.community_id=?1 ORDER BY u.username LIMIT ?2 OFFSET ?3")
+        .bind(id).bind(limit).bind(offset).fetch_all(&state.db).await?))
 }

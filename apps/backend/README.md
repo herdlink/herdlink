@@ -254,3 +254,34 @@ NEO4J_TEST_URI=127.0.0.1:17687 cargo test -p backend --test chat -- --include-ig
 Responses stream and continuation semantics follow the official
 [streaming](https://developers.openai.com/api/docs/guides/streaming-responses)
 and [function-calling](https://developers.openai.com/api/docs/guides/function-calling) documentation.
+
+
+## Survey and membership API
+
+The frontend now signs in through `/api/auth/login` or registers through
+`/api/auth/register`, rather than starting a demo session automatically. The public
+demo credentials are `demo@herdlink.local` / `HerdlinkDemo123!`; the reserved demo
+identity keeps its existing memberships and saved chats when its old random
+password is upgraded. It remains a normal user.
+
+Pass `{ "preview": true }` to the community open endpoint to create/resolve a
+community without joining it. The default is retained for older API clients.
+`GET /api/communities/{id}/membership` returns `joined` and `member_count`;
+`POST /api/communities/{id}/join` is idempotent. Members can use the paginated
+`GET /api/communities/{id}/members` to read usernames and roles, without emails.
+
+`POST /api/surveys` accepts `title`, optional `description`, `communities` (1–30
+`{key,name}` targets), and `questions` (1–10 `{id,prompt,kind,options}` objects).
+Question kinds are `short_text` and `single_choice`; choices need 2–8 unique
+options. Targets resolve to communities without joining the creator. Community
+UUID/slug aliases and overlapping members are deduplicated.
+
+`POST /api/surveys/audience` accepts the same communities array and previews
+unique current members without creating communities. `GET /api/surveys` is
+paginated and optionally filters by `community=<uuid>`; it shows only surveys
+the current user created or can answer. `GET /api/surveys/{id}` has the same access
+scope. `POST /api/surveys/{id}/responses` accepts `{answers:[...]}` in question
+order, requires current membership and validates all answers. Its composite
+primary key enforces one response per person; duplicate submissions return 409.
+Later joiners become eligible automatically. Only creators receive aggregated
+choice counts and the latest fifty written answers; identities are not included.

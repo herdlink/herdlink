@@ -5,6 +5,7 @@ mod dms;
 mod error;
 pub mod graph;
 pub mod models;
+mod surveys;
 mod threads;
 mod validation;
 
@@ -86,6 +87,10 @@ pub fn app_with_chat(
         .route("/api/chat", post(chat::send))
         .route("/api/chats", get(chat::list))
         .route("/api/chats/{id}", get(chat::get))
+        .route("/api/surveys", get(surveys::list).post(surveys::create))
+        .route("/api/surveys/audience", post(surveys::audience))
+        .route("/api/surveys/{id}", get(surveys::get))
+        .route("/api/surveys/{id}/responses", post(surveys::respond))
         .route(
             "/api/communities",
             get(communities::list).post(communities::create),
@@ -94,6 +99,11 @@ pub fn app_with_chat(
         .route("/api/communities/{id}/open", post(communities::open))
         .route("/api/communities/{id}/join", post(communities::join))
         .route("/api/communities/{id}/channels", get(communities::channels))
+        .route(
+            "/api/communities/{id}/membership",
+            get(communities::membership),
+        )
+        .route("/api/communities/{id}/members", get(communities::members))
         .route(
             "/api/channels/{id}/threads",
             get(threads::list).post(threads::create),

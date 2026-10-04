@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { Moon, PanelLeftClose, PanelLeftOpen, Sun } from "lucide-react";
+import { Moon, PanelLeftClose, PanelLeftOpen, Sun, LogOut } from "lucide-react";
 
+import { useAuth, logout } from "@/components/auth/AuthProvider";
 import { GraphChat, ChatHistory } from "@/components/chat/GraphChat";
 
 const navigation = [
@@ -32,9 +33,12 @@ function readTheme() {
 
 export function Workspace({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { user } = useAuth();
+  const displayName = user.username === "demo_user" ? "Demo user" : user.username;
+  const [logoutError, setLogoutError] = useState("");
   const isCommunity = pathname.startsWith("/community/");
   const isCommunityDirectory = pathname === "/communities";
-  const withoutChat = isCommunity || isCommunityDirectory;
+  const withoutChat = isCommunity || isCommunityDirectory || pathname.startsWith("/surveys");
   const theme = useSyncExternalStore(subscribeTheme, readTheme, () => "light");
   const [historyCollapsed, setHistoryCollapsed] = useState(true);
   useEffect(() => {
@@ -57,25 +61,27 @@ export function Workspace({ children }: { children: React.ReactNode }) {
         </Link>
         <nav aria-label="Primary navigation" className="order-3 flex w-full items-center gap-1 overflow-x-auto pb-3 lg:order-none lg:w-auto lg:pb-0">
           {navigation.map(({ label, href }) => (
-            <Link key={href} href={href} aria-current={pathname === href || (href === "/communities" && isCommunity) ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--site-hover)] ${pathname === href || (href === "/communities" && isCommunity) ? "bg-[var(--site-hover)] font-medium" : "text-[var(--site-secondary)]"}`}>{label}</Link>
+            <Link key={href} href={href} aria-current={pathname === href || ((href === "/communities" && isCommunity) || (href === "/surveys" && pathname.startsWith("/surveys/"))) ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2 text-[14px] transition-colors hover:bg-[var(--site-hover)] ${pathname === href || ((href === "/communities" && isCommunity) || (href === "/surveys" && pathname.startsWith("/surveys/"))) ? "bg-[var(--site-hover)] font-medium" : "text-[var(--site-secondary)]"}`}>{label}</Link>
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-3">
           <button aria-label="Toggle light and dark theme" onClick={toggleTheme} className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--site-secondary)] hover:bg-[var(--site-hover)]">
             {theme === "dark" ? <Moon size={17} /> : <Sun size={17} />}
           </button>
-          <div aria-label="Signed in as Demo user, User role" className="flex items-center gap-2.5">
-            <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--site-hover)] text-xs font-semibold">D</span>
+          <div aria-label={`Signed in as ${displayName}`} className="flex items-center gap-2.5">
+            <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--site-hover)] text-xs font-semibold">{displayName[0]?.toUpperCase()}</span>
             <div className="text-left leading-4">
-              <p className="text-[13px] font-medium">Demo user</p>
-              <p className="mt-0.5 text-[11px] text-[var(--site-secondary)]">User</p>
+              <p className="text-[13px] font-medium">{displayName}</p>
+              <p className="mt-0.5 text-[11px] text-[var(--site-secondary)]">{user.role === "user" ? "User" : user.role.replaceAll("_", " ")}</p>
             </div>
           </div>
+          <button type="button" aria-label="Log out" title="Log out" onClick={() => { void logout().catch(() => setLogoutError("You have been logged out locally.")); }} className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--site-secondary)] hover:bg-[var(--site-hover)]"><LogOut size={15} /></button>
         </div>
       </header>
+      {logoutError && <p role="status" className="px-5 text-xs">{logoutError}</p>}
 
       {withoutChat ? (
-        <main id="workspace-content" tabIndex={-1} className={`min-h-0 flex-1 focus:outline-none ${isCommunityDirectory ? "overflow-y-auto" : ""}`}>{children}</main>
+        <main id="workspace-content" tabIndex={-1} className={`min-h-0 flex-1 focus:outline-none ${!isCommunity ? "overflow-y-auto" : ""}`}>{children}</main>
       ) : (
       <div className={`grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] ${historyCollapsed ? "lg:grid-cols-[56px_minmax(0,1fr)_minmax(300px,20%)]" : "lg:grid-cols-[220px_minmax(0,1fr)_minmax(300px,20%)]"}`}>
         <aside aria-labelledby="history-heading" className="flex min-h-0 flex-col border-b border-[var(--site-border)] md:col-span-2 lg:col-span-1 lg:border-r lg:border-b-0">

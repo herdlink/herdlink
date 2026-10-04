@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ChevronRight, FileText, Megaphone, Plus, RefreshCw, Search, X } from "lucide-react";
 import { type Channel, type Community, type DemoUser, type Post } from "@/lib/community-api";
+import { CommunityMembers } from "./CommunityMembers";
 import { ChannelFeed } from "./ChannelFeed";
 import { Author, buttonClass, ErrorNotice, secondaryClass } from "./CommunityUi";
 import { CreatePost } from "./CreatePost";
@@ -43,6 +44,9 @@ export function CommunityWorkspace({ community, channels, user }: { community: C
         <header className="shrink-0 px-5 pb-5 pt-6">
           <Link href="/communities" className="mb-5 inline-flex items-center gap-2 text-xs text-[var(--site-secondary)] hover:text-[var(--site-text)]"><ArrowLeft size={14} />All communities</Link>
           <h1 className="break-words text-xl font-medium tracking-tight">{community.name}</h1>
+          <p className="mt-2 text-xs text-[var(--site-secondary)]">You’re a member</p>
+          <CommunityMembers communityId={community.id} />
+          <Link href={{ pathname: "/surveys", query: { community: community.id } }} className="mt-4 inline-flex text-xs underline">Community surveys</Link>
         </header>
         <div className="shrink-0 px-3 pb-4">
           <button type="button" aria-pressed={selection.kind === "announcements"} onClick={() => select({ kind: "announcements" })} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm transition-colors ${selection.kind === "announcements" ? "bg-[var(--site-hover)] font-medium" : "hover:bg-[var(--site-soft)]"}`}>
@@ -112,7 +116,7 @@ function PostList({ channelId, query, selectedId, user, onSelect }: { channelId:
             <button type="button" onClick={() => onSelect(post)} aria-current={selectedId === post.id ? "true" : undefined} className={`w-full rounded-xl p-3 text-left transition-colors ${selectedId === post.id ? "bg-[var(--site-hover)]" : "hover:bg-[var(--site-soft)]"}`}>
               <span className="line-clamp-2 break-words text-sm font-medium"><Highlighted text={post.title} query={query} /></span>
               <span className="mt-1.5 line-clamp-2 break-words text-xs leading-5 text-[var(--site-secondary)]"><Highlighted text={post.body} query={query} /></span>
-              <span className="mt-2 block text-[11px] text-[var(--site-secondary)]">{post.author_id === user.id ? "Demo user" : `Member ${post.author_id.slice(0, 8)}`} · {new Date(post.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+              <span className="mt-2 block text-[11px] text-[var(--site-secondary)]">{post.author_id === user.id ? "You" : `Member ${post.author_id.slice(0, 8)}`} · {new Date(post.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
             </button>
           </li>
         ))}

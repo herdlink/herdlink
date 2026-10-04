@@ -33,7 +33,8 @@
     "typecheck": "tsc --noEmit",
     "test:graph": "bun test src/components/graph/graph-model.test.ts",
     "test:chat": "bun test src/lib/chat-stream.test.ts",
-    "check": "bun run lint && bun run typecheck && bun run test:graph && bun run test:chat && bun run build"
+    "check": "bun run lint && bun run typecheck && bun run test:graph && bun run test:chat && bun run test:surveys && bun run build",
+    "test:surveys": "bun test src/lib/survey-types.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

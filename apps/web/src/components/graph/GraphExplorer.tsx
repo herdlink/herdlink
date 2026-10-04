@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Network, RefreshCw, Search } from "lucide-react";
 import { useGraphChat } from "@/components/chat/GraphChatProvider";
 import { sourceTypes, type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
+import { CreateSurveyButton } from "@/components/surveys/CreateSurvey";
+import { graphSurveyTargets } from "@/lib/survey-types";
 import { GraphDetails } from "./GraphDetails";
 
 const SigmaCanvas = dynamic(() => import("./SigmaCanvas").then((module) => module.SigmaCanvas), { ssr: false, loading: () => <p role="status" className="p-6 text-sm text-[var(--site-secondary)]">Starting graph…</p> });
@@ -44,7 +46,8 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
     <section aria-labelledby="graph-heading" className="flex h-full min-h-[640px] min-w-0 flex-col lg:min-h-0">
       <header className="flex min-h-16 shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[var(--site-border)] px-5 py-4">
         <div><h1 id="graph-heading" className="text-sm font-semibold">Source graph</h1><p className="mt-1 text-[11px] text-[var(--site-secondary)]">{current?.nodes.length ? `${current.nodes.length} ${current.nodes.length === 1 ? "source" : "sources"} · ${current.edges.length} ${current.edges.length === 1 ? "connection" : "connections"}` : "Search for a disease to start"}</p></div>
-        {!suppliedSnapshot && !chat.activeId && <button type="button" onClick={() => refresh()} disabled={loading || !query} className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2 text-xs hover:bg-[var(--site-hover)] disabled:opacity-40"><RefreshCw size={13} />Refresh graph</button>}
+        <div className="flex items-center gap-2"><CreateSurveyButton targets={graphSurveyTargets(current)} />
+        {!suppliedSnapshot && !chat.activeId && <button type="button" onClick={() => refresh()} disabled={loading || !query} className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2 text-xs hover:bg-[var(--site-hover)] disabled:opacity-40"><RefreshCw size={13} />Refresh graph</button>}</div>
       </header>
       {!suppliedSnapshot && <form onSubmit={(event) => { event.preventDefault(); refresh(draft.trim()); }} className="flex shrink-0 items-center gap-2 border-b border-[var(--site-border)] px-5 py-3">
         <Search size={15} className="shrink-0 text-[var(--site-secondary)]" />

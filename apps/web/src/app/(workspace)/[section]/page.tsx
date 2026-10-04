@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
+import { SurveyList } from "@/components/surveys/SurveyList";
 import { CommunityDirectory } from "@/components/community/CommunityDirectory";
 
 const sections = {
@@ -12,9 +13,10 @@ export function generateStaticParams() {
   return Object.keys(sections).map((section) => ({ section }));
 }
 
-export default async function SectionPage({ params }: { params: Promise<{ section: string }> }) {
+export default async function SectionPage({ params, searchParams }: { params: Promise<{ section: string }>; searchParams: Promise<{ community?: string }> }) {
   const { section } = await params;
   if (section === "forums") permanentRedirect("/communities");
+  if (section === "surveys") { const { community } = await searchParams; return <SurveyList community={community} />; }
   if (section === "communities") return <CommunityDirectory />;
   if (!Object.hasOwn(sections, section)) notFound();
   const { title, description } = sections[section as keyof typeof sections];

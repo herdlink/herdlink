@@ -46,7 +46,7 @@ export function ChannelFeed({ channel, user, active }: { channel: Channel; user:
         <button type="button" onClick={posts.refresh} disabled={posts.busy || sending} className={secondaryClass}><RefreshCw size={14} />Refresh</button>
       </div>
       <form onSubmit={(event) => { event.preventDefault(); void send(); }} className="mb-7 space-y-3 rounded-2xl border border-[var(--site-border)] p-4">
-        <p className="text-sm font-medium">Post as Demo user</p>
+        <p className="text-sm font-medium">Post as {user.username === "demo_user" ? "Demo user" : user.username}</p>
         <label className="block text-xs text-[var(--site-secondary)]">Title (optional)
           <input value={title} onChange={(event) => setTitle(event.target.value)} maxLength={300} disabled={sending} placeholder="Give your conversation a title" className={`${fieldClass} mt-2`} />
         </label>

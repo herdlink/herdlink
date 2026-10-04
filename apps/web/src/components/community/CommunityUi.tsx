@@ -14,7 +14,7 @@ export function ErrorNotice({ message, onRetry }: { message: string; onRetry?: (
 export function Author({ authorId, userId, createdAt }: { authorId: string; userId: string; createdAt: string }) {
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--site-secondary)]">
-      <span className="font-medium text-[var(--site-text)]">{authorId === userId ? "Demo user" : `Member ${authorId.slice(0, 8)}`}</span>
+      <span className="font-medium text-[var(--site-text)]">{authorId === userId ? "You" : `Member ${authorId.slice(0, 8)}`}</span>
       <time dateTime={createdAt}>{new Date(createdAt).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}</time>
     </div>
   );

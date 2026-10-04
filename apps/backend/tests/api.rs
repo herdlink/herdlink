@@ -1104,3 +1104,296 @@ async fn thread_search_is_paginated_literal_and_scoped_to_members() {
     )
     .await;
 }
+
+#[tokio::test]
+async fn surveys_reach_unique_members_require_joining_and_keep_answers_private() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool.clone());
+    let (_, creator) = register(&app, "survey_creator").await;
+    let (participant_id, participant) = register(&app, "participant").await;
+    let (_, outsider) = register(&app, "outsider").await;
+    let mut communities = Vec::new();
+    for (key, name) in [
+        ("mondo-survey-one", "First disease"),
+        ("mondo-survey-two", "Second disease"),
+    ] {
+        let community = expect(
+            &app,
+            "POST",
+            &format!("/api/communities/{key}/open"),
+            Some(&creator),
+            json!({"name":name,"preview":true}),
+            StatusCode::OK,
+        )
+        .await;
+        let id = community["id"].as_str().unwrap();
+        let status = expect(
+            &app,
+            "GET",
+            &format!("/api/communities/{id}/membership"),
+            Some(&creator),
+            json!(null),
+            StatusCode::OK,
+        )
+        .await;
+        assert_eq!(status, json!({"joined":false,"member_count":0}));
+        expect(
+            &app,
+            "GET",
+            &format!("/api/communities/{id}/channels"),
+            Some(&creator),
+            json!(null),
+            StatusCode::FORBIDDEN,
+        )
+        .await;
+        for _ in 0..2 {
+            expect(
+                &app,
+                "POST",
+                &format!("/api/communities/{id}/join"),
+                Some(&participant),
+                json!({}),
+                StatusCode::OK,
+            )
+            .await;
+        }
+        communities.push(community);
+    }
+    let targets = json!([
+        {"key":communities[0]["slug"],"name":"First disease"},
+        {"key":communities[1]["slug"],"name":"Second disease"},
+        {"key":communities[0]["id"],"name":"First disease"}
+    ]);
+    let preview = expect(
+        &app,
+        "POST",
+        "/api/surveys/audience",
+        Some(&creator),
+        json!({"communities":targets}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(preview["audience_count"], 1);
+    let body = json!({"title":"Living with these diseases","description":"A cross-community survey", "communities":targets,
+        "questions":[{"id":"q1","prompt":"How are you feeling?","kind":"short_text","options":[]}, {"id":"q2","prompt":"Would you join a discussion?","kind":"single_choice","options":["Yes","No"]}]});
+    expect(
+        &app,
+        "POST",
+        "/api/surveys",
+        None,
+        body.clone(),
+        StatusCode::UNAUTHORIZED,
+    )
+    .await;
+    let created = expect(
+        &app,
+        "POST",
+        "/api/surveys",
+        Some(&creator),
+        body.clone(),
+        StatusCode::CREATED,
+    )
+    .await;
+    let id = created["id"].as_str().unwrap();
+    assert_eq!(created["communities"].as_array().unwrap().len(), 2);
+    assert_eq!(created["audience_count"], 1);
+    assert_eq!(created["can_respond"], false); // Creating a survey doesn't join its audience.
+    expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&creator),
+        json!({"answers":["Good","Yes"]}),
+        StatusCode::FORBIDDEN,
+    )
+    .await;
+    expect(
+        &app,
+        "GET",
+        &format!("/api/surveys/{id}"),
+        Some(&outsider),
+        json!(null),
+        StatusCode::FORBIDDEN,
+    )
+    .await;
+    expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&outsider),
+        json!({"answers":["Good","Yes"]}),
+        StatusCode::FORBIDDEN,
+    )
+    .await;
+    let hidden = expect(
+        &app,
+        "GET",
+        "/api/surveys",
+        Some(&outsider),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert!(hidden.as_array().unwrap().is_empty());
+    let available = expect(
+        &app,
+        "GET",
+        "/api/surveys",
+        Some(&participant),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(available.as_array().unwrap().len(), 1);
+    expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&participant),
+        json!({"answers":["Good"]}),
+        StatusCode::BAD_REQUEST,
+    )
+    .await;
+    expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&participant),
+        json!({"answers":["Good","Unknown"]}),
+        StatusCode::BAD_REQUEST,
+    )
+    .await;
+    let answered = expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&participant),
+        json!({"answers":["Doing well","Yes"]}),
+        StatusCode::CREATED,
+    )
+    .await;
+    assert_eq!(answered["response_count"], 1);
+    assert_eq!(answered["answers"], json!(["Doing well", "Yes"]));
+    assert!(answered["results"].is_null());
+    expect(
+        &app,
+        "POST",
+        &format!("/api/surveys/{id}/responses"),
+        Some(&participant),
+        json!({"answers":["Again","No"]}),
+        StatusCode::CONFLICT,
+    )
+    .await;
+    let results = expect(
+        &app,
+        "GET",
+        &format!("/api/surveys/{id}"),
+        Some(&creator),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(results["results"][0]["texts"], json!(["Doing well"]));
+    assert_eq!(results["results"][1]["counts"]["Yes"], 1);
+    assert!(!results["results"].to_string().contains(&participant_id));
+    let first = communities[0]["id"].as_str().unwrap();
+    expect(
+        &app,
+        "POST",
+        &format!("/api/communities/{first}/join"),
+        Some(&outsider),
+        json!({}),
+        StatusCode::OK,
+    )
+    .await;
+    let new_member = expect(
+        &app,
+        "GET",
+        "/api/surveys",
+        Some(&outsider),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(new_member[0]["audience_count"], 2);
+    assert!(new_member[0]["answers"].is_null());
+    assert!(new_member[0]["results"].is_null());
+    let members = expect(
+        &app,
+        "GET",
+        &format!("/api/communities/{first}/members"),
+        Some(&participant),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(members.as_array().unwrap().len(), 2);
+    assert!(members[0].get("email").is_none());
+    let count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM survey_responses")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(count, 1);
+    let mut invalid = body;
+    invalid["questions"][1]["id"] = json!("q1");
+    expect(
+        &app,
+        "POST",
+        "/api/surveys",
+        Some(&creator),
+        invalid,
+        StatusCode::BAD_REQUEST,
+    )
+    .await;
+}
+
+#[tokio::test]
+async fn demo_credentials_work_through_normal_login_and_keep_the_existing_identity() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app(pool.clone());
+    expect(&app,"POST","/api/auth/register",None,json!({"email":"demo@herdlink.local","username":"other_demo","password":"a long test password"}),StatusCode::BAD_REQUEST).await;
+    let login = expect(
+        &app,
+        "POST",
+        "/api/auth/login",
+        None,
+        json!({"email":"demo@herdlink.local","password":"HerdlinkDemo123!"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(login["user"]["role"], "user");
+    let token = login["token"].as_str().unwrap();
+    let (community_id, _, _) = community(&app, token, "demo-login-test").await;
+    // Upgrade the old random-password demo record, preserving its memberships and ID.
+    sqlx::query("UPDATE users SET password_hash='$argon2id$v=19$m=19456,t=2,p=1$invalid$invalid' WHERE username='demo_user'").execute(&pool).await.unwrap();
+    let again = expect(
+        &app,
+        "POST",
+        "/api/auth/login",
+        None,
+        json!({"email":"DEMO@HERDLINK.LOCAL","password":"HerdlinkDemo123!"}),
+        StatusCode::OK,
+    )
+    .await;
+    assert_eq!(again["user"]["id"], login["user"]["id"]);
+    expect(
+        &app,
+        "GET",
+        &format!("/api/communities/{community_id}/channels"),
+        Some(again["token"].as_str().unwrap()),
+        json!(null),
+        StatusCode::OK,
+    )
+    .await;
+    expect(
+        &app,
+        "POST",
+        "/api/auth/login",
+        None,
+        json!({"email":"demo@herdlink.local","password":"wrong password"}),
+        StatusCode::UNAUTHORIZED,
+    )
+    .await;
+}

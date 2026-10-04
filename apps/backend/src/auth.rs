@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use uuid::Uuid;
 
+#[derive(Clone)]
 pub struct AuthUser {
     pub id: Uuid,
     token_hash: Vec<u8>,
@@ -111,6 +112,9 @@ pub async fn register(
     Json(input): Json<Register>,
 ) -> Result<(StatusCode, Json<AuthResponse>)> {
     let email = email(&input.email)?;
+    if email == "demo@herdlink.local" || input.username.trim().eq_ignore_ascii_case("demo_user") {
+        return Err(AppError::bad_request("the demo account is reserved"));
+    }
     let username = input.username.trim().to_ascii_lowercase();
     if !(3..=32).contains(&username.len())
         || !username
@@ -139,6 +143,9 @@ pub async fn login(
     Json(input): Json<Login>,
 ) -> Result<Json<AuthResponse>> {
     let email = email(&input.email)?;
+    if email == "demo@herdlink.local" {
+        ensure_demo(&state.db).await?;
+    }
     if input.password.len() > 1024 {
         return Err(AppError::unauthorized());
     }
@@ -184,28 +191,50 @@ pub async fn me(State(state): State<AppState>, auth: AuthUser) -> Result<Json<Us
     ))
 }
 
-// Temporary shared demo identity. It still uses ordinary sessions and membership checks.
-pub async fn demo(State(state): State<AppState>) -> Result<Json<AuthResponse>> {
+// Public demo credentials are intentionally usable through the normal login form.
+const DEMO_PASSWORD: &str = "HerdlinkDemo123!";
+async fn ensure_demo(db: &sqlx::SqlitePool) -> Result<User> {
     let id = Uuid::from_u128(0x378ba963_dcdc_4bce_84ce_6c3f45309e2b);
-    let mut tx = state.db.begin().await?;
-    let existing: Option<User> =
-        sqlx::query_as("SELECT id, email, username, role, created_at FROM users WHERE id = ?1")
+    let mut tx = db.begin().await?;
+    let stored: Option<String> =
+        sqlx::query_scalar("SELECT password_hash FROM users WHERE id = ?1")
             .bind(id)
             .fetch_optional(&mut *tx)
             .await?;
-    let user = if let Some(user) = existing {
-        user
-    } else {
-        let hash = hash_password(Uuid::new_v4().to_string()).await?;
-        sqlx::query_as::<_, User>("INSERT INTO users (id, email, username, password_hash, role) VALUES (?1, 'demo@herdlink.local', 'demo_user', ?2, 'user') RETURNING id, email, username, role, created_at")
-            .bind(id).bind(hash).fetch_one(&mut *tx).await?
-    };
+    let matches = tokio::task::spawn_blocking(move || {
+        stored
+            .and_then(|s| {
+                PasswordHash::new(&s).ok().map(|hash| {
+                    Argon2::default()
+                        .verify_password(DEMO_PASSWORD.as_bytes(), &hash)
+                        .is_ok()
+                })
+            })
+            .unwrap_or(false)
+    })
+    .await
+    .map_err(AppError::internal)?;
+    if !matches {
+        let hash = hash_password(DEMO_PASSWORD.into()).await?;
+        sqlx::query("INSERT INTO users (id,email,username,password_hash,role) VALUES (?1,'demo@herdlink.local','demo_user',?2,'user') ON CONFLICT (id) DO UPDATE SET password_hash = excluded.password_hash")
+            .bind(id).bind(hash).execute(&mut *tx).await?;
+    }
+    let user: User =
+        sqlx::query_as("SELECT id,email,username,role,created_at FROM users WHERE id = ?1")
+            .bind(id)
+            .fetch_one(&mut *tx)
+            .await?;
     if user.role != UserRole::User {
         return Err(AppError::forbidden());
     }
-    let response = new_session(user, &mut tx).await?;
     tx.commit().await?;
-    Ok(Json(response))
+    Ok(user)
+}
+
+pub async fn demo(State(state): State<AppState>) -> Result<Json<AuthResponse>> {
+    let user = ensure_demo(&state.db).await?;
+    let mut connection = state.db.acquire().await?;
+    Ok(Json(new_session(user, &mut connection).await?))
 }
 
 pub async fn logout(State(state): State<AppState>, auth: AuthUser) -> Result<StatusCode> {

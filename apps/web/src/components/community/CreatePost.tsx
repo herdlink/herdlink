@@ -32,7 +32,7 @@ export function CreatePost({ channelId, onCreated, onCancel }: { channelId: stri
         <div><label htmlFor="new-post-title" className="mb-2 block text-sm font-medium">Title</label><input id="new-post-title" className={fieldClass} value={title} onChange={(event) => setTitle(event.target.value)} maxLength={300} required disabled={sending} placeholder="What would you like to talk about?" /></div>
         <div><label htmlFor="new-post-body" className="mb-2 block text-sm font-medium">Post</label><textarea id="new-post-body" className={`${fieldClass} resize-y`} rows={10} value={body} onChange={(event) => setBody(event.target.value)} maxLength={40000} required disabled={sending} placeholder="Write your post…" /></div>
         {error && <ErrorNotice message={error} />}
-        <p className="text-xs text-[var(--site-secondary)]">Posting as Demo user · Visible to community members</p>
+        <p className="text-xs text-[var(--site-secondary)]">Posting as you · Visible to community members</p>
         <div className="flex flex-wrap justify-end gap-3"><button type="button" onClick={onCancel} disabled={sending} className={secondaryClass}>Cancel</button><button type="submit" disabled={!title.trim() || !body.trim() || sending} className={buttonClass}>{sending ? "Publishing…" : "Publish post"}</button></div>
       </form>
     </section>

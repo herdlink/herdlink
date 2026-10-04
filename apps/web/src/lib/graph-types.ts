@@ -1,4 +1,10 @@
 export type SourceLink = { label: string; url: string };
+export type GraphComplexity = "focused" | "expanded" | "detailed";
+export const graphComplexities: { value: GraphComplexity; label: string; sources: number; matches: number; phenotypes: number }[] = [
+  { value: "focused", label: "Focused", sources: 30, matches: 3, phenotypes: 6 },
+  { value: "expanded", label: "Expanded", sources: 60, matches: 6, phenotypes: 12 },
+  { value: "detailed", label: "Detailed", sources: 100, matches: 10, phenotypes: 20 },
+];
 export type GraphNode = {
   id: string; label: string; kind: string; labels: string[];
   description: string | null; links: SourceLink[]; community_url: string | null;

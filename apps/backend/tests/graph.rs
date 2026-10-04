@@ -19,7 +19,11 @@ async fn request(app: &Router, path: &str, token: Option<&str>) -> (StatusCode, 
         .unwrap();
     let status = response.status();
     let bytes = to_bytes(response.into_body(), 2_000_000).await.unwrap();
-    (status, serde_json::from_slice(&bytes).unwrap())
+    (
+        status,
+        serde_json::from_slice(&bytes)
+            .unwrap_or_else(|_| Value::String(String::from_utf8_lossy(&bytes).into_owned())),
+    )
 }
 async fn demo(app: &Router) -> String {
     let response = app
@@ -62,6 +66,8 @@ async fn graph_reads_require_auth_and_validate_bounds_before_connecting() {
         "/api/graph?limit=401",
         "/api/graph/evidence?id=any&kind=invalid",
         "/api/graph/evidence?id=any&kind=node&offset=-1",
+        "/api/graph?complexity=all",
+        "/api/graph?complexity=1000000",
     ] {
         assert_eq!(
             request(&app, path, Some(&token)).await.0,
@@ -72,6 +78,8 @@ async fn graph_reads_require_auth_and_validate_bounds_before_connecting() {
         "/api/graph",
         "/api/graph?q=%20%20",
         "/api/graph?result_uid=%20",
+        "/api/graph?complexity=expanded",
+        "/api/graph?complexity=detailed",
     ] {
         let (status, snapshot) = request(&app, path, Some(&token)).await;
         assert_eq!(status, StatusCode::OK);
@@ -105,6 +113,7 @@ async fn snapshot_and_evidence_are_read_only_and_preserve_provenance() {
     .unwrap();
     // These fixtures reproduce the repository's stored schema; no upstream calls are made.
     graph.run(neo4rs::query("CREATE
+      (:GraphNode:Disease {uid:'unrelated',id:'MONDO:UNRELATED',name:'Unconnected disease'}),
       (d:GraphNode:Disease {uid:'disease:MONDO:TEST',id:'MONDO:TEST',name:'Huntington disease'}),
       (e:GraphNode:Entity:DiseaseEntity {uid:'pubtator:@DISEASE_Huntington_Disease',accession:'@DISEASE_Huntington_Disease',name:'Huntington disease'}),
       (g:GraphNode:Entity:Gene {uid:'pubtator:@GENE_HTT',accession:'@GENE_HTT',name:'HTT'}),
@@ -196,6 +205,32 @@ async fn snapshot_and_evidence_are_read_only_and_preserve_provenance() {
     }
     let (_, gene_search) = request(&app, "/api/graph?q=HTT", Some(&token)).await;
     assert!(gene_search["nodes"].as_array().unwrap().is_empty());
+    for complexity in ["expanded", "detailed"] {
+        let (status, expanded) = request(
+            &app,
+            &format!("/api/graph?q=Huntington%20disease&complexity={complexity}"),
+            Some(&token),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK, "{expanded}");
+        let nodes = expanded["nodes"].as_array().unwrap();
+        assert!(nodes.len() > 1);
+        assert!(nodes.len() <= if complexity == "expanded" { 60 } else { 100 });
+        assert!(nodes.iter().any(|n| n["id"] == "disease:MONDO:TEST"));
+        assert!(!nodes.iter().any(|n| n["id"] == "unrelated"));
+        let ids = nodes
+            .iter()
+            .map(|n| n["id"].as_str().unwrap())
+            .collect::<std::collections::BTreeSet<_>>();
+        assert!(
+            expanded["edges"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|e| ids.contains(e["source"].as_str().unwrap())
+                    && ids.contains(e["target"].as_str().unwrap()))
+        );
+    }
     let (status, snapshot) = request(&app, "/api/graph?result_uid=result:test", Some(&token)).await;
     assert_eq!(status, StatusCode::OK, "{snapshot}");
     let nodes = snapshot["nodes"].as_array().unwrap();

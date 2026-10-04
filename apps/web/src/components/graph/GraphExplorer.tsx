@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Network, RefreshCw, Search } from "lucide-react";
 import { useGraphChat } from "@/components/chat/GraphChatProvider";
-import { sourceTypes, type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
+import { graphComplexities, sourceTypes, type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
 import { CreateSurveyButton } from "@/components/surveys/CreateSurvey";
 import { graphSurveyTargets } from "@/lib/survey-types";
 import { GraphDetails } from "./GraphDetails";
@@ -35,6 +35,8 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
     return value.kind === "node" ? visibleIds.has(value.id) : visibleEdges.some((edge) => edge.id === value.id);
   }
   const visibleSelection = selection && isVisible(selection) ? selection : null;
+  const complexityIndex = graphComplexities.findIndex((level) => level.value === chat.complexity);
+  const complexityLevel = graphComplexities[complexityIndex];
   function preview(next: GraphSelection) {
     setInspection((previous) => previous?.pinned && isVisible(previous.selection) ? previous : { selection: next, pinned: false });
   }
@@ -46,7 +48,13 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
     <section aria-labelledby="graph-heading" className="flex h-full min-h-[640px] min-w-0 flex-col lg:min-h-0">
       <header className="flex min-h-16 shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[var(--site-border)] px-5 py-4">
         <div><h1 id="graph-heading" className="text-sm font-semibold">Source graph</h1><p className="mt-1 text-[11px] text-[var(--site-secondary)]">{current?.nodes.length ? `${current.nodes.length} ${current.nodes.length === 1 ? "source" : "sources"} · ${current.edges.length} ${current.edges.length === 1 ? "connection" : "connections"}` : "Search for a disease to start"}</p></div>
-        <div className="flex items-center gap-2"><CreateSurveyButton targets={graphSurveyTargets(current)} />
+        <div className="flex flex-wrap items-center gap-2">
+        {!suppliedSnapshot && <div className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2">
+          <label htmlFor="graph-complexity" className="text-xs text-[var(--site-secondary)]">Complexity</label>
+          <input id="graph-complexity" type="range" min={0} max={2} step={1} value={complexityIndex} aria-label="Graph complexity" aria-valuetext={`${complexityLevel.label}, up to ${complexityLevel.sources} sources`} title="Reveal more stored connections. New searches start focused." disabled={loading || chat.busy || !current.nodes.length} onChange={(event) => { void chat.changeComplexity(graphComplexities[Number(event.target.value)].value); }} className="h-5 w-24 cursor-pointer accent-[var(--site-solid)] disabled:cursor-wait disabled:opacity-40" />
+          <span aria-live="polite" className="min-w-14 text-[11px]">{complexityLevel.label}</span>
+        </div>}
+        <CreateSurveyButton targets={graphSurveyTargets(current)} />
         {!suppliedSnapshot && !chat.activeId && <button type="button" onClick={() => refresh()} disabled={loading || !query} className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2 text-xs hover:bg-[var(--site-hover)] disabled:opacity-40"><RefreshCw size={13} />Refresh graph</button>}</div>
       </header>
       {!suppliedSnapshot && <form onSubmit={(event) => { event.preventDefault(); refresh(draft.trim()); }} className="flex shrink-0 items-center gap-2 border-b border-[var(--site-border)] px-5 py-3">
@@ -61,10 +69,10 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
         })}
       </div>}
       {chat.update && <p role="status" className="shrink-0 border-b border-[var(--site-border)] bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">{chat.update}</p>}
-      {current?.truncated && <p className="shrink-0 bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">Focused overview: up to 30 sources, 3 phenotype matches and 6 shared features. Full comparisons and literature are available in the details panel.</p>}
-      {error && <div role="alert" className="shrink-0 border-b border-[var(--site-border)] px-5 py-3 text-xs leading-5"><p>{error}</p><button onClick={() => refresh()} className="mt-1 underline">Try again</button></div>}
+      {current?.truncated && <p className="shrink-0 bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">{complexityLevel.label} overview: up to {complexityLevel.sources} sources, {complexityLevel.matches} phenotype matches and {complexityLevel.phenotypes} shared features. Full comparisons and literature are available in the details panel.</p>}
+      {error && <div role="alert" className="shrink-0 border-b border-[var(--site-border)] px-5 py-3 text-xs leading-5"><p>{error}</p><button onClick={() => { if (chat.activeId) void chat.openChat(chat.activeId); else refresh(); }} className="mt-1 underline">Try again</button></div>}
       <div className="relative min-h-[380px] flex-1 lg:min-h-0">
-        {current && current.nodes.length > 0 && <SigmaCanvas snapshot={current} hiddenKinds={hiddenKinds} selection={visibleSelection} onHover={preview} onSelect={select} />}
+        {current && current.nodes.length > 0 && <SigmaCanvas snapshot={current} hiddenKinds={hiddenKinds} selection={visibleSelection} onHover={preview} onSelect={select} complexity={chat.complexity} />}
         {!suppliedSnapshot && loading && <p role="status" className="absolute bottom-4 right-4 rounded-full bg-[var(--site-panel)] px-3 py-2 text-xs text-[var(--site-secondary)]">Loading graph…</p>}
         {!loading && !error && current?.nodes.length === 0 && <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"><Network size={30} strokeWidth={1.3} className="mb-5 text-[var(--site-secondary)]" /><h2 className="text-lg font-medium">{query ? "No matching disease" : "Find a disease"}</h2><p className="mt-3 max-w-xs text-sm leading-6 text-[var(--site-secondary)]">{query ? "Try another disease name or identifier." : "Search for a disease to start your graph."}</p></div>}
         {visibleSelection && current && <GraphDetails selection={visibleSelection} snapshot={current} pinned={inspection?.pinned ?? false} onTogglePin={() => setInspection((current) => current ? { ...current, pinned: !current.pinned } : null)} onClose={() => select(null)} />}

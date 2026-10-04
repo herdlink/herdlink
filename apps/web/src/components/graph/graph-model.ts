@@ -13,40 +13,85 @@ function position(id: string) {
   return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
 }
 
-/** Layout a simple graph so repeated paper evidence cannot pull endpoints together. */
+/** Arrange connected groups independently so isolated sources cannot stretch the view. */
 export function arrangeGraph(graph: RenderGraph) {
-  const layout = new UndirectedGraph<NodeAttributes>();
+  if (!graph.order) return;
   const ids = graph.nodes().sort();
-  ids.forEach((id, index) => {
-    const angle = 2 * Math.PI * index / ids.length;
-    const radius = Math.max(40, Math.sqrt(ids.length) * 30);
-    layout.addNode(id, { ...graph.getNodeAttributes(id), x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, size: 18 });
-  });
-  graph.forEachEdge((_id, _attributes, source, target) => {
-    if (source !== target && !layout.hasEdge(source, target)) layout.addEdge(source, target);
-  });
-  if (layout.order > 1 && layout.size) {
-    forceAtlas2.assign(layout, { iterations: 350, settings: { ...forceAtlas2.inferSettings(layout), adjustSizes: true, barnesHutOptimize: false, scalingRatio: 30, gravity: 0.15 } });
+  const remaining = new Set(ids);
+  const groups: string[][] = [];
+  for (const root of ids) {
+    if (!remaining.delete(root)) continue;
+    const group = [root];
+    for (let i = 0; i < group.length; i++) {
+      for (const neighbor of graph.neighbors(group[i]).sort()) {
+        if (remaining.delete(neighbor)) group.push(neighbor);
+      }
+    }
+    groups.push(group.sort());
   }
-  // Enforce breathing room even for disconnected nodes and dense shared-feature hubs.
-  for (let pass = 0; pass < 100; pass++) {
+  const boxes = groups.map((group) => {
+    const layout = new UndirectedGraph<NodeAttributes>();
+    const hub = group.length > 2 ? [...group].sort((a, b) => graph.neighbors(b).length - graph.neighbors(a).length || a.localeCompare(b))[0] : null;
+    let index = 0;
+    // Start the busiest source in the center to balance radial neighborhoods.
+    group.forEach((id) => {
+      const angle = 2 * Math.PI * index / (group.length - (hub ? 1 : 0));
+      const radius = id === hub ? 0 : Math.max(40, Math.sqrt(group.length) * 30);
+      layout.addNode(id, { ...graph.getNodeAttributes(id), x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, size: 18 });
+      if (id !== hub) index++;
+    });
+    // Repeated paper evidence must not strengthen attraction between endpoints.
+    graph.forEachEdge((_id, _attributes, source, target) => {
+      if (source !== target && layout.hasNode(source) && layout.hasNode(target) && !layout.hasEdge(source, target)) layout.addEdge(source, target);
+    });
+    if (layout.order > 1 && layout.size) {
+      forceAtlas2.assign(layout, { iterations: 350, settings: { ...forceAtlas2.inferSettings(layout), adjustSizes: true, barnesHutOptimize: false, scalingRatio: 20, gravity: 0.5, strongGravityMode: true } });
+    }
+    const points = group.map((id) => ({ id, ...layout.getNodeAttributes(id) }));
+    const minX = Math.min(...points.map((p) => p.x)), maxX = Math.max(...points.map((p) => p.x));
+    const minY = Math.min(...points.map((p) => p.y)), maxY = Math.max(...points.map((p) => p.y));
+    const extent = group.length > 1 ? Math.sqrt(group.length) * 100 : 0;
+    const width = maxX - minX, height = maxY - minY;
+    const scale = extent / Math.max(width, height, 1);
+    // Give long, thin connected groups enough room in both axes.
+    const scaleX = group.length > 2 ? Math.max(scale, extent * 0.6 / Math.max(width, 1)) : scale;
+    const scaleY = group.length > 2 ? Math.max(scale, extent * 0.6 / Math.max(height, 1)) : scale;
+    for (const point of points) {
+      point.x = (point.x - (minX + maxX) / 2) * scaleX;
+      point.y = (point.y - (minY + maxY) / 2) * scaleY;
+    }
+    return { points, width: Math.max(90, width * scaleX + 100), height: Math.max(90, height * scaleY + 100) };
+  }).sort((a, b) => b.points.length - a.points.length || a.points[0].id.localeCompare(b.points[0].id));
+  const rowWidth = Math.max(...boxes.map((b) => b.width), Math.sqrt(boxes.reduce((sum, b) => sum + b.width * b.height, 0)) * 1.3);
+  let cursorX = 0, cursorY = 0, rowHeight = 0;
+  for (const box of boxes) {
+    if (cursorX > 0 && cursorX + box.width > rowWidth) { cursorX = 0; cursorY += rowHeight + 80; rowHeight = 0; }
+    for (const point of box.points) graph.mergeNodeAttributes(point.id, { x: point.x + cursorX + box.width / 2, y: point.y + cursorY + box.height / 2 });
+    cursorX += box.width + 80;
+    rowHeight = Math.max(rowHeight, box.height);
+  }
+  // Enforce breathing room even for dense shared-feature hubs.
+  for (let pass = 0; pass < 150; pass++) {
     let moved = false;
     for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
-      const a = layout.getNodeAttributes(ids[i]), b = layout.getNodeAttributes(ids[j]);
+      const a = graph.getNodeAttributes(ids[i]), b = graph.getNodeAttributes(ids[j]);
       const dx = b.x - a.x, dy = b.y - a.y;
       const distance = Math.hypot(dx, dy);
-      if (distance >= 65) continue;
+      if (distance >= 85) continue;
       const angle = (i + j) * 2.399963;
       const ux = distance > 0.001 ? dx / distance : Math.cos(angle);
       const uy = distance > 0.001 ? dy / distance : Math.sin(angle);
-      const shift = (65 - distance) / 2 + 0.01;
-      layout.mergeNodeAttributes(ids[i], { x: a.x - ux * shift, y: a.y - uy * shift });
-      layout.mergeNodeAttributes(ids[j], { x: b.x + ux * shift, y: b.y + uy * shift });
+      const shift = (85 - distance) / 2 + 0.01;
+      graph.mergeNodeAttributes(ids[i], { x: a.x - ux * shift, y: a.y - uy * shift });
+      graph.mergeNodeAttributes(ids[j], { x: b.x + ux * shift, y: b.y + uy * shift });
       moved = true;
     }
     if (!moved) break;
   }
-  layout.forEachNode((id, { x, y }) => graph.mergeNodeAttributes(id, { x, y }));
+  const coordinates = ids.map((id) => graph.getNodeAttributes(id));
+  const centerX = (Math.min(...coordinates.map((p) => p.x)) + Math.max(...coordinates.map((p) => p.x))) / 2;
+  const centerY = (Math.min(...coordinates.map((p) => p.y)) + Math.max(...coordinates.map((p) => p.y))) / 2;
+  graph.forEachNode((id, { x, y }) => graph.mergeNodeAttributes(id, { x: x - centerX, y: y - centerY }));
 }
 
 /** Reconcile in place; metadata updates preserve positions and topology changes reflow. */

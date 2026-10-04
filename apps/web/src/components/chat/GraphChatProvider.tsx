@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { communityApi, communityFetch, errorMessage } from "@/lib/community-api";
 import { chatEvents, type ToolActivity } from "@/lib/chat-stream";
-import type { GraphSnapshot } from "@/lib/graph-types";
+import type { GraphComplexity, GraphSnapshot } from "@/lib/graph-types";
 
 export type ChatMessage = { role: "user" | "assistant"; content: string };
 type Summary = { id: string; title: string; updated_at: string };
@@ -12,6 +12,7 @@ export const emptyGraph: GraphSnapshot = { nodes: [], edges: [], query: "", resu
 type ChatState = {
   graph: GraphSnapshot; messages: ChatMessage[]; tools: ToolActivity[]; chats: Summary[]; activeId: string | null;
   busy: boolean; searching: boolean; error: string; graphError: string; update: string;
+  complexity: GraphComplexity; changeComplexity: (value: GraphComplexity) => Promise<void>;
   send: (message: string) => Promise<void>; stop: () => void; newChat: () => void;
   openChat: (id: string) => Promise<void>; searchDisease: (query: string) => Promise<void>;
 };
@@ -20,6 +21,7 @@ export function useGraphChat() { const value = useContext(Context); if (!value) 
 
 export function GraphChatProvider({ children }: { children: React.ReactNode }) {
   const [graph, setGraph] = useState(emptyGraph);
+  const [complexity, setComplexity] = useState<GraphComplexity>("focused");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [tools, setTools] = useState<ToolActivity[]>([]);
   const [chats, setChats] = useState<Summary[]>([]);
@@ -41,6 +43,7 @@ export function GraphChatProvider({ children }: { children: React.ReactNode }) {
     controller.current?.abort(); controller.current = null; generation.current++;
     activeRef.current = null; setActiveId(null); setGraph(emptyGraph); setMessages([]); setTools([]);
     setBusy(false); setSearching(false); setError(""); setGraphError(""); setUpdate("");
+    setComplexity("focused");
   }
   async function searchDisease(query: string) {
     newChat();
@@ -61,6 +64,22 @@ export function GraphChatProvider({ children }: { children: React.ReactNode }) {
     } catch (error) { if (version === generation.current) setError(errorMessage(error)); }
     finally { if (version === generation.current) setSearching(false); }
   }
+  async function changeComplexity(next: GraphComplexity) {
+    if (next === complexity || controller.current || searching || !graph.nodes.length) return;
+    const previous = complexity;
+    const version = ++generation.current;
+    setComplexity(next); setSearching(true); setGraphError(""); setUpdate("");
+    try {
+      const snapshot = activeRef.current
+        ? (await communityApi<Conversation>(`/chats/${activeRef.current}?${new URLSearchParams({ complexity: next })}`)).graph
+        : await communityApi<GraphSnapshot>(`/graph?${new URLSearchParams({ q: graph.query, complexity: next })}`);
+      if (version !== generation.current) return;
+      setGraph(snapshot);
+      setUpdate(next === "focused" ? "Focused view restored" : "Showing more available sources and connections");
+    } catch (error) {
+      if (version === generation.current) { setComplexity(previous); setGraphError(errorMessage(error)); }
+    } finally { if (version === generation.current) setSearching(false); }
+  }
   function stop() { controller.current?.abort(); }
   async function send(message: string) {
     if (!message.trim() || controller.current || searching) return;
@@ -70,7 +89,7 @@ export function GraphChatProvider({ children }: { children: React.ReactNode }) {
     setMessages(initial); setTools([]); setBusy(true); setError(""); setUpdate("");
     let text = "";
     try {
-      const response = await communityFetch("/chat", { method: "POST", signal: abort.signal, body: JSON.stringify({ conversation_id: activeRef.current, message, disease: graph.query || null }) });
+      const response = await communityFetch("/chat", { method: "POST", signal: abort.signal, body: JSON.stringify({ conversation_id: activeRef.current, message, disease: graph.query || null, complexity }) });
       if (!response.body || !response.headers.get("content-type")?.includes("text/event-stream")) throw new Error("The backend did not return a chat stream.");
       for await (const event of chatEvents(response.body)) {
         if (version !== generation.current) break;
@@ -92,5 +111,5 @@ export function GraphChatProvider({ children }: { children: React.ReactNode }) {
       }
     }
   }
-  return <Context.Provider value={{ graph, messages, tools, chats, activeId, busy, searching, error, graphError, update, send, stop, newChat, openChat, searchDisease }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ graph, messages, tools, chats, activeId, busy, searching, error, graphError, update, complexity, changeComplexity, send, stop, newChat, openChat, searchDisease }}>{children}</Context.Provider>;
 }

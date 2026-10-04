@@ -145,6 +145,8 @@ Export `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` from [.
 
 `GET /api/graph` returns `{ nodes, edges, query, result_uid, truncated, generated_at }`. Without a nonempty disease query or explicit tool-result scope it returns an empty snapshot without connecting to Neo4j. There is no database-wide overview. Ordinary `q` searches disease names/identifiers, prefers exact matches and canonical diseases, and returns at most one disease with no neighbors or edges. Mapped PubTator aliases resolve to their canonical disease when available. Genes and publications do not qualify as disease search results.
 
+`complexity=focused` (default) preserves that single-disease search. `expanded` and `detailed` read only a bounded neighborhood around the matching disease and its mapped aliases, capped at 60 and 100 visible sources respectively. Blank queries stay empty at every level. The frontend slider also applies to saved chats: `GET /api/chats/{id}?complexity=focused|expanded|detailed` returns the chosen projection without changing the saved conversation or making model/tool calls. New searches and reopened chats start focused.
+
 Nodes have stable source UIDs, type, label, external links, and a disease community URL where applicable. An explicit `result_uid` selects objects belonging to one stored tool `FetchResult`; that scoped read expands a bounded three-hop neighborhood, projects domain connections from provenance chains, and hides operational/cache nodes. Streaming chat instead projects the exact returned tool objects without reading unrelated neighbors. It caps raw nodes at 2,000 and raw edges at 5,000; `truncated` also signals clipping to the requested visible-node limit. Edges have stable evidence IDs, endpoints, labels, source context, and an evidence kind.
 
 The projection distinguishes extracted relations, disease/phenotype annotations (including excluded and conflicting phenotypes), identifier mappings, ontology hierarchy, and publication mentions. HPO annotation citations also connect publications to the disease they describe. A mention is contextual literature, not evidence of a biological association. Paper queries run independently of the bounded overview and paginate stored `Publication` nodes; opaque, non-PubMed citation identifiers are not resolved into papers. HPO relationship papers match the specific profile/term and positive or excluded annotation rows; extracted-relation papers come from the original document. PubTator summary counts can exist without individual paper IDs. In that case the UI shows the reported count, explains the missing citations, and links to the corresponding PubTator relation search. Literature search links are separate from stored supporting papers.
@@ -153,7 +155,7 @@ Disease nodes link to `/community/<normalized disease identifier>`; mapped PubTa
 
 The home page starts empty, makes no initial graph request, and renders the matching disease with Sigma.js after a search. Clearing the search clears the graph. Chat history starts collapsed and can be expanded from the left rail. Hover previews details; clicking a node or edge pins its details so subsequent hover events cannot replace them. The pin control, close button, another explicit selection, or clicking the empty canvas can release/replace that selection.
 
-`GraphExplorer` renders streamed snapshots from the shared chat provider and also accepts an explicit `snapshot` prop. Its Graphology model reconciles stable IDs in place and keeps retained node positions and the Sigma camera. Disease search and Refresh read one matching disease; a new search begins a new conversation. Chat tool calls cache fetched biomedical data and stream scoped graph updates, as described below.
+`GraphExplorer` renders streamed snapshots from the shared chat provider and also accepts an explicit `snapshot` prop. Its Graphology model reconciles stable IDs in place, preserves positions during metadata updates, and balances connected groups with minimum node spacing when topology changes. Parallel evidence does not increase layout attraction. Changing complexity refits the view. Disease search and Refresh read one matching disease; a new search begins a new conversation. Chat tool calls cache fetched biomedical data and stream scoped graph updates, as described below.
 
 ## Validation
 
@@ -205,7 +207,9 @@ the [seed instructions and disease list](../biomedical_graph/README.md#website-r
 
 - `POST /api/chat`: `{ "message": "Find related diseases through shared genes", "conversation_id": null, "disease": "Huntington disease" }`.
   Supply the returned conversation UUID for follow-ups. `disease` is optional
-  context for a new conversation. Messages are limited to 4,000 characters.
+  context for a new conversation. Optional `complexity` selects `focused` (default),
+  `expanded`, or `detailed` for streamed graph updates. Messages are limited to
+  4,000 characters.
 - `GET /api/chats`: the current user's last 100 conversation summaries.
 - `GET /api/chats/{id}`: saved messages and the latest bounded graph; private to
   the authenticated owner.
@@ -226,8 +230,11 @@ without accepting arbitrary model history from the browser.
 Tools use automatic selection: conversational replies can run without any tool
 call or graph change. Research is bounded to 12 model rounds, 10 results per
 entity/relation call, 3 phenotype matches, 5 pages and 5 annotated PMIDs per call,
-and 30 visible nodes. Phenotype views show at most six positively annotated
-shared features rather than complete profiles or ontology ancestors. Complete
+and 30 visible nodes by default (60 Expanded, 100 Detailed). Saved chats retain
+up to 100 retrieved sources so the slider can reveal more detail; older chats
+can only reveal the sources they already saved. Phenotype views show at most
+six positively annotated shared features by default (12 Expanded, 20 Detailed)
+rather than complete profiles or ontology ancestors. Complete
 comparison fields and supporting papers remain available in the details panel.
 Restoring older chats applies the same limits. Successful tool projections—not a database-wide scan—update the
 conversation's graph. Existing visible canonical/alias nodes can be joined with

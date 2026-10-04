@@ -7,7 +7,8 @@ literature, and discuss findings with other community members.
 ## Features
 
 - Interactive Sigma.js graph backed by Neo4j, with source colors, relationship
-  details and links to papers and disease communities.
+  details and links to papers and disease communities. A complexity slider reveals
+  more connections while keeping the default view focused.
 - Streaming AI chat that uses PubTator3 and HPO tools to expand the current graph.
 - Disease communities with membership, announcements, posts and replies.
 - Surveys across the disease communities shown in your graph, with one response

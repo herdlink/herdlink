@@ -5,12 +5,12 @@ import { MultiDirectedGraph } from "graphology";
 import Sigma from "sigma";
 import { createEdgeCurveProgram } from "@sigma/edge-curve";
 import { Maximize2, Minus, Plus, Shuffle } from "lucide-react";
-import { type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
+import { type GraphComplexity, type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
 import { arrangeGraph, updateGraph, type NodeAttributes, type EdgeAttributes, type RenderGraph } from "./graph-model";
 
 const CurvedArrowProgram = createEdgeCurveProgram<NodeAttributes, EdgeAttributes>({ arrowHead: { extremity: "target", lengthToThicknessRatio: 2.5, widenessToThicknessRatio: 2 } });
 
-export function SigmaCanvas({ snapshot, hiddenKinds, selection, onHover, onSelect }: { snapshot: GraphSnapshot; hiddenKinds: string[]; selection: GraphSelection | null; onHover: (selection: GraphSelection) => void; onSelect: (selection: GraphSelection | null) => void }) {
+export function SigmaCanvas({ snapshot, hiddenKinds, selection, onHover, onSelect, complexity = "focused" }: { snapshot: GraphSnapshot; hiddenKinds: string[]; selection: GraphSelection | null; onHover: (selection: GraphSelection) => void; onSelect: (selection: GraphSelection | null) => void; complexity?: GraphComplexity }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<Sigma<NodeAttributes, EdgeAttributes> | null>(null);
   const graphRef = useRef<RenderGraph | null>(null);
@@ -62,6 +62,8 @@ export function SigmaCanvas({ snapshot, hiddenKinds, selection, onHover, onSelec
     updateGraph(graphRef.current, snapshot);
     rendererRef.current?.refresh();
   }, [snapshot]);
+
+  useEffect(() => { rendererRef.current?.getCamera().animatedReset({ duration: 200 }); }, [complexity]);
 
   useEffect(() => {
     const renderer = rendererRef.current;

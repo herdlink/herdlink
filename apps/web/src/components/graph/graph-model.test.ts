@@ -49,4 +49,33 @@ describe("replaceable graph snapshots", () => {
     expect(graph.getEdgeAttribute("paper-a", "type")).toBe("curved");
     expect(graph.getNodeAttribute("source", "color")).toBe(sourceTypes.other.color);
   });
+  test("hub neighborhoods spread around the central source instead of leaning to one side", () => {
+    const graph = new MultiDirectedGraph<NodeAttributes, EdgeAttributes>();
+    const leaves = Array.from({ length: 79 }, (_, i) => node(`gene-${i}`));
+    updateGraph(graph, snapshot([node("disease", "disease"), ...leaves], leaves.map((n) => edge(n.id, "disease", n.id))));
+    const hub = graph.getNodeAttributes("disease");
+    const points = leaves.map((n) => graph.getNodeAttributes(n.id));
+    const width = Math.max(...points.map((p) => p.x)) - Math.min(...points.map((p) => p.x));
+    expect(Math.hypot(hub.x, hub.y)).toBeLessThan(width * 0.05);
+    for (const [sx, sy] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) {
+      expect(points.filter((p) => (p.x - hub.x) * sx > 0 && (p.y - hub.y) * sy > 0).length).toBeGreaterThan(12);
+    }
+  });
+  test("larger graphs stay centered, spaced and compact across disconnected groups", () => {
+    const graph = new MultiDirectedGraph<NodeAttributes, EdgeAttributes>();
+    const nodes = Array.from({ length: 100 }, (_, i) => node(`node-${i}`, i === 0 || i === 40 ? "disease" : "gene"));
+    const edges = nodes.slice(1, 40).map((n) => edge(n.id, nodes[0].id, n.id));
+    edges.push(...nodes.slice(41, 75).map((n) => edge(n.id, nodes[40].id, n.id)));
+    updateGraph(graph, snapshot(nodes, edges));
+    const points = graph.nodes().map((id) => graph.getNodeAttributes(id));
+    const minX = Math.min(...points.map((p) => p.x)), maxX = Math.max(...points.map((p) => p.x));
+    const minY = Math.min(...points.map((p) => p.y)), maxY = Math.max(...points.map((p) => p.y));
+    expect(Math.abs(minX + maxX)).toBeLessThan(0.001);
+    expect(Math.abs(minY + maxY)).toBeLessThan(0.001);
+    expect(Math.max(maxX - minX, maxY - minY) / Math.min(maxX - minX, maxY - minY)).toBeLessThan(2.5);
+    expect(Math.max(maxX - minX, maxY - minY)).toBeLessThan(3000);
+    for (let i = 0; i < points.length; i++) for (let j = i + 1; j < points.length; j++) {
+      expect(Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y)).toBeGreaterThan(80);
+    }
+  });
 });

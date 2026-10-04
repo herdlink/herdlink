@@ -7,7 +7,7 @@ use crate::{
 };
 use axum::{
     Json,
-    extract::{Path, State},
+    extract::{Path, Query, State},
     http::StatusCode,
     response::{
         Sse,
@@ -165,6 +165,8 @@ pub struct SendMessage {
     conversation_id: Option<Uuid>,
     message: String,
     disease: Option<String>,
+    #[serde(default)]
+    complexity: graph::Complexity,
 }
 #[derive(Clone, Serialize, Deserialize)]
 pub struct ChatMessage {
@@ -211,6 +213,7 @@ pub async fn get(
     State(state): State<AppState>,
     auth: AuthUser,
     Path(id): Path<Uuid>,
+    Query(view): Query<ConversationView>,
 ) -> Result<Json<Conversation>> {
     let row: ChatRow = sqlx::query_as("SELECT * FROM graph_chats WHERE id=?1 AND user_id=?2")
         .bind(id)
@@ -221,11 +224,17 @@ pub async fn get(
         id: row.id,
         title: row.title,
         messages: serde_json::from_str(&row.messages_json).map_err(AppError::internal)?,
-        graph: graph::compact_snapshot(
+        graph: graph::snapshot_with_complexity(
             serde_json::from_str(&row.graph_json).map_err(AppError::internal)?,
+            view.complexity,
         ),
         updated_at: row.updated_at,
     }))
+}
+#[derive(Default, Deserialize)]
+pub struct ConversationView {
+    #[serde(default)]
+    complexity: graph::Complexity,
 }
 fn sse(kind: &str, value: Value) -> std::result::Result<Event, Infallible> {
     Ok(Event::default().event(kind).data(value.to_string()))
@@ -412,14 +421,15 @@ pub async fn send(
             (
                 serde_json::from_str(&row.messages_json).map_err(AppError::internal)?,
                 input.into_iter().map(InputItem::Output).collect(),
-                graph::compact_snapshot(
+                graph::snapshot_with_complexity(
                     serde_json::from_str(&row.graph_json).map_err(AppError::internal)?,
+                    graph::Complexity::Detailed,
                 ),
             )
         } else {
             let mut snapshot = empty_graph();
             if let Some(name) = disease {
-                snapshot = graph::disease_snapshot(&state.graph, name.clone())
+                snapshot = graph::disease_snapshot(&state.graph, name.clone(), body.complexity)
                     .await
                     .unwrap_or_else(|_| {
                         let mut graph = empty_graph();
@@ -441,7 +451,8 @@ pub async fn send(
             "This conversation is full. Start a new chat.",
         ));
     }
-    let context = snapshot
+    let visible = graph::snapshot_with_complexity(snapshot.clone(), body.complexity);
+    let context = visible
         .nodes
         .iter()
         .map(|n| json!({"id":n.id,"name":n.label,"type":n.kind}))
@@ -519,18 +530,21 @@ pub async fn send(
                 let value = match result {
                     Ok((value, graph)) => {
                         batch.extend(graph);
-                        let previous_ids = snapshot.nodes.iter().map(|n| n.id.clone()).collect::<std::collections::BTreeSet<_>>();
-                        let next = graph::from_batch(&batch);
-                        snapshot = graph::merge_snapshot(&snapshot, next, &format!("{label} · {}", call.name));
+                        let previous_ids = graph::snapshot_with_complexity(snapshot.clone(), body.complexity).nodes.into_iter().map(|n| n.id).collect::<std::collections::BTreeSet<_>>();
+                        // Retain bounded detail so the slider can reveal sources
+                        // later without another model call or a database scan.
+                        let next = graph::from_batch(&batch, graph::Complexity::Detailed);
+                        snapshot = graph::merge_snapshot(&snapshot, next, &format!("{label} · {}", call.name), graph::Complexity::Detailed);
                         // Existing source mappings join visible aliases without adding neighbors.
                         let _ = tokio::time::timeout(Duration::from_secs(5), graph::connect_visible_mappings(&state.graph, &mut snapshot)).await;
-                        let added = snapshot.nodes.iter().filter(|n| !previous_ids.contains(&n.id)).count();
+                        let visible = graph::snapshot_with_complexity(snapshot.clone(), body.complexity);
+                        let added = visible.nodes.iter().filter(|n| !previous_ids.contains(&n.id)).count();
                         yield sse("tool", json!({"id":call.call_id,"name":call.name,"label":label,"status":"complete","added":added}));
                         if !batch.nodes.is_empty() {
                             let mut stored = messages.clone();
                             if !assistant.is_empty() { stored.push(ChatMessage { role:"assistant".into(),content:assistant.clone() }); }
                             if let Err(error) = save(&state,id,&stored,&request,&snapshot).await { tracing::error!(error=%error.1,"chat graph save failed"); yield sse("error",json!({"message":"Could not save the graph update. Please try again."})); return; }
-                            yield sse("graph", json!({"snapshot":snapshot,"label":label,"added":added}));
+                            yield sse("graph", json!({"snapshot":visible,"label":label,"added":added}));
                         }
                         value
                     }

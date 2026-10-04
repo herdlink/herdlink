@@ -38,6 +38,24 @@ const CHAT_NODE_LIMIT: usize = 30;
 const SIMILARITY_LIMIT: usize = 3;
 const PHENOTYPE_LIMIT: usize = 6;
 
+#[derive(Clone, Copy, Default, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "snake_case")]
+pub enum Complexity {
+    #[default]
+    Focused,
+    Expanded,
+    Detailed,
+}
+impl Complexity {
+    fn limits(self) -> (usize, usize, usize) {
+        match self {
+            Self::Focused => (CHAT_NODE_LIMIT, SIMILARITY_LIMIT, PHENOTYPE_LIMIT),
+            Self::Expanded => (60, 6, 12),
+            Self::Detailed => (100, 10, 20),
+        }
+    }
+}
+
 #[derive(Clone)]
 pub struct GraphSettings {
     pub uri: String,
@@ -121,6 +139,8 @@ pub struct SnapshotQuery {
     #[serde(default)]
     pub result_uid: String,
     pub limit: Option<usize>,
+    #[serde(default)]
+    pub complexity: Complexity,
 }
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Link {
@@ -407,17 +427,30 @@ async fn read_snapshot(
         };
         nodes.insert(node.id.clone(), node);
     }
-    let mut truncated = nodes.len() > limit;
     let seeds = nodes.keys().cloned().collect::<BTreeSet<_>>();
+    read_neighbors(reader, input, nodes, seeds, limit, RAW_LIMIT, 3).await
+}
+
+async fn read_neighbors(
+    reader: &GraphReader,
+    input: SnapshotQuery,
+    mut nodes: BTreeMap<String, RawNode>,
+    seeds: BTreeSet<String>,
+    limit: usize,
+    raw_limit: usize,
+    depth: usize,
+) -> Result<Snapshot> {
+    let graph = reader.connection().await?;
+    let mut truncated = nodes.len() > limit;
     // Bounded breadth-first reads avoid unbounded variable-length path expansion.
     let mut frontier = nodes.keys().cloned().collect::<Vec<_>>();
-    for _ in 0..3 {
-        if frontier.is_empty() || nodes.len() >= RAW_LIMIT {
+    for _ in 0..depth {
+        if frontier.is_empty() || nodes.len() >= raw_limit {
             break;
         }
-        let remaining = RAW_LIMIT - nodes.len();
+        let remaining = raw_limit - nodes.len();
         let mut next = Vec::new();
-        let mut stream = graph.execute(query("MATCH (seed:GraphNode)-[]-(n:GraphNode) WHERE seed.uid IN $frontier AND NOT n.uid IN $known AND NOT (n:QueryCache OR n:FetchResult OR n:MentionLocation OR n:RawExport OR n:BioCReference) RETURN DISTINCT n.uid AS id, labels(n) AS labels, properties(n) AS props ORDER BY n.uid LIMIT $limit")
+        let mut stream = graph.execute(query("MATCH (seed:GraphNode)-[]-(n:GraphNode) WHERE seed.uid IN $frontier AND NOT n.uid IN $known AND NOT (n:QueryCache OR n:FetchResult OR n:MentionLocation OR n:RawExport OR n:BioCReference) WITH DISTINCT n ORDER BY CASE WHEN n:DiseaseMapping OR n:RelationSummary OR n:RelationEvidence OR n:SimilarityResult OR n:HpoProfile OR n:HpoDiseaseProfile THEN 0 WHEN n:Gene OR n:Disease OR n:DiseaseEntity THEN 1 WHEN n:Publication THEN 2 WHEN n:HpoTerm THEN 3 ELSE 4 END, n.uid LIMIT $limit RETURN n.uid AS id, labels(n) AS labels, properties(n) AS props")
             .param("frontier", frontier).param("known", nodes.keys().cloned().collect::<Vec<_>>()).param("limit", remaining as i64)).await.map_err(graph_error)?;
         while let Some(row) = stream.next().await.map_err(graph_error)? {
             let node = RawNode {
@@ -476,8 +509,8 @@ async fn read_disease(reader: &GraphReader, input: SnapshotQuery) -> Result<Snap
         return Ok(snapshot);
     }
     let graph = reader.connection().await?;
-    // Prefer an exact name/identifier, then a canonical disease. Return one disease,
-    // without expanding any neighbors; a mapped alias resolves to its canonical node.
+    // Prefer an exact name/identifier, then a canonical disease. The default
+    // returns only that disease; expansion always starts from this exact root.
     let mut stream = graph.execute(query(
         "MATCH (n:GraphNode) WHERE (n:Disease OR n:DiseaseEntity)
          AND any(value IN [n.uid, n.name, n.accession, n.id, n.db_id]
@@ -498,6 +531,47 @@ async fn read_disease(reader: &GraphReader, input: SnapshotQuery) -> Result<Snap
             props: row.get("props").map_err(graph_error)?,
         };
         snapshot.nodes.push(view_node(&node, None));
+        if input.complexity != Complexity::Focused {
+            let root = node.id.clone();
+            let mut nodes = BTreeMap::from([(root.clone(), node)]);
+            // Include only aliases of this disease so PubTator associations are
+            // reachable when search resolved to its canonical HPO/Mondo node.
+            let mut aliases = graph.execute(query("MATCH (alias:GraphNode)-[:MAPPED_VIA]->(:GraphNode:DiseaseMapping)-[:MAPS_TO]->(:GraphNode {uid: $root}) WHERE alias:DiseaseEntity RETURN alias.uid AS id,labels(alias) AS labels,properties(alias) AS props ORDER BY alias.uid LIMIT 5").param("root",root)).await.map_err(graph_error)?;
+            while let Some(row) = aliases.next().await.map_err(graph_error)? {
+                let node = RawNode {
+                    id: row.get("id").map_err(graph_error)?,
+                    labels: row.get("labels").map_err(graph_error)?,
+                    props: row.get("props").map_err(graph_error)?,
+                };
+                nodes.insert(node.id.clone(), node);
+            }
+            let seeds = nodes.keys().cloned().collect();
+            let (limit, _, _) = input.complexity.limits();
+            let complexity = input.complexity;
+            let reason = format!("Stored connections for {}", input.q.trim());
+            let expanded = read_neighbors(
+                reader,
+                input,
+                nodes,
+                seeds,
+                limit,
+                limit * 8,
+                if complexity == Complexity::Expanded {
+                    2
+                } else {
+                    3
+                },
+            )
+            .await?;
+            let mut expanded = snapshot_with_complexity(expanded, complexity);
+            for node in &mut expanded.nodes {
+                node.reasons.push(reason.clone());
+            }
+            for edge in &mut expanded.edges {
+                edge.context["added_by"] = json!(reason);
+            }
+            return Ok(expanded);
+        }
     }
     Ok(snapshot)
 }
@@ -522,7 +596,7 @@ fn view_node(node: &RawNode, canonical: Option<&RawNode>) -> ViewNode {
 }
 
 /// Project only objects returned by the current tool calls, never DB-wide neighbors.
-pub(crate) fn from_batch(batch: &biomedical_graph::GraphBatch) -> Snapshot {
+pub(crate) fn from_batch(batch: &biomedical_graph::GraphBatch, complexity: Complexity) -> Snapshot {
     let nodes = batch
         .nodes
         .values()
@@ -554,17 +628,25 @@ pub(crate) fn from_batch(batch: &biomedical_graph::GraphBatch) -> Snapshot {
         .map(|n| n.id.clone())
         .collect();
     let (nodes, edges, truncated) = project(&nodes, &edges, &seeds, RAW_LIMIT);
-    compact_snapshot(Snapshot {
-        nodes,
-        edges,
-        query: String::new(),
-        result_uid: String::new(),
-        truncated,
-        generated_at: chrono::Utc::now().to_rfc3339(),
-    })
+    snapshot_with_complexity(
+        Snapshot {
+            nodes,
+            edges,
+            query: String::new(),
+            result_uid: String::new(),
+            truncated,
+            generated_at: chrono::Utc::now().to_rfc3339(),
+        },
+        complexity,
+    )
 }
 
-pub(crate) fn merge_snapshot(previous: &Snapshot, next: Snapshot, reason: &str) -> Snapshot {
+pub(crate) fn merge_snapshot(
+    previous: &Snapshot,
+    next: Snapshot,
+    reason: &str,
+    complexity: Complexity,
+) -> Snapshot {
     let mut nodes = previous
         .nodes
         .iter()
@@ -620,19 +702,23 @@ pub(crate) fn merge_snapshot(previous: &Snapshot, next: Snapshot, reason: &str) 
         .filter(|e| ids.contains(&e.source) && ids.contains(&e.target))
         .take(EDGE_LIMIT)
         .collect();
-    compact_snapshot(Snapshot {
-        nodes: visible,
-        edges,
-        query: previous.query.clone(),
-        result_uid: String::new(),
-        truncated: previous.truncated || next.truncated || clipped,
-        generated_at: next.generated_at,
-    })
+    snapshot_with_complexity(
+        Snapshot {
+            nodes: visible,
+            edges,
+            query: previous.query.clone(),
+            result_uid: String::new(),
+            truncated: previous.truncated || next.truncated || clipped,
+            generated_at: next.generated_at,
+        },
+        complexity,
+    )
 }
 
 /// Keep the canvas focused; complete profiles, scores and papers remain in Neo4j
 /// and the relationship evidence panel. Also applied when restoring older chats.
-pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
+pub(crate) fn snapshot_with_complexity(mut snapshot: Snapshot, complexity: Complexity) -> Snapshot {
+    let (node_limit, similarity_limit, phenotype_limit) = complexity.limits();
     let original_count = snapshot.nodes.len();
     let mut similarities = snapshot
         .edges
@@ -650,10 +736,10 @@ pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
     });
     let omitted_targets = similarities
         .iter()
-        .skip(SIMILARITY_LIMIT)
+        .skip(similarity_limit)
         .map(|e| e.target.clone())
         .collect::<BTreeSet<_>>();
-    similarities.truncate(SIMILARITY_LIMIT);
+    similarities.truncate(similarity_limit);
     let comparison_ids = similarities
         .iter()
         .map(|e| e.id.clone())
@@ -716,7 +802,7 @@ pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
     });
     let phenotype_ids = phenotypes
         .into_iter()
-        .take(PHENOTYPE_LIMIT)
+        .take(phenotype_limit)
         .map(|n| n.id.clone())
         .collect::<BTreeSet<_>>();
     snapshot.edges.retain(|e| match e.kind.as_str() {
@@ -752,7 +838,7 @@ pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
             n.id.clone(),
         )
     });
-    snapshot.nodes.truncate(CHAT_NODE_LIMIT);
+    snapshot.nodes.truncate(node_limit);
     let ids = snapshot
         .nodes
         .iter()
@@ -765,13 +851,18 @@ pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
     snapshot
 }
 
-pub(crate) async fn disease_snapshot(reader: &GraphReader, name: String) -> Result<Snapshot> {
+pub(crate) async fn disease_snapshot(
+    reader: &GraphReader,
+    name: String,
+    complexity: Complexity,
+) -> Result<Snapshot> {
     tokio::time::timeout(
         Duration::from_secs(15),
         read_disease(
             reader,
             SnapshotQuery {
                 q: name,
+                complexity,
                 ..Default::default()
             },
         ),
@@ -1199,12 +1290,13 @@ mod chat_projection_tests {
         );
         batch.edge(&similarity, "SOURCE", &source, "", Default::default());
         batch.edge(&similarity, "TARGET", &target, "", Default::default());
-        let mut initial = from_batch(&GraphBatch::default());
+        let mut initial = from_batch(&GraphBatch::default(), Complexity::Focused);
         initial.query = "Source disease".into();
         let graph = merge_snapshot(
             &initial,
-            from_batch(&batch),
+            from_batch(&batch, Complexity::Focused),
             "Compare HPO phenotype profiles · hpo_similar_diseases",
+            Complexity::Focused,
         );
         assert_eq!(graph.nodes.len(), 2);
         assert_eq!(graph.edges.len(), 1);
@@ -1220,8 +1312,9 @@ mod chat_projection_tests {
         // A later unrelated research step doesn't replace the original reason for a node.
         let next = merge_snapshot(
             &graph,
-            from_batch(&batch),
+            from_batch(&batch, Complexity::Focused),
             "Find associations · pubtator_relations",
+            Complexity::Focused,
         );
         assert_eq!(graph.nodes[0].reasons, next.nodes[0].reasons);
     }
@@ -1275,7 +1368,7 @@ mod chat_projection_tests {
                 batch.edge(profile, "HAS_PHENOTYPE", &term, "", Default::default());
             }
         }
-        let graph = from_batch(&batch);
+        let graph = from_batch(&batch, Complexity::Focused);
         assert!(graph.truncated);
         assert_eq!(graph.nodes.len(), 10); // subject, three matches, six shared features
         assert_eq!(
@@ -1306,12 +1399,34 @@ mod chat_projection_tests {
         );
         assert!(graph.nodes.iter().any(|n| n.id == "disease:match:0"));
         assert!(!graph.nodes.iter().any(|n| n.id == "disease:match:7"));
-        let restored = compact_snapshot(graph.clone());
+        // Larger views retain only shared features and the same evidence. Going
+        // back to focused is reversible because the detailed snapshot is kept.
+        let detailed = from_batch(&batch, Complexity::Detailed);
+        let expanded = snapshot_with_complexity(detailed.clone(), Complexity::Expanded);
+        let focused = snapshot_with_complexity(detailed.clone(), Complexity::Focused);
+        assert_eq!(expanded.nodes.len(), 19); // subject, six matches, twelve shared features
+        assert_eq!(detailed.nodes.len(), 21); // subject, eight matches, twelve shared features
+        assert!(detailed.nodes.iter().any(|n| n.id == "disease:match:7"));
+        assert_eq!(focused.nodes.len(), 10);
+        assert_eq!(focused.edges.len(), graph.edges.len());
+        assert!(
+            detailed
+                .edges
+                .iter()
+                .filter(|e| e.kind == "PHENOTYPE_SIMILARITY")
+                .all(|e| e.context["shared_phenotypes"].as_array().unwrap().len() == 12)
+        );
+        let restored = snapshot_with_complexity(graph.clone(), Complexity::Focused);
         assert_eq!(
             serde_json::to_value(&restored).unwrap(),
             serde_json::to_value(&graph).unwrap()
         );
-        let merged = merge_snapshot(&graph, from_batch(&batch), "Compare phenotypes");
+        let merged = merge_snapshot(
+            &graph,
+            from_batch(&batch, Complexity::Focused),
+            "Compare phenotypes",
+            Complexity::Focused,
+        );
         assert_eq!(merged.nodes.len(), 10);
         assert_eq!(merged.edges.len(), graph.edges.len());
     }
@@ -1324,9 +1439,20 @@ mod chat_projection_tests {
             let gene = batch.node(format!("gene:{index}"), "Gene", Default::default());
             batch.edge(&disease, "PUBTATOR_RELATION", &gene, "", Default::default());
         }
-        let graph = from_batch(&batch);
+        let graph = from_batch(&batch, Complexity::Focused);
         assert!(graph.truncated);
         assert_eq!(graph.nodes.len(), CHAT_NODE_LIMIT);
+        for (complexity, cap) in [(Complexity::Expanded, 60), (Complexity::Detailed, 100)] {
+            let larger = from_batch(&batch, complexity);
+            assert_eq!(larger.nodes.len(), cap);
+            let ids = larger.nodes.iter().map(|n| &n.id).collect::<BTreeSet<_>>();
+            assert!(
+                larger
+                    .edges
+                    .iter()
+                    .all(|e| ids.contains(&e.source) && ids.contains(&e.target))
+            );
+        }
         let ids = graph
             .nodes
             .iter()

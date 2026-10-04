@@ -152,6 +152,104 @@ fn frames(body: &str, kind: &str) -> Vec<Value> {
         .collect()
 }
 #[tokio::test]
+async fn chat_complexity_reveals_saved_sources_without_changing_messages_or_owner_scope() {
+    let pool = backend::connect("sqlite::memory:").await.unwrap();
+    backend::migrate(&pool).await.unwrap();
+    let app = backend::app_with_graph(pool.clone(), settings());
+    let token = demo(&app).await;
+    let (_, user) = json_request(&app, "GET", "/api/me", Some(&token), json!(null)).await;
+    let owner = user["id"].as_str().unwrap().parse::<uuid::Uuid>().unwrap();
+    let id = uuid::Uuid::new_v4();
+    let nodes = (0..80).map(|i| json!({
+        "id":format!("node:{i}"),"label":format!("Source {i}"),"kind":if i == 0 {"disease"} else {"gene"},
+        "labels":[],"description":null,"links":[],"community_url":null,"reasons":["Stored tool result"]
+    })).collect::<Vec<_>>();
+    let edges = (1..80).map(|i| json!({
+        "id":format!("edge:{i}"),"source":"node:0","target":format!("node:{i}"),"label":"associate",
+        "kind":"PUBTATOR_RELATION","evidence_id":format!("summary:{i}"),"evidence_kind":"summary",
+        "reported_papers":2,"context":{"added_by":"Find genes"}
+    })).collect::<Vec<_>>();
+    let stored = json!({"nodes":nodes,"edges":edges,"query":"Source 0","result_uid":"","truncated":false,"generated_at":"2026-10-04T00:00:00Z"}).to_string();
+    let messages = json!([{"role":"user","content":"Find genes"},{"role":"assistant","content":"Here are the stored associations."}]).to_string();
+    sqlx::query("INSERT INTO graph_chats(id,user_id,title,messages_json,graph_json) VALUES(?1,?2,'Complexity',?3,?4)")
+        .bind(id).bind(owner).bind(&messages).bind(&stored).execute(&pool).await.unwrap();
+    for (complexity, count) in [
+        ("focused", 30),
+        ("expanded", 60),
+        ("detailed", 80),
+        ("focused", 30),
+    ] {
+        let (status, conversation) = json_request(
+            &app,
+            "GET",
+            &format!("/api/chats/{id}?complexity={complexity}"),
+            Some(&token),
+            json!(null),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK, "{conversation}");
+        assert_eq!(
+            conversation["graph"]["nodes"].as_array().unwrap().len(),
+            count
+        );
+        assert_eq!(
+            conversation["messages"],
+            serde_json::from_str::<Value>(&messages).unwrap()
+        );
+        assert!(
+            conversation["graph"]["edges"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|e| e["context"]["added_by"] == "Find genes")
+        );
+    }
+    let (_, default) = json_request(
+        &app,
+        "GET",
+        &format!("/api/chats/{id}"),
+        Some(&token),
+        json!(null),
+    )
+    .await;
+    assert_eq!(default["graph"]["nodes"].as_array().unwrap().len(), 30);
+    let persisted: String = sqlx::query_scalar("SELECT graph_json FROM graph_chats WHERE id=?1")
+        .bind(id)
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(
+        persisted, stored,
+        "View changes must not discard saved detail"
+    );
+    assert_eq!(
+        json_request(
+            &app,
+            "GET",
+            &format!("/api/chats/{id}?complexity=all"),
+            Some(&token),
+            json!(null)
+        )
+        .await
+        .0,
+        StatusCode::BAD_REQUEST
+    );
+    let (_, other) = json_request(&app,"POST","/api/auth/register",None,json!({"email":"detail-private@example.test","username":"detail_private","password":"strong-password-123"})).await;
+    assert_eq!(
+        json_request(
+            &app,
+            "GET",
+            &format!("/api/chats/{id}?complexity=detailed"),
+            Some(other["token"].as_str().unwrap()),
+            json!(null)
+        )
+        .await
+        .0,
+        StatusCode::NOT_FOUND
+    );
+}
+
+#[tokio::test]
 async fn chat_streams_before_completion_without_tools_and_replays_private_history() {
     let pause = Arc::new(Notify::new());
     let (client, mut requests, server) = model_server(vec![

@@ -91,6 +91,9 @@ pub struct CachedPubTator {
     cache: Cache,
 }
 impl CachedPubTator {
+    pub(crate) fn namespace(&self) -> &str {
+        &self.cache.namespace
+    }
     pub fn new(upstream: pubtator3::Client, store: Store, policy: CachePolicy) -> Self {
         let namespace = upstream.cache_identity();
         Self {
@@ -256,6 +259,12 @@ pub struct CachedHpo {
     cache: Cache,
 }
 impl CachedHpo {
+    pub(crate) fn dataset(&self) -> &pubtator3_hpo::Dataset {
+        self.upstream.dataset()
+    }
+    pub(crate) fn namespace(&self) -> &str {
+        &self.cache.namespace
+    }
     pub fn new(upstream: pubtator3_hpo::Client, store: Store, policy: CachePolicy) -> Self {
         let namespace = format!(
             "{}|{}",
@@ -342,18 +351,70 @@ impl CachedHpo {
             options.min_score,
             options.min_phenotypes,
         );
-        self.cache.get("similar_diseases",request,async { Ok(self.upstream.similar_diseases(query,selected,options).await?) },|v| {
-            let mapped = MappedDisease { entity:v.entity.clone(),mapping:v.mapping.clone(),profile:v.source.clone() };
-            let mut batch = projection::mapped_disease(&mapped,self.upstream.dataset(),&self.cache.namespace);
-            for disease in &v.matches {
-                if let Some(profile) = self.upstream.dataset().profile(&disease.disease_id) { batch.extend(projection::profile(profile,self.upstream.dataset())); }
-                let uid = batch.node(format!("similarity:{}",hash(&(&self.cache.namespace,request,&v.source.id,disease))),"SimilarityResult",props(disease));
-                batch.node(&uid,"SimilarityResult",props(json!({"algorithm":"simGIC","options_json":serde_json::to_string(&request)?,"corpus_diseases":v.corpus_diseases,"snapshot":self.upstream.dataset().fingerprint()})));
-                batch.edge(&uid,"SOURCE",&format!("disease:{}",v.source.id),"",Default::default());
-                batch.edge(&uid,"TARGET",&format!("disease:{}",disease.disease_id),"",Default::default());
+        self.cache
+            .get(
+                "similar_diseases",
+                request,
+                async {
+                    Ok(self
+                        .upstream
+                        .similar_diseases(query, selected, options)
+                        .await?)
+                },
+                |v| Ok(self.similarity_graph(v, query, selected, options)),
+            )
+            .await
+    }
+    pub(crate) fn similarity_graph(
+        &self,
+        v: &SimilarityReport,
+        query: &str,
+        selected: Option<&EntityId>,
+        options: &SimilarityOptions,
+    ) -> GraphBatch {
+        let request = (
+            query,
+            selected,
+            options.limit,
+            options.min_score,
+            options.min_phenotypes,
+        );
+        let mapped = MappedDisease {
+            entity: v.entity.clone(),
+            mapping: v.mapping.clone(),
+            profile: v.source.clone(),
+        };
+        let mut batch =
+            projection::mapped_disease(&mapped, self.upstream.dataset(), &self.cache.namespace);
+        for disease in &v.matches {
+            if let Some(profile) = self.upstream.dataset().profile(&disease.disease_id) {
+                batch.extend(projection::profile(profile, self.upstream.dataset()));
             }
-            Ok(batch)
-        }).await
+            let uid = batch.node(
+                format!(
+                    "similarity:{}",
+                    hash(&(&self.cache.namespace, request, &v.source.id, disease))
+                ),
+                "SimilarityResult",
+                props(disease),
+            );
+            batch.node(&uid,"SimilarityResult",props(json!({"algorithm":"simGIC","options_json":serde_json::to_string(&request).expect("similarity request"),"corpus_diseases":v.corpus_diseases,"snapshot":self.upstream.dataset().fingerprint()})));
+            batch.edge(
+                &uid,
+                "SOURCE",
+                &format!("disease:{}", v.source.id),
+                "",
+                Default::default(),
+            );
+            batch.edge(
+                &uid,
+                "TARGET",
+                &format!("disease:{}", disease.disease_id),
+                "",
+                Default::default(),
+            );
+        }
+        batch
     }
     pub async fn pubtator_entities(
         &self,

@@ -1,4 +1,5 @@
 mod auth;
+pub mod chat;
 mod communities;
 mod dms;
 mod error;
@@ -22,6 +23,7 @@ use tower_http::trace::TraceLayer;
 pub struct AppState {
     pub db: SqlitePool,
     pub graph: std::sync::Arc<graph::GraphReader>,
+    pub chat: std::sync::Arc<chat::ChatService>,
 }
 
 pub async fn connect(database_url: &str) -> std::result::Result<SqlitePool, sqlx::Error> {
@@ -63,6 +65,15 @@ pub fn app(db: SqlitePool) -> Router {
 }
 
 pub fn app_with_graph(db: SqlitePool, settings: graph::GraphSettings) -> Router {
+    let chat = std::sync::Arc::new(chat::ChatService::from_env(settings.clone()));
+    app_with_chat(db, settings, chat)
+}
+
+pub fn app_with_chat(
+    db: SqlitePool,
+    settings: graph::GraphSettings,
+    chat: std::sync::Arc<chat::ChatService>,
+) -> Router {
     Router::new()
         .route("/health", get(health))
         .route("/api/auth/register", post(auth::register))
@@ -72,6 +83,9 @@ pub fn app_with_graph(db: SqlitePool, settings: graph::GraphSettings) -> Router 
         .route("/api/me", get(auth::me))
         .route("/api/graph", get(graph::snapshot))
         .route("/api/graph/evidence", get(graph::evidence))
+        .route("/api/chat", post(chat::send))
+        .route("/api/chats", get(chat::list))
+        .route("/api/chats/{id}", get(chat::get))
         .route(
             "/api/communities",
             get(communities::list).post(communities::create),
@@ -96,6 +110,7 @@ pub fn app_with_graph(db: SqlitePool, settings: graph::GraphSettings) -> Router 
         .with_state(AppState {
             db,
             graph: std::sync::Arc::new(graph::GraphReader::new(settings)),
+            chat,
         })
 }
 

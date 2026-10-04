@@ -97,8 +97,8 @@ that ontology and HPO annotations and maps them through Mondo.
 
 `biomedical_graph::tools::GraphTools` declares strict Responses API function
 schemas and dispatches JSON arguments through the cached clients. It registers
-ten PubTator tools by default; `.with_hpo(cached_hpo)` adds six HPO tools.
-Successful results retain the complete original response. `execute(name, json)`
+eleven PubTator tools by default; `.with_hpo(cached_hpo)` adds six HPO tools.
+Successful results retain the complete original response. `execute_with_graph` additionally returns the exact structured projection for supported website tools, including cache hits, without scanning Neo4j. The backend uses these projections to update only the current conversation’s graph. `execute(name, json)`
 returns a JSON value or error; `call(&FunctionCall)` returns an
 `openai::InputItem` with the original call ID and a result or `{"error": "…"}`.
 
@@ -107,6 +107,7 @@ returns a JSON value or error; `call(&FunctionCall)` returns an
 | `pubtator_autocomplete` | `CachedPubTator::autocomplete` |
 | `pubtator_relations` | `CachedPubTator::relations` |
 | `pubtator_search` | `CachedPubTator::search` |
+| `pubtator_relation_papers` | Oriented relation search, persisted with `RelationEvidence` / `SUPPORTED_BY` |
 | `pubtator_annotations` | `CachedPubTator::annotations` |
 | `pubtator_annotations_batched` | `CachedPubTator::annotations_batched` |
 | `pubtator_pmc_annotations` | `CachedPubTator::pmc_annotations` |
@@ -125,7 +126,7 @@ returns a JSON value or error; `call(&FunctionCall)` returns an
 # Print every name, description and JSON argument schema; no database needed.
 cargo run -p biomedical_graph --example tool_calls -- --list
 
-# With Neo4j running: exercise all 16 tools and compare results from fresh clients.
+# With Neo4j running: exercise all 17 tools and compare results from fresh clients.
 # Cache misses call PubTator/MeSH; no OpenAI credentials are needed.
 cargo run -p biomedical_graph --example tool_calls -- --smoke
 
@@ -352,3 +353,15 @@ succeeding and uses a temporary response directory.
 Source formats: [PubTator3 API](https://www.ncbi.nlm.nih.gov/research/pubtator3/api),
 [HPO annotations](https://obophenotype.github.io/human-phenotype-ontology/annotations/phenotype_hpoa/),
 [Mondo mapping guidance](https://mondo.monarchinitiative.org/pages/faq/).
+
+## Website research examples
+
+`just graph-seed` runs the bounded, repeatable `seed_use_cases` example for
+Huntington disease, Parkinson disease and ALS. For each exact PubTator match it
+persists up to two gene associations, one page of oriented relation papers and
+one annotated abstract. When a full HPO snapshot is available it also persists
+two phenotype matches and their curated annotation citations. A missing disease
+mapping is reported; it is never replaced by a guessed profile. Data comes from
+the real cached clients; no synthetic example data is inserted. Existing nodes
+and query caches are reused. `just graph-data` downloads official release files
+into an empty `phenotype-data` directory if a full snapshot is not already present.

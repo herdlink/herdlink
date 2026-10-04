@@ -32,7 +32,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test:graph": "bun test src/components/graph/graph-model.test.ts",
-    "check": "bun run lint && bun run typecheck && bun run test:graph && bun run build"
+    "test:chat": "bun test src/lib/chat-stream.test.ts",
+    "check": "bun run lint && bun run typecheck && bun run test:graph && bun run test:chat && bun run build"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

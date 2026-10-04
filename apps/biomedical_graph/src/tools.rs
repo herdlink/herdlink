@@ -1,6 +1,6 @@
 //! Function declarations and dispatch for the cached clients. No model is needed
 //! to call [`GraphTools::execute`]. Tools preserve the clients' full JSON results.
-use crate::{CachedHpo, CachedPubTator, Error, Result};
+use crate::{CachedHpo, CachedPubTator, Error, GraphBatch, Result, projection};
 use openai::{FunctionCall, InputItem, Tool};
 use pubtator3::{
     AutocompleteRequest, Concept, Entity, EntityId, ExportFormat, MeshDescriptorId, Page, Pmcid,
@@ -140,6 +140,33 @@ pub fn pubtator_tools() -> Vec<Tool> {
                     "page",
                     json!({"type":"integer", "minimum":1, "maximum":u32::MAX}),
                 ),
+            ],
+        ),
+        function(
+            "pubtator_relation_papers",
+            "Find and persist a page of papers for a specific oriented PubTator relation. This provides retrieved relation evidence, not independently verified causality.",
+            &[
+                ("source", text("Source PubTator @ accession.")),
+                ("target", text("Target PubTator @ accession.")),
+                (
+                    "relation_type",
+                    choice(&[
+                        "treat",
+                        "cause",
+                        "cotreat",
+                        "convert",
+                        "compare",
+                        "interact",
+                        "associate",
+                        "positive_correlate",
+                        "negative_correlate",
+                        "prevent",
+                        "inhibit",
+                        "stimulate",
+                        "drug_interact",
+                    ]),
+                ),
+                ("page", json!({"type":"integer", "minimum":1, "maximum":5})),
             ],
         ),
         function(
@@ -286,6 +313,75 @@ pub struct GraphTools {
     hpo: Option<CachedHpo>,
 }
 impl GraphTools {
+    /// The exact projection of this result, including cache hits. This never scans
+    /// the database or includes objects from unrelated users' tool calls.
+    pub async fn execute_with_graph(
+        &self,
+        name: &str,
+        arguments: &str,
+    ) -> Result<(Value, GraphBatch)> {
+        let value = self.execute(name, arguments).await?;
+        let batch = match name {
+            "pubtator_autocomplete" | "hpo_resolve_disease" => {
+                let values = if value.is_array() {
+                    value.clone()
+                } else {
+                    json!([value])
+                };
+                projection::entities(&serde_json::from_value::<Vec<Entity>>(values)?)
+            }
+            "pubtator_relations" => projection::relations(
+                &serde_json::from_value::<Vec<pubtator3::RelatedEntity>>(value.clone())?,
+                self.pubtator.namespace(),
+            ),
+            "pubtator_search" | "hpo_supporting_papers" => {
+                projection::search(&serde_json::from_value(value.clone())?)
+            }
+            "pubtator_relation_papers" => {
+                let args: RelationPapersArgs = serde_json::from_str(arguments)?;
+                relation_papers_graph(
+                    &args,
+                    &serde_json::from_value(value.clone())?,
+                    self.pubtator.namespace(),
+                )
+            }
+            "pubtator_annotations" | "pubtator_annotations_batched" => {
+                let args: AnnotationsArgs = serde_json::from_str(arguments)?;
+                projection::documents(
+                    &serde_json::from_value::<Vec<pubtator3::Document>>(value.clone())?,
+                    match args.scope {
+                        Scope::Abstract => "abstract",
+                        Scope::FullText => "full_text",
+                    },
+                    self.pubtator.namespace(),
+                )
+            }
+            "hpo_profile" => projection::profile(
+                &serde_json::from_value(value.clone())?,
+                self.hpo()?.dataset(),
+            ),
+            "hpo_disease_phenotypes" => projection::mapped_disease(
+                &serde_json::from_value(value.clone())?,
+                self.hpo()?.dataset(),
+                self.hpo()?.namespace(),
+            ),
+            "hpo_similar_diseases" => {
+                let args: SimilarityArgs = serde_json::from_str(arguments)?;
+                self.hpo()?.similarity_graph(
+                    &serde_json::from_value(value.clone())?,
+                    &args.query,
+                    args.selected.as_ref(),
+                    &SimilarityOptions {
+                        limit: args.limit,
+                        min_score: args.min_score,
+                        min_phenotypes: args.min_phenotypes,
+                    },
+                )
+            }
+            _ => GraphBatch::default(),
+        };
+        Ok((value, batch))
+    }
     pub fn new(pubtator: CachedPubTator) -> Self {
         Self {
             pubtator,
@@ -345,6 +441,24 @@ impl GraphTools {
             "pubtator_search" => {
                 let a = args!(SearchArgs);
                 output!(self.pubtator.search(&SearchQuery::text(a.query)?, a.page))
+            }
+            "pubtator_relation_papers" => {
+                let a = args!(RelationPapersArgs);
+                let query = SearchQuery::relation(
+                    pubtator3::RelationFilter::Type(a.relation_type),
+                    &a.source,
+                    &a.target,
+                );
+                let result = self.pubtator.search(&query, a.page).await?;
+                self.pubtator
+                    .store()
+                    .upsert(&relation_papers_graph(
+                        &a,
+                        &result,
+                        self.pubtator.namespace(),
+                    ))
+                    .await?;
+                Ok(serde_json::to_value(result)?)
             }
             "pubtator_annotations" | "pubtator_annotations_batched" => {
                 let a = args!(AnnotationsArgs);
@@ -463,6 +577,60 @@ arguments!(SearchArgs {
     query: String,
     page: Page
 });
+arguments!(RelationPapersArgs {
+    source: EntityId,
+    target: EntityId,
+    relation_type: RelationType,
+    page: Page
+});
+
+fn relation_papers_graph(
+    args: &RelationPapersArgs,
+    response: &pubtator3::SearchResponse,
+    namespace: &str,
+) -> GraphBatch {
+    let mut batch = projection::search(response);
+    let source = format!("pubtator:{}", args.source);
+    let target = format!("pubtator:{}", args.target);
+    for (uid, id) in [(&source, &args.source), (&target, &args.target)] {
+        batch.node(
+            uid,
+            "Entity",
+            crate::model::props(json!({"accession":id.to_string()})),
+        );
+        batch.node(
+            uid,
+            match id.namespace() {
+                "DISEASE" => "DiseaseEntity",
+                "GENE" => "Gene",
+                "CHEMICAL" => "Chemical",
+                "VARIANT" => "Variant",
+                _ => "OtherEntity",
+            },
+            Default::default(),
+        );
+    }
+    let evidence = batch.node(format!("relation-papers:{}", crate::model::hash(&(namespace, &args.source, &args.target, args.relation_type))), "RelationEvidence", crate::model::props(json!({"query":SearchQuery::relation(pubtator3::RelationFilter::Type(args.relation_type), &args.source, &args.target).as_str(), "relation_type":args.relation_type})));
+    batch.edge(&evidence, "SOURCE", &source, "", Default::default());
+    batch.edge(&evidence, "TARGET", &target, "", Default::default());
+    for paper in &response.results {
+        batch.edge(
+            &evidence,
+            "SUPPORTED_BY",
+            &format!("publication:{}", paper.pmid),
+            "",
+            Default::default(),
+        );
+    }
+    batch.edge(
+        &source,
+        "RELATION_PAPERS",
+        &target,
+        &evidence,
+        crate::model::props(json!({"relation_type":args.relation_type,"evidence_uid":evidence})),
+    );
+    batch
+}
 arguments!(AnnotationsArgs { pmids: Vec<Pmid>, scope: Scope });
 arguments!(PmcArgs { pmcids: Vec<Pmcid> });
 arguments!(MeshArgs {
@@ -523,7 +691,7 @@ mod tests {
     #[test]
     fn declarations_are_unique_and_nested_objects_are_strict() {
         let mut definitions = pubtator_tools();
-        assert_eq!(definitions.len(), 10);
+        assert_eq!(definitions.len(), 11);
         let hpo = hpo_tools();
         assert_eq!(hpo.len(), 6);
         definitions.extend(hpo);

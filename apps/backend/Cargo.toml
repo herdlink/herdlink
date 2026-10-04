@@ -4,6 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+openai = { workspace = true }
+biomedical_graph = { path = "../biomedical_graph" }
+pubtator3 = { path = "../pubtator3" }
+pubtator3-hpo = { path = "../pubtator3-hpo" }
+futures-util = "0.3"
+async-stream = "0.3"
 source_storage = { path = "../source_storage" }
 neo4rs = "0.8"
 url = "2"

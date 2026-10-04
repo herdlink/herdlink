@@ -1,41 +1,29 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Network, RefreshCw, Search } from "lucide-react";
-import { communityApi, errorMessage } from "@/lib/community-api";
+import { useGraphChat } from "@/components/chat/GraphChatProvider";
 import { sourceTypes, type GraphSelection, type GraphSnapshot } from "@/lib/graph-types";
 import { GraphDetails } from "./GraphDetails";
 
 const SigmaCanvas = dynamic(() => import("./SigmaCanvas").then((module) => module.SigmaCanvas), { ssr: false, loading: () => <p role="status" className="p-6 text-sm text-[var(--site-secondary)]">Starting graph…</p> });
-const emptySnapshot: GraphSnapshot = { nodes: [], edges: [], query: "", result_uid: "", truncated: false, generated_at: "" };
 
-/** A tool-result snapshot can be supplied by the future chat/stream integration. */
+/** Live conversation snapshots share the same stable graph model as disease search. */
 export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: GraphSnapshot }) {
-  const [snapshot, setSnapshot] = useState<GraphSnapshot | null>(null);
+  const chat = useGraphChat();
   const [draft, setDraft] = useState("");
-  const [query, setQuery] = useState("");
-  const [version, setVersion] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const current = suppliedSnapshot ?? chat.graph;
+  const query = current.query;
+  const loading = chat.searching;
+  const error = chat.graphError;
   const [inspection, setInspection] = useState<{ selection: GraphSelection; pinned: boolean } | null>(null);
   const [hiddenKinds, setHiddenKinds] = useState<string[]>([]);
-  const current = suppliedSnapshot ?? (query ? snapshot : emptySnapshot);
   const selection = inspection?.selection ?? null;
 
-  useEffect(() => {
-    if (suppliedSnapshot || !query) return;
-    let cancelled = false;
-    const params = new URLSearchParams({ q: query });
-    communityApi<GraphSnapshot>(`/graph?${params}`).then((data) => {
-      if (!cancelled) { setSnapshot(data); setError(""); }
-    }).catch((error) => { if (!cancelled) setError(errorMessage(error)); }).finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [query, version, suppliedSnapshot]);
-
   function refresh(nextQuery = query) {
-    setLoading(Boolean(nextQuery)); setError(""); setInspection(null); setSnapshot(null); setHiddenKinds([]);
-    setQuery(nextQuery); setVersion((value) => value + 1);
+    setInspection(null); setHiddenKinds([]);
+    void chat.searchDisease(nextQuery);
   }
   const types = [...new Set(current?.nodes.map((node) => node.kind) ?? [])];
   const visibleNodes = current?.nodes.filter((node) => !hiddenKinds.includes(node.kind)) ?? [];
@@ -56,7 +44,7 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
     <section aria-labelledby="graph-heading" className="flex h-full min-h-[640px] min-w-0 flex-col lg:min-h-0">
       <header className="flex min-h-16 shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[var(--site-border)] px-5 py-4">
         <div><h1 id="graph-heading" className="text-sm font-semibold">Source graph</h1><p className="mt-1 text-[11px] text-[var(--site-secondary)]">{current?.nodes.length ? `${current.nodes.length} ${current.nodes.length === 1 ? "source" : "sources"} · ${current.edges.length} ${current.edges.length === 1 ? "connection" : "connections"}` : "Search for a disease to start"}</p></div>
-        {!suppliedSnapshot && <button type="button" onClick={() => refresh()} disabled={loading || !query} className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2 text-xs hover:bg-[var(--site-hover)] disabled:opacity-40"><RefreshCw size={13} />Refresh graph</button>}
+        {!suppliedSnapshot && !chat.activeId && <button type="button" onClick={() => refresh()} disabled={loading || !query} className="flex items-center gap-2 rounded-full border border-[var(--site-border)] px-3 py-2 text-xs hover:bg-[var(--site-hover)] disabled:opacity-40"><RefreshCw size={13} />Refresh graph</button>}
       </header>
       {!suppliedSnapshot && <form onSubmit={(event) => { event.preventDefault(); refresh(draft.trim()); }} className="flex shrink-0 items-center gap-2 border-b border-[var(--site-border)] px-5 py-3">
         <Search size={15} className="shrink-0 text-[var(--site-secondary)]" />
@@ -69,7 +57,8 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
           return <button key={kind} type="button" aria-pressed={!hiddenKinds.includes(kind)} onClick={() => { setInspection(null); setHiddenKinds((current) => current.includes(kind) ? current.filter((value) => value !== kind) : [...current, kind]); }} className={`flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] hover:bg-[var(--site-hover)] ${hiddenKinds.includes(kind) ? "opacity-40" : ""}`}><span className={`h-2 w-2 rounded-full ${style.dotClass}`} />{style.label}</button>;
         })}
       </div>}
-      {current?.truncated && <p className="shrink-0 bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">Showing a bounded overview. Narrow the topic to see more relevant sources. Literature is paginated separately.</p>}
+      {chat.update && <p role="status" className="shrink-0 border-b border-[var(--site-border)] bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">{chat.update}</p>}
+      {current?.truncated && <p className="shrink-0 bg-[var(--site-soft)] px-5 py-2 text-[11px] text-[var(--site-secondary)]">Focused overview: up to 30 sources, 3 phenotype matches and 6 shared features. Full comparisons and literature are available in the details panel.</p>}
       {error && <div role="alert" className="shrink-0 border-b border-[var(--site-border)] px-5 py-3 text-xs leading-5"><p>{error}</p><button onClick={() => refresh()} className="mt-1 underline">Try again</button></div>}
       <div className="relative min-h-[380px] flex-1 lg:min-h-0">
         {current && current.nodes.length > 0 && <SigmaCanvas snapshot={current} hiddenKinds={hiddenKinds} selection={visibleSelection} onHover={preview} onSelect={select} />}
@@ -78,6 +67,7 @@ export function GraphExplorer({ snapshot: suppliedSnapshot }: { snapshot?: Graph
         {visibleSelection && current && <GraphDetails selection={visibleSelection} snapshot={current} pinned={inspection?.pinned ?? false} onTogglePin={() => setInspection((current) => current ? { ...current, pinned: !current.pinned } : null)} onClose={() => select(null)} />}
       </div>
       {current && current.nodes.length > 0 && <div className="shrink-0 border-t border-[var(--site-border)] px-5 py-3">
+        {current.edges.length > 0 && <div aria-label="Relationship legend" className="mb-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-[var(--site-secondary)]"><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#d49b29]" />Phenotypes / similarity</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#169d93]" />Reported associations</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#368c75]" />Extracted relationships</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#9571d9]" />Literature</span></div>}
         <p className="mb-2 text-[11px] text-[var(--site-secondary)]">Hover to inspect · Click to pin details · Scroll to zoom</p>
         <details className="text-xs"><summary className="cursor-pointer">Browse sources and relationships</summary><div className="mt-3 max-h-48 overflow-y-auto">
           <div className="flex flex-wrap gap-2">{visibleNodes.map((node) => <button key={node.id} type="button" onClick={() => select({ kind: "node", id: node.id })} className="rounded-full border border-[var(--site-border)] px-3 py-1.5 text-left hover:bg-[var(--site-hover)]">{node.label}</button>)}</div>

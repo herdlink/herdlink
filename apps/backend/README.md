@@ -145,7 +145,7 @@ Export `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` from [.
 
 `GET /api/graph` returns `{ nodes, edges, query, result_uid, truncated, generated_at }`. Without a nonempty disease query or explicit tool-result scope it returns an empty snapshot without connecting to Neo4j. There is no database-wide overview. Ordinary `q` searches disease names/identifiers, prefers exact matches and canonical diseases, and returns at most one disease with no neighbors or edges. Mapped PubTator aliases resolve to their canonical disease when available. Genes and publications do not qualify as disease search results.
 
-Nodes have stable source UIDs, type, label, external links, and a disease community URL where applicable. The future chat integration can supply an explicit `result_uid` to select objects belonging to a stored tool `FetchResult`; only that scoped mode expands a bounded three-hop neighborhood, projects domain connections from provenance chains, and hides operational/cache nodes. It caps raw nodes at 2,000 and raw edges at 5,000; `truncated` also signals clipping to the requested visible-node limit. Edges have stable evidence IDs, endpoints, labels, source context, and an evidence kind.
+Nodes have stable source UIDs, type, label, external links, and a disease community URL where applicable. An explicit `result_uid` selects objects belonging to one stored tool `FetchResult`; that scoped read expands a bounded three-hop neighborhood, projects domain connections from provenance chains, and hides operational/cache nodes. Streaming chat instead projects the exact returned tool objects without reading unrelated neighbors. It caps raw nodes at 2,000 and raw edges at 5,000; `truncated` also signals clipping to the requested visible-node limit. Edges have stable evidence IDs, endpoints, labels, source context, and an evidence kind.
 
 The projection distinguishes extracted relations, disease/phenotype annotations (including excluded and conflicting phenotypes), identifier mappings, ontology hierarchy, and publication mentions. HPO annotation citations also connect publications to the disease they describe. A mention is contextual literature, not evidence of a biological association. Paper queries run independently of the bounded overview and paginate stored `Publication` nodes; opaque, non-PubMed citation identifiers are not resolved into papers. HPO relationship papers match the specific profile/term and positive or excluded annotation rows; extracted-relation papers come from the original document. PubTator summary counts can exist without individual paper IDs. In that case the UI shows the reported count, explains the missing citations, and links to the corresponding PubTator relation search. Literature search links are separate from stored supporting papers.
 
@@ -153,7 +153,7 @@ Disease nodes link to `/community/<normalized disease identifier>`; mapped PubTa
 
 The home page starts empty, makes no initial graph request, and renders the matching disease with Sigma.js after a search. Clearing the search clears the graph. Chat history starts collapsed and can be expanded from the left rail. Hover previews details; clicking a node or edge pins its details so subsequent hover events cannot replace them. The pin control, close button, another explicit selection, or clicking the empty canvas can release/replace that selection.
 
-`GraphExplorer` also accepts a `snapshot` prop for later tool-result or stream integration. Its Graphology model reconciles stable IDs in place and keeps retained node positions and the Sigma camera. Refresh and disease search are read-only; there is no graph editing or live subscription yet. Chat remains an empty, disabled placeholder.
+`GraphExplorer` renders streamed snapshots from the shared chat provider and also accepts an explicit `snapshot` prop. Its Graphology model reconciles stable IDs in place and keeps retained node positions and the Sigma camera. Disease search and Refresh read one matching disease; a new search begins a new conversation. Chat tool calls cache fetched biomedical data and stream scoped graph updates, as described below.
 
 ## Validation
 
@@ -174,3 +174,83 @@ NEO4J_TEST_URI=127.0.0.1:17687 cargo test -p backend --test graph -- --ignored
 It checks projections, positive/excluded evidence, pagination, tool-result selection, bounded output, and unchanged Neo4j node/edge counts across all API reads. Frontend graph reconciliation tests run with `bun run test:graph` in `apps/web` and are included in `bun run check`.
 
 This is the initial REST backend. Live WebSocket delivery, custom channel management, editing/deletion, voting, global cross-community search, private/invite-only communities, and group DMs are not implemented. Public deployment still needs an account verification/recovery flow and login abuse controls; the current implementation is intended for local development.
+
+## Streaming graph chat
+
+The website's graph assistant uses the workspace's own `openai` Responses client
+and `biomedical_graph::tools::GraphTools`. Set `OPENAI_MODEL` and either
+`OPENAI_API_KEY` or `OPENAI_AUTH_FILE` **on the backend**, then restart it. No
+credential is sent to the browser. For example, using an existing Codex login:
+
+```sh
+OPENAI_MODEL=gpt-6-luna OPENAI_AUTH_FILE="$HOME/.codex/auth.json" just backend
+```
+
+The selected model must be available to your account. `OPENAI_BASE_URL` is also
+honored by the existing client. Environment variables must be exported; `.env`
+files are not loaded automatically. Settings are captured on startup and the
+OpenAI client/tools initialize lazily, so community pages and ordinary chat
+replies do not require a Neo4j connection.
+
+The backend discovers a full snapshot in `./phenotype-data` when started from the
+repository root, or uses `HPO_DATA_DIR`. Only a configured real corpus enables
+HPO tools; the tiny test fixture is never used as the website's similarity
+corpus. `just graph-data` downloads official data into a new empty directory.
+`just graph-seed` caches bounded Huntington, Parkinson and ALS examples and
+related literature through the real PubTator clients. Phenotype mapping failures
+are reported without guessing. Chat tool calls also fetch/cache new PubTator
+objects on demand, so additional manual imports are not needed for new queries.
+
+- `POST /api/chat`: `{ "message": "Find related diseases through shared genes", "conversation_id": null, "disease": "Huntington disease" }`.
+  Supply the returned conversation UUID for follow-ups. `disease` is optional
+  context for a new conversation. Messages are limited to 4,000 characters.
+- `GET /api/chats`: the current user's last 100 conversation summaries.
+- `GET /api/chats/{id}`: saved messages and the latest bounded graph; private to
+  the authenticated owner.
+
+The POST returns an SSE body with named JSON events: `conversation` (`id`),
+`text` (`delta`), `tool` (`id`, `name`, `label`, `status`, optional `added`),
+`graph` (`snapshot`, `label`, `added`), `done`, and `error` (`message`). Ten-second
+keepalives work through the existing Next API proxy. The browser parses SSE
+across chunk/UTF-8 boundaries, updates text immediately, and reconciles Sigma
+without resetting the camera or pinned details. Metadata-only updates keep positions;
+changes to nodes or connections reflow the layout with collision spacing. Stop cancels the HTTP
+stream and releases the conversation guard; tool results already shown remain
+stored. An in-flight upstream fetch may already have reached PubTator, but all
+cache writes are idempotent. Conversations retain complete Responses output
+items (including encrypted reasoning and tool outputs) for follow-up replay,
+without accepting arbitrary model history from the browser.
+
+Tools use automatic selection: conversational replies can run without any tool
+call or graph change. Research is bounded to 12 model rounds, 10 results per
+entity/relation call, 3 phenotype matches, 5 pages and 5 annotated PMIDs per call,
+and 30 visible nodes. Phenotype views show at most six positively annotated
+shared features rather than complete profiles or ontology ancestors. Complete
+comparison fields and supporting papers remain available in the details panel.
+Restoring older chats applies the same limits. Successful tool projections—not a database-wide scan—update the
+conversation's graph. Existing visible canonical/alias nodes can be joined with
+stored mapping edges; this never adds neighbors. Four streams may run at once,
+with one active turn per conversation. Long conversations request a new chat
+at 120 displayed messages or two MB of replay history.
+
+Edges distinguish PubTator summary associations, extracted relations, curated
+phenotypes, absent/conflicting annotations, simGIC phenotype similarity,
+identifier mappings, annotation citations and paper mentions. Node details
+record the research step that added them. `pubtator_relation_papers` persists
+oriented query evidence (`RelationEvidence` / `SUPPORTED_BY`) for individual
+papers; article annotations retain the original extracted relation. Phenotype
+similarity shows the corpus size and shared/conflicting terms; its citations
+support shared positive HPO annotations, not the score itself. Publication
+counts and simGIC scores are never presented as confidence probabilities.
+
+Validation covers pre-completion text streaming, no-tool replies, follow-up
+replay, owner isolation, concurrent turns, disconnects, malformed/oversized
+requests, fragmented SSE, bounded phenotype views, and graph spacing during expansion. With an isolated Neo4j:
+
+```sh
+NEO4J_TEST_URI=127.0.0.1:17687 cargo test -p backend --test chat -- --include-ignored
+```
+
+Responses stream and continuation semantics follow the official
+[streaming](https://developers.openai.com/api/docs/guides/streaming-responses)
+and [function-calling](https://developers.openai.com/api/docs/guides/function-calling) documentation.

@@ -112,7 +112,7 @@ async fn all_tools_dispatch_and_replay_offline_from_persistent_cache() {
         ))
     };
     let tools = make_tools();
-    assert_eq!(tools.definitions().len(), 16);
+    assert_eq!(tools.definitions().len(), 17);
     assert_eq!(
         GraphTools::new(CachedPubTator::new(
             upstream.clone(),
@@ -121,7 +121,7 @@ async fn all_tools_dispatch_and_replay_offline_from_persistent_cache() {
         ))
         .definitions()
         .len(),
-        10
+        11
     );
     let query = json!({"query":"Huntington disease", "selected":"@DISEASE_Huntington_Disease"});
     let mut calls: Vec<(&str, Value)> = vec![
@@ -168,14 +168,29 @@ async fn all_tools_dispatch_and_replay_offline_from_persistent_cache() {
             json!({"source":"@DISEASE_Huntington_Disease", "target":"@DISEASE_Parkinson_Disease", "page":1}),
         ),
     ];
+    calls.push(("pubtator_relation_papers", json!({"source":"@DISEASE_Huntington_Disease","target":"@GENE_HTT","relation_type":"associate","page":1})));
     let mut values = Vec::new();
     for (name, args) in &calls {
-        values.push(
-            tools
-                .execute(name, &args.to_string())
-                .await
-                .unwrap_or_else(|e| panic!("{name}: {e}")),
+        let (value, graph) = tools
+            .execute_with_graph(name, &args.to_string())
+            .await
+            .unwrap_or_else(|e| panic!("{name}: {e}"));
+        let persisted = uids(&store).await;
+        assert!(
+            graph.nodes.keys().all(|uid| persisted.contains(uid)),
+            "{name}: live graph only contains persisted tool objects"
         );
+        if *name == "hpo_similar_diseases" {
+            assert_eq!(
+                graph
+                    .nodes
+                    .values()
+                    .filter(|node| node.labels.iter().any(|label| label == "SimilarityResult"))
+                    .count(),
+                2
+            );
+        }
+        values.push(value);
     }
     assert_eq!(values[0].as_array().unwrap().len(), 2);
     assert_eq!(values[1][0]["type"], "associate");

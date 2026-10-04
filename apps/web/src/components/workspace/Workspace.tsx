@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { ArrowUp, Moon, PanelLeftClose, PanelLeftOpen, Sun } from "lucide-react";
+import { Moon, PanelLeftClose, PanelLeftOpen, Sun } from "lucide-react";
+
+import { GraphChat, ChatHistory } from "@/components/chat/GraphChat";
 
 const navigation = [
   { label: "Surveys", href: "/surveys" },
@@ -78,20 +80,13 @@ export function Workspace({ children }: { children: React.ReactNode }) {
             <h2 id="history-heading" className={historyCollapsed ? "sr-only" : "text-[14px] font-semibold"}>Chat history</h2>
             <button type="button" aria-label={historyCollapsed ? "Expand chat history" : "Collapse chat history"} aria-expanded={!historyCollapsed} aria-controls="chat-history-content" title={historyCollapsed ? "Expand chat history" : "Collapse chat history"} onClick={() => setHistoryCollapsed((value) => !value)} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--site-secondary)] hover:bg-[var(--site-hover)]">{historyCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}</button>
           </header>
-          <div id="chat-history-content" hidden={historyCollapsed} className="min-h-0 flex-1" />
+          <div id="chat-history-content" hidden={historyCollapsed} className="min-h-0 flex-1"><ChatHistory /></div>
         </aside>
 
         <main id="workspace-content" tabIndex={-1} className="min-h-0 min-w-0 overflow-y-auto bg-[var(--site-surface)] focus:outline-none">{children}</main>
 
-        <aside aria-labelledby="chat-heading" className="flex h-[400px] min-h-0 flex-col border-t border-[var(--site-border)] bg-[var(--site-panel)] md:h-auto md:border-t-0 md:border-l">
-          <header className="flex h-16 shrink-0 items-center border-b border-[var(--site-border)] px-5">
-            <h2 id="chat-heading" className="text-[14px] font-semibold">Herdlink assistant</h2>
-          </header>
-          <div className="min-h-0 flex-1" />
-          <div className="m-4 rounded-2xl border border-[var(--site-border)] bg-[var(--site-soft)] p-3">
-            <textarea aria-label="Chat placeholder" placeholder="Chat…" rows={2} disabled className="block w-full resize-none bg-transparent text-sm opacity-50" />
-            <div className="mt-2 flex justify-end"><button aria-label="Send message" disabled className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--site-solid)] text-[var(--site-solid-text)] opacity-30"><ArrowUp size={17} /></button></div>
-          </div>
+        <aside aria-labelledby="chat-heading" className="flex h-[560px] min-h-0 flex-col border-t border-[var(--site-border)] bg-[var(--site-panel)] md:h-auto md:border-t-0 md:border-l">
+          <GraphChat />
         </aside>
       </div>
       )}

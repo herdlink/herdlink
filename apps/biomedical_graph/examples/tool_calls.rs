@@ -8,7 +8,7 @@ use std::{env, path::PathBuf, sync::Arc};
 
 fn usage() -> &'static str {
     "Usage: tool_calls [--list | --smoke | --call NAME JSON | --prompt TEXT]\n\
-     Default: --smoke (calls all 16 tools and repeats them through new cached clients).\n\
+     Default: --smoke (calls all 17 tools and repeats them through new cached clients).\n\
      HPO_DATA_DIR overrides the small bundled HPO fixture dataset.\n\
      --prompt requires OPENAI_MODEL and OPENAI_API_KEY or OPENAI_AUTH_FILE."
 }
@@ -99,7 +99,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             return Err("tool-call turn limit reached (12)".into());
         }
         _ => {
-            eprintln!("Smoke test: all 16 tools. Cache misses make live PubTator/MeSH requests.");
+            eprintln!("Smoke test: all 17 tools. Cache misses make live PubTator/MeSH requests.");
             eprintln!(
                 "HPO corpus: {} diseases (bundled default is incomplete).",
                 dataset.disease_count()
@@ -153,6 +153,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     json!({"source":"@DISEASE_Huntington_Disease", "target":"@DISEASE_Parkinson_Disease", "page":1}),
                 ),
             ];
+            calls.push(("pubtator_relation_papers", json!({"source":"@DISEASE_Huntington_Disease","target":"@GENE_HTT","relation_type":"associate","page":1})));
             let mut outputs = Vec::new();
             for (name, args) in &calls {
                 let result = match tools.execute(name, &args.to_string()).await {

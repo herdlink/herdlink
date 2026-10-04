@@ -120,7 +120,7 @@ Dropping a stream closes the local connection. There are no automatic retries.
 This crate currently covers text and custom function tools on `/v1/responses`.
 Chat Completions, image/audio input, built-in tools, and automatic Rust-function
 registration are outside its current scope. It is available as a workspace
-dependency; no backend route is connected to an AI model yet.
+dependency; the backend `/api/chat` route uses it for streaming conversation and biomedical tool execution.
 
 ## Validation
 

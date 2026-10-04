@@ -21,6 +21,12 @@ use tokio::sync::OnceCell;
 const DISPLAY_LABELS: &[&str] = &[
     "Entity",
     "Disease",
+    "DiseaseEntity",
+    "Gene",
+    "Chemical",
+    "Variant",
+    "Species",
+    "CellLine",
     "HpoTerm",
     "Publication",
     "DatasetSnapshot",
@@ -28,6 +34,9 @@ const DISPLAY_LABELS: &[&str] = &[
 ];
 const RAW_LIMIT: usize = 2000;
 const EDGE_LIMIT: usize = 5000;
+const CHAT_NODE_LIMIT: usize = 30;
+const SIMILARITY_LIMIT: usize = 3;
+const PHENOTYPE_LIMIT: usize = 6;
 
 #[derive(Clone)]
 pub struct GraphSettings {
@@ -127,6 +136,8 @@ pub struct ViewNode {
     pub description: Option<String>,
     pub links: Vec<Link>,
     pub community_url: Option<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reasons: Vec<String>,
 }
 #[derive(Clone, Serialize, Deserialize)]
 pub struct ViewEdge {
@@ -140,7 +151,7 @@ pub struct ViewEdge {
     pub reported_papers: Option<u64>,
     pub context: Value,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Snapshot {
     pub nodes: Vec<ViewNode>,
     pub edges: Vec<ViewEdge>,
@@ -506,7 +517,304 @@ fn view_node(node: &RawNode, canonical: Option<&RawNode>) -> ViewNode {
         links: source_links(node),
         community_url: (kind(node) == "disease")
             .then(|| format!("/community/{}", community_key(canonical.unwrap_or(node)))),
+        reasons: Vec::new(),
     }
+}
+
+/// Project only objects returned by the current tool calls, never DB-wide neighbors.
+pub(crate) fn from_batch(batch: &biomedical_graph::GraphBatch) -> Snapshot {
+    let nodes = batch
+        .nodes
+        .values()
+        .map(|n| {
+            (
+                n.uid.clone(),
+                RawNode {
+                    id: n.uid.clone(),
+                    labels: n.labels.clone(),
+                    props: serde_json::to_value(&n.properties).expect("graph properties"),
+                },
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
+    let edges = batch
+        .edges
+        .values()
+        .map(|e| RawEdge {
+            id: e.uid.clone(),
+            source: e.source.clone(),
+            target: e.target.clone(),
+            kind: e.kind.clone(),
+            props: serde_json::to_value(&e.properties).expect("graph properties"),
+        })
+        .collect::<Vec<_>>();
+    let seeds = nodes
+        .values()
+        .filter(|n| matches!(kind(n), "disease" | "gene"))
+        .map(|n| n.id.clone())
+        .collect();
+    let (nodes, edges, truncated) = project(&nodes, &edges, &seeds, RAW_LIMIT);
+    compact_snapshot(Snapshot {
+        nodes,
+        edges,
+        query: String::new(),
+        result_uid: String::new(),
+        truncated,
+        generated_at: chrono::Utc::now().to_rfc3339(),
+    })
+}
+
+pub(crate) fn merge_snapshot(previous: &Snapshot, next: Snapshot, reason: &str) -> Snapshot {
+    let mut nodes = previous
+        .nodes
+        .iter()
+        .map(|n| (n.id.clone(), n.clone()))
+        .collect::<BTreeMap<_, _>>();
+    for mut node in next.nodes {
+        if let Some(old) = nodes.get(&node.id) {
+            node.reasons = old.reasons.clone();
+            if node.label == node.id || node.label.starts_with('@') {
+                node.label = old.label.clone();
+            }
+            if node.description.is_none() {
+                node.description = old.description.clone();
+            }
+            for link in &old.links {
+                if !node.links.iter().any(|l| l.url == link.url) {
+                    node.links.push(link.clone());
+                }
+            }
+        }
+        if node.reasons.is_empty() {
+            node.reasons.push(reason.into());
+        }
+        nodes.insert(node.id.clone(), node);
+    }
+    let mut visible = nodes.into_values().collect::<Vec<_>>();
+    // Keep the subject and domain objects before papers if a conversation grows large.
+    visible.sort_by_key(|n| (n.kind != "disease", n.kind == "publication", n.id.clone()));
+    let clipped = visible.len() > RAW_LIMIT;
+    visible.truncate(RAW_LIMIT);
+    let ids = visible
+        .iter()
+        .map(|n| n.id.clone())
+        .collect::<BTreeSet<_>>();
+    let mut edges = previous
+        .edges
+        .iter()
+        .map(|e| (e.id.clone(), e.clone()))
+        .collect::<BTreeMap<_, _>>();
+    for mut edge in next.edges {
+        if !edge.context.is_object() {
+            edge.context = json!({});
+        }
+        edge.context["added_by"] = edges
+            .get(&edge.id)
+            .and_then(|old| old.context.get("added_by"))
+            .cloned()
+            .unwrap_or_else(|| json!(reason));
+        edges.insert(edge.id.clone(), edge);
+    }
+    let edges = edges
+        .into_values()
+        .filter(|e| ids.contains(&e.source) && ids.contains(&e.target))
+        .take(EDGE_LIMIT)
+        .collect();
+    compact_snapshot(Snapshot {
+        nodes: visible,
+        edges,
+        query: previous.query.clone(),
+        result_uid: String::new(),
+        truncated: previous.truncated || next.truncated || clipped,
+        generated_at: next.generated_at,
+    })
+}
+
+/// Keep the canvas focused; complete profiles, scores and papers remain in Neo4j
+/// and the relationship evidence panel. Also applied when restoring older chats.
+pub(crate) fn compact_snapshot(mut snapshot: Snapshot) -> Snapshot {
+    let original_count = snapshot.nodes.len();
+    let mut similarities = snapshot
+        .edges
+        .iter()
+        .filter(|e| e.kind == "PHENOTYPE_SIMILARITY")
+        .collect::<Vec<_>>();
+    similarities.sort_by(|a, b| {
+        let score = |e: &ViewEdge| {
+            e.context
+                .get("score")
+                .and_then(Value::as_f64)
+                .unwrap_or(0.0)
+        };
+        score(b).total_cmp(&score(a)).then(a.id.cmp(&b.id))
+    });
+    let omitted_targets = similarities
+        .iter()
+        .skip(SIMILARITY_LIMIT)
+        .map(|e| e.target.clone())
+        .collect::<BTreeSet<_>>();
+    similarities.truncate(SIMILARITY_LIMIT);
+    let comparison_ids = similarities
+        .iter()
+        .map(|e| e.id.clone())
+        .collect::<BTreeSet<_>>();
+    let comparison_nodes = similarities
+        .iter()
+        .flat_map(|e| [e.source.clone(), e.target.clone()])
+        .collect::<BTreeSet<_>>();
+    let comparing = !similarities.is_empty();
+    let mut shared_frequency = BTreeMap::<String, usize>::new();
+    for edge in &similarities {
+        // Old persisted projections may encode structured properties as JSON strings.
+        let shared = edge
+            .context
+            .get("shared_phenotypes")
+            .cloned()
+            .unwrap_or(Value::Null);
+        let shared = if let Some(text) = shared.as_str() {
+            serde_json::from_str(text).unwrap_or(Value::Null)
+        } else {
+            shared
+        };
+        for term in shared.as_array().into_iter().flatten() {
+            if let Some(id) = term.get("id").and_then(Value::as_str) {
+                let id = format!("hpo:{id}");
+                // Only draw positive annotations actually present for both diseases.
+                if [&edge.source, &edge.target].iter().all(|disease| {
+                    snapshot.edges.iter().any(|e| {
+                        e.kind == "HAS_PHENOTYPE" && &e.source == *disease && e.target == id
+                    })
+                }) {
+                    *shared_frequency.entry(id).or_default() += 1;
+                }
+            }
+        }
+    }
+    let mut phenotypes = snapshot
+        .nodes
+        .iter()
+        .filter(|n| n.kind == "phenotype")
+        .filter(|n| {
+            if comparing {
+                shared_frequency.contains_key(&n.id)
+            } else {
+                snapshot.edges.iter().any(|e| {
+                    matches!(
+                        e.kind.as_str(),
+                        "HAS_PHENOTYPE" | "EXCLUDES_PHENOTYPE" | "CONFLICTING_PHENOTYPE"
+                    ) && e.target == n.id
+                })
+            }
+        })
+        .collect::<Vec<_>>();
+    phenotypes.sort_by_key(|n| {
+        (
+            std::cmp::Reverse(shared_frequency.get(&n.id).copied().unwrap_or(0)),
+            n.label.clone(),
+            n.id.clone(),
+        )
+    });
+    let phenotype_ids = phenotypes
+        .into_iter()
+        .take(PHENOTYPE_LIMIT)
+        .map(|n| n.id.clone())
+        .collect::<BTreeSet<_>>();
+    snapshot.edges.retain(|e| match e.kind.as_str() {
+        "IS_A" => false,
+        "PHENOTYPE_SIMILARITY" => comparison_ids.contains(&e.id),
+        "HAS_PHENOTYPE" | "EXCLUDES_PHENOTYPE" | "CONFLICTING_PHENOTYPE" => {
+            phenotype_ids.contains(&e.target)
+                && (!comparing
+                    || (e.kind == "HAS_PHENOTYPE" && comparison_nodes.contains(&e.source)))
+        }
+        "ANNOTATION_CITATION" => !comparing,
+        _ => true,
+    });
+    let connected = snapshot
+        .edges
+        .iter()
+        .flat_map(|e| [e.source.clone(), e.target.clone()])
+        .collect::<BTreeSet<_>>();
+    snapshot.nodes.retain(|n| match n.kind.as_str() {
+        "phenotype" => phenotype_ids.contains(&n.id),
+        "dataset" => false,
+        "publication" => !comparing || connected.contains(&n.id),
+        "disease" => !omitted_targets.contains(&n.id) || comparison_nodes.contains(&n.id),
+        _ => true,
+    });
+    let query = snapshot.query.to_lowercase();
+    snapshot.nodes.sort_by_key(|n| {
+        (
+            n.label.to_lowercase() != query,
+            !comparison_nodes.contains(&n.id),
+            !connected.contains(&n.id),
+            n.kind == "publication",
+            n.id.clone(),
+        )
+    });
+    snapshot.nodes.truncate(CHAT_NODE_LIMIT);
+    let ids = snapshot
+        .nodes
+        .iter()
+        .map(|n| n.id.clone())
+        .collect::<BTreeSet<_>>();
+    snapshot
+        .edges
+        .retain(|e| ids.contains(&e.source) && ids.contains(&e.target));
+    snapshot.truncated |= original_count > snapshot.nodes.len();
+    snapshot
+}
+
+pub(crate) async fn disease_snapshot(reader: &GraphReader, name: String) -> Result<Snapshot> {
+    tokio::time::timeout(
+        Duration::from_secs(15),
+        read_disease(
+            reader,
+            SnapshotQuery {
+                q: name,
+                ..Default::default()
+            },
+        ),
+    )
+    .await
+    .map_err(|_| graph_error("disease read timed out"))?
+}
+
+/// Connect only already-visible aliases/canonical diseases using stored mappings.
+/// This cannot introduce additional sources or expand to DB-wide neighbors.
+pub(crate) async fn connect_visible_mappings(
+    reader: &GraphReader,
+    snapshot: &mut Snapshot,
+) -> Result<()> {
+    let graph = reader.connection().await?;
+    let ids = snapshot
+        .nodes
+        .iter()
+        .filter(|node| node.kind == "disease")
+        .map(|node| node.id.clone())
+        .collect::<Vec<_>>();
+    if ids.len() < 2 {
+        return Ok(());
+    }
+    let mut rows = graph.execute(query("MATCH (source:GraphNode)-[:MAPPED_VIA]->(m:GraphNode:DiseaseMapping)-[:MAPS_TO]->(target:GraphNode) WHERE source.uid IN $ids AND target.uid IN $ids RETURN m.uid AS id,source.uid AS source,target.uid AS target,properties(m) AS props LIMIT 100").param("ids",ids)).await.map_err(graph_error)?;
+    while let Some(row) = rows.next().await.map_err(graph_error)? {
+        let id: String = row.get("id").map_err(graph_error)?;
+        if snapshot.edges.iter().any(|edge| edge.id == id) {
+            continue;
+        }
+        snapshot.edges.push(ViewEdge {
+            id: id.clone(),
+            source: row.get("source").map_err(graph_error)?,
+            target: row.get("target").map_err(graph_error)?,
+            label: "maps to disease".into(),
+            kind: "DISEASE_MAPPING".into(),
+            evidence_id: id,
+            evidence_kind: "mapping".into(),
+            reported_papers: None,
+            context: row.get("props").map_err(graph_error)?,
+        });
+    }
+    Ok(())
 }
 
 fn project(
@@ -542,9 +850,13 @@ fn project(
                 label: text(&edge.props, "relation_type")
                     .unwrap_or_else(|| edge.kind.to_lowercase().replace('_', " ")),
                 kind: edge.kind.clone(),
-                evidence_id: text(&edge.props, "summary_uid").unwrap_or_else(|| edge.id.clone()),
+                evidence_id: text(&edge.props, "evidence_uid")
+                    .or_else(|| text(&edge.props, "summary_uid"))
+                    .unwrap_or_else(|| edge.id.clone()),
                 evidence_kind: if edge.kind == "PUBTATOR_RELATION" {
                     "summary"
+                } else if edge.kind == "RELATION_PAPERS" {
+                    "search"
                 } else {
                     "direct"
                 }
@@ -576,6 +888,45 @@ fn project(
         }
     }
     for node in nodes.values() {
+        if has(node, "RelationEvidence") {
+            let endpoints = outgoing(&node.id, "SOURCE")
+                .into_iter()
+                .chain(outgoing(&node.id, "TARGET"));
+            for endpoint in endpoints {
+                for paper in outgoing(&node.id, "SUPPORTED_BY") {
+                    projected.push(ViewEdge {
+                        id:format!("{}:{paper}:{endpoint}",node.id), source:paper.clone(), target:endpoint.clone(),
+                        label:"retrieved for relation query".into(), kind:"RELATION_CITATION".into(),
+                        evidence_id:paper,evidence_kind:"publication".into(),reported_papers:None,
+                        context:json!({"relation_evidence_uid":node.id,"query":node.props.get("query")}),
+                    });
+                }
+            }
+        }
+        if has(node, "SimilarityResult") {
+            for source in outgoing(&node.id, "SOURCE") {
+                for target in outgoing(&node.id, "TARGET") {
+                    projected.push(ViewEdge {
+                        id: node.id.clone(),
+                        source: source.clone(),
+                        target,
+                        label: format!(
+                            "phenotype similarity · {:.0}%",
+                            node.props
+                                .get("score")
+                                .and_then(Value::as_f64)
+                                .unwrap_or(0.0)
+                                * 100.0
+                        ),
+                        kind: "PHENOTYPE_SIMILARITY".into(),
+                        evidence_id: node.id.clone(),
+                        evidence_kind: "similarity".into(),
+                        reported_papers: None,
+                        context: node.props.clone(),
+                    });
+                }
+            }
+        }
         if has(node, "HpoAnnotation") {
             for profile in incoming(&node.id, "HAS_ANNOTATION") {
                 for disease in outgoing(&profile, "PROFILE_OF") {
@@ -729,11 +1080,14 @@ pub async fn evidence(
         "extracted" => {
             "MATCH (p:GraphNode:Publication)-[:HAS_DOCUMENT]->(:GraphNode)-[:HAS_RELATION]->(:GraphNode {uid: $id})"
         }
+        "similarity" => {
+            "MATCH (s:GraphNode:SimilarityResult {uid:$id})-[:SOURCE]->(source), (s)-[:TARGET]->(target) MATCH (sp:GraphNode)-[:PROFILE_OF]->(source), (tp:GraphNode)-[:PROFILE_OF]->(target) MATCH (sp)-[:IN_SNAPSHOT]->(snapshot:GraphNode:DatasetSnapshot)<-[:IN_SNAPSHOT]-(tp) WHERE snapshot.fingerprint = s.snapshot MATCH (sp)-[:HAS_ANNOTATION]->(sa)-[:PHENOTYPE]->(term)<-[:PHENOTYPE]-(ta)<-[:HAS_ANNOTATION]-(tp) WHERE coalesce(sa.excluded,false) = false AND coalesce(ta.excluded,false) = false WITH sa,ta MATCH (a:GraphNode)-[:SUPPORTED_BY]->(p:GraphNode:Publication) WHERE a = sa OR a = ta"
+        }
         "publication" => "MATCH (p:GraphNode:Publication {uid: $id})",
         "node" => {
             "MATCH (n:GraphNode {uid: $id}) CALL { WITH n MATCH (p:GraphNode:Publication) WHERE p = n RETURN p UNION WITH n MATCH (p:GraphNode:Publication)-[:HAS_DOCUMENT]->(:GraphNode)-[:HAS_MENTION]->(:GraphNode)-[:DENOTES]->(n) RETURN p UNION WITH n MATCH (profile:GraphNode)-[:PROFILE_OF]->(n) MATCH (profile)-[:HAS_ANNOTATION]->(:GraphNode)-[:SUPPORTED_BY]->(p:GraphNode:Publication) RETURN p UNION WITH n MATCH (annotation:GraphNode)-[:PHENOTYPE]->(n) MATCH (annotation)-[:SUPPORTED_BY]->(p:GraphNode:Publication) RETURN p UNION WITH n MATCH (p:GraphNode:Publication)-[:HAS_DOCUMENT]->(:GraphNode)-[:HAS_RELATION]->(:GraphNode)-[:HAS_PARTICIPANT]->(n) RETURN p UNION WITH n MATCH (n)-[:SUPPORTED_BY]->(p:GraphNode:Publication) RETURN p UNION WITH n MATCH (n)-[:MAPPED_VIA]->(:GraphNode)-[:MAPS_TO]->(d:GraphNode) MATCH (profile:GraphNode)-[:PROFILE_OF]->(d) MATCH (profile)-[:HAS_ANNOTATION]->(:GraphNode)-[:SUPPORTED_BY]->(p:GraphNode:Publication) RETURN p UNION WITH n MATCH (profile:GraphNode)-[:IN_SNAPSHOT]->(n) MATCH (profile)-[:HAS_ANNOTATION]->(:GraphNode)-[:SUPPORTED_BY]->(p:GraphNode:Publication) RETURN p }"
         }
-        "summary" | "direct" | "mapping" => {
+        "summary" | "direct" | "mapping" | "search" => {
             "MATCH (:GraphNode {uid: $id})-[:SUPPORTED_BY]->(p:GraphNode:Publication)"
         }
         _ => return Err(AppError::bad_request("invalid evidence kind")),
@@ -766,6 +1120,7 @@ pub async fn evidence(
                 description: text(&node.props, "abstract"),
                 links: source_links(&node),
                 community_url: None,
+                reasons: Vec::new(),
             });
         }
         let has_more = papers.len() > 20;
@@ -777,6 +1132,9 @@ pub async fn evidence(
             "summary" => {
                 "PubTator summaries can contain a paper count without individual citations. Only explicitly stored supporting papers are listed here."
             }
+            "search" => {
+                "Papers retrieved by the oriented PubTator relation query. This is literature search evidence, not independently verified causality. Fetch article annotations to inspect the extracted relationship."
+            }
             "direct" => {
                 "Only explicitly stored citations are shown. An ontology hierarchy or identifier link is not a paper-supported biological association."
             }
@@ -785,6 +1143,9 @@ pub async fn evidence(
             }
             "phenotype" => {
                 "These papers are cited by the matching HPO annotation rows for this phenotype and profile."
+            }
+            "similarity" => {
+                "Citations for shared positive HPO annotations. simGIC measures phenotype overlap, not causality or a probability; these papers support the annotations, not the similarity score."
             }
             "extracted" => {
                 "These papers contain the original extracted relation. An extracted relation is not independently verified causality."
@@ -804,4 +1165,178 @@ pub async fn evidence(
         .await
         .map_err(|_| graph_error("evidence read timed out"))?
         .map(Json)
+}
+
+#[cfg(test)]
+mod chat_projection_tests {
+    use super::*;
+    use biomedical_graph::GraphBatch;
+    #[test]
+    fn scoped_similarity_keeps_score_shared_terms_and_research_provenance() {
+        let mut batch = GraphBatch::default();
+        let source = batch.node(
+            "disease:MONDO:1",
+            "Disease",
+            BTreeMap::from([("name".into(), json!("Source disease"))]),
+        );
+        let target = batch.node(
+            "disease:OMIM:2",
+            "Disease",
+            BTreeMap::from([("name".into(), json!("Similar disease"))]),
+        );
+        let similarity = batch.node(
+            "similarity:test",
+            "SimilarityResult",
+            BTreeMap::from([
+                ("score".into(), json!(0.72)),
+                ("algorithm".into(), json!("simGIC")),
+                (
+                    "shared_phenotypes".into(),
+                    json!([{ "id":"HP:0002072","name":"Chorea" }]),
+                ),
+                ("corpus_diseases".into(), json!(10000)),
+            ]),
+        );
+        batch.edge(&similarity, "SOURCE", &source, "", Default::default());
+        batch.edge(&similarity, "TARGET", &target, "", Default::default());
+        let mut initial = from_batch(&GraphBatch::default());
+        initial.query = "Source disease".into();
+        let graph = merge_snapshot(
+            &initial,
+            from_batch(&batch),
+            "Compare HPO phenotype profiles · hpo_similar_diseases",
+        );
+        assert_eq!(graph.nodes.len(), 2);
+        assert_eq!(graph.edges.len(), 1);
+        let edge = &graph.edges[0];
+        assert_eq!(edge.kind, "PHENOTYPE_SIMILARITY");
+        assert_eq!(edge.source, source);
+        assert_eq!(edge.target, target);
+        assert_eq!(edge.context["score"], 0.72);
+        assert_eq!(edge.evidence_kind, "similarity");
+        assert_eq!(edge.context["shared_phenotypes"][0]["name"], "Chorea");
+        assert_eq!(graph.query, "Source disease");
+        assert!(graph.nodes.iter().all(|node| !node.reasons.is_empty()));
+        // A later unrelated research step doesn't replace the original reason for a node.
+        let next = merge_snapshot(
+            &graph,
+            from_batch(&batch),
+            "Find associations · pubtator_relations",
+        );
+        assert_eq!(graph.nodes[0].reasons, next.nodes[0].reasons);
+    }
+    #[test]
+    fn phenotype_overview_keeps_top_matches_and_shared_features_not_entire_profiles() {
+        let mut batch = GraphBatch::default();
+        let source = batch.node("disease:1", "Disease", Default::default());
+        let source_profile = batch.node("profile:1", "HpoProfile", Default::default());
+        batch.edge(
+            &source_profile,
+            "PROFILE_OF",
+            &source,
+            "",
+            Default::default(),
+        );
+        let mut matches = Vec::new();
+        for index in 0..8 {
+            let disease = batch.node(
+                format!("disease:match:{index}"),
+                "Disease",
+                Default::default(),
+            );
+            let profile = batch.node(
+                format!("profile:match:{index}"),
+                "HpoProfile",
+                Default::default(),
+            );
+            batch.edge(&profile, "PROFILE_OF", &disease, "", Default::default());
+            let similarity = batch.node(format!("similarity:{index}"), "SimilarityResult", BTreeMap::from([
+                ("score".into(), json!(1.0 - index as f64 / 10.0)),
+                ("shared_phenotypes".into(), json!((0..12).map(|i| json!({"id": format!("HP:{i}"), "name": format!("Shared {i}")})).collect::<Vec<_>>())),
+            ]));
+            batch.edge(&similarity, "SOURCE", &source, "", Default::default());
+            batch.edge(&similarity, "TARGET", &disease, "", Default::default());
+            matches.push((disease, profile));
+        }
+        for index in 0..190 {
+            let term = batch.node(
+                format!("hpo:HP:{index}"),
+                "HpoTerm",
+                BTreeMap::from([("name".into(), json!(format!("Feature {index}")))]),
+            );
+            batch.edge(
+                &source_profile,
+                "HAS_PHENOTYPE",
+                &term,
+                "",
+                Default::default(),
+            );
+            for (_, profile) in &matches {
+                batch.edge(profile, "HAS_PHENOTYPE", &term, "", Default::default());
+            }
+        }
+        let graph = from_batch(&batch);
+        assert!(graph.truncated);
+        assert_eq!(graph.nodes.len(), 10); // subject, three matches, six shared features
+        assert_eq!(
+            graph
+                .edges
+                .iter()
+                .filter(|e| e.kind == "PHENOTYPE_SIMILARITY")
+                .count(),
+            3
+        );
+        assert_eq!(
+            graph.nodes.iter().filter(|n| n.kind == "phenotype").count(),
+            6
+        );
+        assert!(
+            graph
+                .edges
+                .iter()
+                .filter(|e| e.kind == "HAS_PHENOTYPE")
+                .all(|e| (0..12).any(|i| e.target == format!("hpo:HP:{i}")))
+        );
+        assert!(
+            graph
+                .edges
+                .iter()
+                .filter(|e| e.kind == "PHENOTYPE_SIMILARITY")
+                .all(|e| e.context["shared_phenotypes"].as_array().unwrap().len() == 12)
+        );
+        assert!(graph.nodes.iter().any(|n| n.id == "disease:match:0"));
+        assert!(!graph.nodes.iter().any(|n| n.id == "disease:match:7"));
+        let restored = compact_snapshot(graph.clone());
+        assert_eq!(
+            serde_json::to_value(&restored).unwrap(),
+            serde_json::to_value(&graph).unwrap()
+        );
+        let merged = merge_snapshot(&graph, from_batch(&batch), "Compare phenotypes");
+        assert_eq!(merged.nodes.len(), 10);
+        assert_eq!(merged.edges.len(), graph.edges.len());
+    }
+
+    #[test]
+    fn large_tool_results_are_bounded_without_dangling_edges() {
+        let mut batch = GraphBatch::default();
+        let disease = batch.node("disease:1", "Disease", Default::default());
+        for index in 0..250 {
+            let gene = batch.node(format!("gene:{index}"), "Gene", Default::default());
+            batch.edge(&disease, "PUBTATOR_RELATION", &gene, "", Default::default());
+        }
+        let graph = from_batch(&batch);
+        assert!(graph.truncated);
+        assert_eq!(graph.nodes.len(), CHAT_NODE_LIMIT);
+        let ids = graph
+            .nodes
+            .iter()
+            .map(|node| &node.id)
+            .collect::<BTreeSet<_>>();
+        assert!(
+            graph
+                .edges
+                .iter()
+                .all(|edge| ids.contains(&edge.source) && ids.contains(&edge.target))
+        );
+    }
 }

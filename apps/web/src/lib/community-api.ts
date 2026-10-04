@@ -63,3 +63,21 @@ export async function communityApi<T>(path: string, body?: unknown): Promise<T> 
 export function errorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Something went wrong. Please try again.";
 }
+
+/** Authenticated fetch preserves streaming bodies; only retry before receiving data. */
+export async function communityFetch(path: string, init: RequestInit = {}): Promise<Response> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const current = await demoSession();
+    const response = await fetch(`/api${path}`, { ...init, cache: "no-store", headers: { ...init.headers, Authorization: `Bearer ${current.token}`, "Content-Type": "application/json" } });
+    if (response.status === 401 && attempt === 0) {
+      if (session?.token === current.token) { session = null; try { sessionStorage.removeItem(sessionKey); } catch { /* Memory session still works. */ } }
+      continue;
+    }
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.error ?? "Could not reach the assistant. Check that the backend is running.");
+    }
+    return response;
+  }
+  throw new Error("Could not start the demo session.");
+}
